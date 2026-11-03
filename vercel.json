@@ -1,3 +1,332 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "trailingSlash": true,
+  "rewrites": [
+    {
+      "source": "/catalog/dveri-s-zerkalom/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/catalog/dveri-s-termorazryvom/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/catalog/dveri-mdf-mdf/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/catalog/dveri-metall-mdf/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/catalog/protivopozharnye-dveri/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/catalog/protivopozharnye-vorota/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/catalog/protivopozharnye-shtory/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/catalog/protivopozharnye-ljuki/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/catalog/svetoprozrachnye-peregorodki/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/catalog/bankovskie-lotki/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/catalog/dveri-3-klassa-zashchity/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/catalog/dveri-zashchitnye/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/catalog/dvernye-bloki-dlya-stroitelej/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/sklad/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/dostavka-i-ustanovka/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/vakansii/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/poleznoe/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/privacy-policy/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/kuki/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/catalog/dveri-metall-metall/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/catalog/kottedzhnye-dveri-so-steklopaketom/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/catalog/polnotelye-derevyannye-dveri/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/catalog/furnitura-dlya-protivopozharnyh-dverej/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/o-kompanii/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/kontakty/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-21/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/product/elektromehanicheskij-peredatochnyj-shljuz-standartnyj-shpt-1-em/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/product/shljuz-mehanicheskij-standartnyj/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-22/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/product/lt-00-shhelevoj/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/color-palette/ral-classic/",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000"
+        },
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin-allow-popups"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self' mailto:; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://iv-partner.ru; connect-src 'self'; frame-src https://yandex.ru https://*.yandex.ru"
+        }
+      ]
+    },
+    {
+      "source": "/catalog/:path*",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    },
+    {
+      "source": "/sklad/",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    },
+    {
+      "source": "/dostavka-i-ustanovka/",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    },
+    {
+      "source": "/vakansii/",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    },
+    {
+      "source": "/poleznoe/",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    },
+    {
+      "source": "/privacy-policy/",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    },
+    {
+      "source": "/kuki/",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    },
+    {
+      "source": "/product/:path*",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    },
+    {
+      "source": "/color-palette/ral-classic/",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/product-category/accessories/protivopozharnye-dveri/",
+      "destination": "/catalog/protivopozharnye-dveri/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/accessories/protivopozharnye-vorota/",
+      "destination": "/catalog/protivopozharnye-vorota/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/accessories/protivopozharnye-shtory/",
+      "destination": "/catalog/protivopozharnye-shtory/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/accessories/protivopozharnye-ljuki/",
+      "destination": "/catalog/protivopozharnye-ljuki/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/accessories/svetoprozrachnye-peregorodki-protivopozharnye/",
+      "destination": "/catalog/svetoprozrachnye-peregorodki/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/clocks/dveri-s-zerkalom/",
+      "destination": "/catalog/dveri-s-zerkalom/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/clocks/dveri-s-termorazryvom/",
+      "destination": "/catalog/dveri-s-termorazryvom/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/clocks/dveri-mdf-mdf/",
+      "destination": "/catalog/dveri-mdf-mdf/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/clocks/kottedzhnye-dveri-so-steklopaketom/",
+      "destination": "/catalog/kottedzhnye-dveri-so-steklopaketom/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/clocks/dveri-metall-metall/",
+      "destination": "/catalog/dveri-metall-metall/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/clocks/dveri-metall-mdf/",
+      "destination": "/catalog/dveri-metall-mdf/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/cooking/bankovskie-lotki/",
+      "destination": "/catalog/bankovskie-lotki/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/cooking/dveri-3-klassa-zashhity/",
+      "destination": "/catalog/dveri-3-klassa-zashchity/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/cooking/dveri-zashhitnye/",
+      "destination": "/catalog/dveri-zashchitnye/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/furniture/polnotelye-derevyannye-dveri/",
+      "destination": "/catalog/polnotelye-derevyannye-dveri/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/furniture/dvernye-bloki-dlya-stroitelej/",
+      "destination": "/catalog/dvernye-bloki-dlya-stroitelej/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/lighting/furnitura-dlya-protivopozharnyh-dverej/",
+      "destination": "/catalog/furnitura-dlya-protivopozharnyh-dverej/",
+      "permanent": true
+    }
+  ]
 }
