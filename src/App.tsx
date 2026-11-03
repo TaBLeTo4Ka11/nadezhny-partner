@@ -26,8 +26,8 @@ export default function App() {
     return () => window.removeEventListener("load", refresh);
   }, []);
 
-  const path = window.location.pathname.replace(/\\/+$/, "") || "/";
-  const categoryMatch = path.match(/^\\/catalog\\/([^/]+)$/);
+  const path = window.location.pathname.replace(/\/+$/, "") || "/";
+  const categoryMatch = path.match(/^\/catalog\/([^/]+)$/);
 
   if (categoryMatch) return <CategoryPage slug={decodeURIComponent(categoryMatch[1])} />;
 
