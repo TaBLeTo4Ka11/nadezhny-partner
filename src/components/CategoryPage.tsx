@@ -35,6 +35,9 @@ export default function CategoryPage({ slug }: { slug: string }) {
     meta?.setAttribute("content", item
       ? `${item.name}. Сведения и ассортимент уточняйте на исходном сайте компании.`
       : "Раздел не найден.");
+    let robots = document.querySelector('meta[name="robots"]');
+    if (!robots) { robots = document.createElement("meta"); robots.setAttribute("name", "robots"); document.head.appendChild(robots); }
+    robots.setAttribute("content", item ? "noindex, follow" : "noindex, nofollow");
     const canonical = document.querySelector('link[rel="canonical"]');
     canonical?.setAttribute("href", `https://iv-partner.ru/catalog/${slug}/`);
   }, [item?.name, slug]);
