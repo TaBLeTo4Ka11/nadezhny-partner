@@ -25,11 +25,11 @@ export const catalog = [
 ];
 
 export const productImages = [
-  { title: "ДМП-1-EIS60", src: "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-1-EIS60-e1647434608692.jpg", href: "https://iv-partner.ru/product-category/accessories/protivopozharnye-dveri/" },
-  { title: "ДМП-2-EIS60", src: "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-2-EIS60-e1647434559868.jpg", href: "https://iv-partner.ru/product-category/accessories/protivopozharnye-dveri/" },
-  { title: "ДМП-01-EIS60", src: "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-01-EIS60-e1647434479532.jpg", href: "https://iv-partner.ru/product-category/accessories/protivopozharnye-dveri/" },
-  { title: "Противопожарные ворота", src: "https://iv-partner.ru/wp-content/uploads/2022/03/vorota-protivopojarnie.jpg", href: "https://iv-partner.ru/product-category/accessories/protivopozharnye-vorota/" },
-  { title: "Противопожарные шторы", src: "https://iv-partner.ru/wp-content/uploads/2022/03/protivopojarniye-shtori.jpg", href: "https://iv-partner.ru/product-category/accessories/protivopozharnye-shtory/" },
+  { title: "ДМП-1-EIS60", src: "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-1-EIS60-e1647434608692.jpg", href: "/catalog/protivopozharnye-dveri/" },
+  { title: "ДМП-2-EIS60", src: "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-2-EIS60-e1647434559868.jpg", href: "/catalog/protivopozharnye-dveri/" },
+  { title: "ДМП-01-EIS60", src: "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-01-EIS60-e1647434479532.jpg", href: "/catalog/protivopozharnye-dveri/" },
+  { title: "Противопожарные ворота", src: "https://iv-partner.ru/wp-content/uploads/2022/03/vorota-protivopojarnie.jpg", href: "/catalog/protivopozharnye-vorota/" },
+  { title: "Противопожарные шторы", src: "https://iv-partner.ru/wp-content/uploads/2022/03/protivopojarniye-shtori.jpg", href: "/catalog/protivopozharnye-shtory/" },
 ];
 
 export const workImages = [
@@ -85,9 +85,9 @@ export const catalogUrls: Record<string, string> = {
 };
 
 export const catalogProductLinks = [
-  { title: "Электромеханический передаточный шлюз стандартный (ШПТ-1.ЭМ)", category: "Банковские лотки", href: "https://iv-partner.ru/product/elektromehanicheskij-peredatochnyj-shljuz-standartnyj-shpt-1-em/" },
-  { title: "Шлюз механический стандартный", category: "Банковские лотки", href: "https://iv-partner.ru/product/shljuz-mehanicheskij-standartnyj/" },
-  { title: "Устройство передаточное подвижное ЛТ-21", category: "Банковские лотки", href: "https://iv-partner.ru/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-21/" },
-  { title: "Устройство передаточное подвижное ЛТ-22", category: "Банковские лотки", href: "https://iv-partner.ru/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-22/" },
-  { title: "ЛТ-00 Щелевой", category: "Банковские лотки", href: "https://iv-partner.ru/product/lt-00-shhelevoj/" },
+  { title: "Электромеханический передаточный шлюз стандартный (ШПТ-1.ЭМ)", category: "Банковские лотки", sourceUrl: "https://iv-partner.ru/product/elektromehanicheskij-peredatochnyj-shljuz-standartnyj-shpt-1-em/" },
+  { title: "Шлюз механический стандартный", category: "Банковские лотки", sourceUrl: "https://iv-partner.ru/product/shljuz-mehanicheskij-standartnyj/" },
+  { title: "Устройство передаточное подвижное ЛТ-21", category: "Банковские лотки", sourceUrl: "https://iv-partner.ru/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-21/" },
+  { title: "Устройство передаточное подвижное ЛТ-22", category: "Банковские лотки", sourceUrl: "https://iv-partner.ru/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-22/" },
+  { title: "ЛТ-00 Щелевой", category: "Банковские лотки", sourceUrl: "https://iv-partner.ru/product/lt-00-shhelevoj/" },
 ];
