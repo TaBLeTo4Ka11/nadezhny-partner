@@ -26,14 +26,14 @@ export default function HeroSection() {
             Противопожарные преграды и специальные двери
           </h1>
           <p data-h className="mt-7 max-w-xl text-lg leading-8 text-muted md:text-xl">
-            Производство, поставка и монтаж дверных конструкций для строительных компаний и частных заказчиков.
+            Производим противопожарные и входные металлические двери, поставляем и монтируем специальные конструкции.
           </p>
           <div data-h className="mt-9 flex flex-wrap items-center gap-5">
             <a href="#kp" className="btn px-8 py-4 text-base">Получить коммерческое предложение</a>
             <a href="#catalog" className="text-sm font-bold underline decoration-brand underline-offset-8">Смотреть каталог</a>
           </div>
           <div data-h className="mt-14 flex flex-wrap gap-x-10 gap-y-4 border-t border-line pt-6">
-            <div><span className="block text-3xl font-extrabold">15+</span><span className="text-xs text-muted">лет опыта</span></div>
+            <div><span className="block text-3xl font-extrabold">15</span><span className="text-xs text-muted">лет опыта</span></div>
             <div><span className="block text-3xl font-extrabold">Своё</span><span className="text-xs text-muted">производство</span></div>
             <div><span className="block text-3xl font-extrabold">РФ</span><span className="text-xs text-muted">география работы</span></div>
           </div>
