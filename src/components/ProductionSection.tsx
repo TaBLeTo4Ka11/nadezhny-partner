@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { productionStages } from "../data/companyContent";
+import { productionStages, productionImages } from "../data/companyContent";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ProductionSection() {
@@ -22,6 +22,14 @@ export default function ProductionSection() {
           <h3 className="text-xl leading-snug md:text-2xl">{stage.title}</h3>
           <p className="text-sm leading-7 text-[#a3aaac]">{stage.text}</p>
         </article>)}
+      </div>
+      <div className="mt-14">
+        <div className="mb-6 flex items-end justify-between gap-4"><h3 className="text-2xl">Производство в кадре</h3><span className="eyebrow">13 оригинальных фото</span></div>
+        <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-6">
+          {productionImages.map((src, i) => <figure className="overflow-hidden border border-[#292d2f] bg-[#111516]" key={src}>
+            <img src={src} alt={`Этап производства — фото ${i + 1}`} loading="lazy" className="aspect-[3/4] w-full object-cover transition-transform duration-700 hover:scale-105" />
+          </figure>)}
+        </div>
       </div>
       <div className="mt-12 grid gap-4 md:grid-cols-3">
         {["Собственное производство", "Контроль качества", "Конструкции под задачу"].map((x, i) => <div className="panel p-7" key={x}><span className="eyebrow">Преимущество 0{i + 1}</span><h3 className="mt-8 text-xl">{x}</h3></div>)}
