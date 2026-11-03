@@ -7,15 +7,6 @@ export const PHONES = [
   { label: "8 (4932) 345-017", href: "tel:84932345017" },
 ];
 
-/** У сайта нет сервера: открываем почтовое приложение с готовым письмом */
-export function sendMail(subject: string, fields: Record<string, string>) {
-  const body = Object.entries(fields)
-    .map(([k, v]) => k + ": " + v)
-    .join("\n");
-  window.location.href =
-    "mailto:" + EMAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-}
-
 const BASE = "https://iv-partner.ru/wp-content/uploads/2022/03/";
 
 export const IMG = {
