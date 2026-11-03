@@ -32,9 +32,9 @@ export const catalog = [
 ];
 
 export const productImages = [
-  { title: "Противопожарная дверь", src: "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-1-EIS60-e1647434608692.jpg" },
-  { title: "Противопожарная дверь", src: "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-2-EIS60-e1647434559868.jpg" },
-  { title: "Противопожарная дверь", src: "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-01-EIS60-e1647434479532.jpg" },
+  { title: "ДМП-1-EIS60", src: "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-1-EIS60-e1647434608692.jpg" },
+  { title: "ДМП-2-EIS60", src: "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-2-EIS60-e1647434559868.jpg" },
+  { title: "ДМП-01-EIS60", src: "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-01-EIS60-e1647434479532.jpg" },
   { title: "Противопожарные ворота", src: "https://iv-partner.ru/wp-content/uploads/2022/03/vorota-protivopojarnie.jpg" },
   { title: "Противопожарные шторы", src: "https://iv-partner.ru/wp-content/uploads/2022/03/protivopojarniye-shtori.jpg" },
 ];
