@@ -104,6 +104,22 @@
     {
       "source": "/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-21/",
       "destination": "/index.html"
+    },
+    {
+      "source": "/product/elektromehanicheskij-peredatochnyj-shljuz-standartnyj-shpt-1-em/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/product/shljuz-mehanicheskij-standartnyj/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-22/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/product/lt-00-shhelevoj/",
+      "destination": "/index.html"
     }
   ],
   "headers": [
