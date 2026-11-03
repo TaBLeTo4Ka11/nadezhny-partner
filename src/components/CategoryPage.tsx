@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ADDRESS, EMAIL, PHONES, WORKING_HOURS } from "../data/content";
 import { catalog, verifiedCategoryProducts } from "../data/companyContent";
 
@@ -34,6 +34,18 @@ export default function CategoryPage({slug}:{slug:string}) {
  </div></main><footer className="bg-graphite px-6 py-8 text-xs text-white/60"><div className="mx-auto max-w-[1400px]">© {new Date().getFullYear()} «Надёжный партнёр»</div></footer>
  </>;
 
+ useEffect(() => {
+  const title = item ? `${item.name} — Надёжный партнёр | Иваново` : "Раздел не найден — Надёжный партнёр";
+  const description = item ? `${item.name}: подбор исполнения и комплектации по техническому заданию. Производство, поставка и монтаж. Запросите коммерческое предложение.` : "Запрошенный раздел каталога не найден.";
+  document.title = title;
+  let meta = document.querySelector('meta[name="description"]');
+  if (!meta) { meta = document.createElement("meta"); meta.setAttribute("name", "description"); document.head.appendChild(meta); }
+  meta.setAttribute("content", description);
+  let canonical = document.querySelector('link[rel="canonical"]');
+  if (!canonical) { canonical = document.createElement("link"); canonical.setAttribute("rel", "canonical"); document.head.appendChild(canonical); }
+  canonical.setAttribute("href", `https://iv-partner.ru/catalog/${slug}/`);
+  return () => { document.title = "Надёжный партнёр — противопожарные двери и конструкции | Иваново"; };
+ }, [item?.name, slug]);
  const products=verifiedCategoryProducts.filter(product=>product.category===item.name);
  const description="Раздел входит в ассортимент компании «Надёжный партнёр». Исполнение, размеры, материалы и комплектация определяются индивидуально по техническому заданию и проекту заказчика. Точные характеристики и стоимость подтвердит менеджер.";
  return <>
