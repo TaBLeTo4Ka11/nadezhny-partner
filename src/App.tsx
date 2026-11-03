@@ -11,7 +11,6 @@ import ProductionSection from "./components/ProductionSection";
 import GallerySection from "./components/GallerySection";
 import ReviewsSection from "./components/ReviewsSection";
 import FormSection from "./components/FormSection";
-import MapSection from "./components/MapSection";
 import Footer from "./components/Footer";
 import CookieConsent from "./components/CookieConsent";
 import CategoryPage from "./components/CategoryPage";
@@ -95,7 +94,6 @@ export default function App() {
         <GallerySection />
         <ReviewsSection />
         <FormSection />
-        <MapSection />
       </main>
       <Footer />
       <CookieConsent />
