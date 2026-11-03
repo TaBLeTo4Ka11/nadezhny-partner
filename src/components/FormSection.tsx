@@ -43,7 +43,7 @@ export default function FormSection() {
             <input type="checkbox" required className="mt-0.5 h-5 w-5 shrink-0 accent-white" />
             <span>
               Я согласен(на) на обработку персональных данных и с{" "}
-              <a href="#privacy" className="underline underline-offset-4 hover:text-white">
+              <a href="https://iv-partner.ru/privacy-policy/" target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-white">
                 политикой конфиденциальности
               </a>
             </span>
