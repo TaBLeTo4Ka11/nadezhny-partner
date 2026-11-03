@@ -35,6 +35,8 @@ jobs:
             echo "package-lock.json is already up to date"
           else
             git commit -m "build: add reproducible npm lockfile"
+            git fetch origin "${BRANCH_NAME}"
+            git rebase "origin/${BRANCH_NAME}"
             git push origin "HEAD:${BRANCH_NAME}"
           fi
       - name: Dependency audit
