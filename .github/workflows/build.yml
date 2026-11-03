@@ -24,6 +24,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Commit lockfile for reproducible installs
+        if: github.ref != 'refs/heads/main'
         env:
           BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
         run: |
