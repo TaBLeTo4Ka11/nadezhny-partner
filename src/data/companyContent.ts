@@ -53,6 +53,22 @@ export const workImages = [
   "https://iv-partner.ru/wp-content/uploads/2022/04/3afab024-4043-460e-b61b-b80567094ff0-1-1-225x300.jpg",
 ];
 
+export const productionImages = [
+  "https://iv-partner.ru/wp-content/uploads/2022/03/WhatsApp-Image-2022-03-23-at-11.26.24-169x300.jpeg",
+  "https://iv-partner.ru/wp-content/uploads/2022/03/WhatsApp-Image-2022-03-23-at-11.26.24-1-169x300.jpeg",
+  "https://iv-partner.ru/wp-content/uploads/2022/03/WhatsApp-Image-2022-03-23-at-11.26.24-2-169x300.jpeg",
+  "https://iv-partner.ru/wp-content/uploads/2022/03/WhatsApp-Image-2022-03-23-at-11.26.24-3-169x300.jpeg",
+  "https://iv-partner.ru/wp-content/uploads/2022/03/WhatsApp-Image-2022-03-23-at-11.26.25-169x300.jpeg",
+  "https://iv-partner.ru/wp-content/uploads/2022/03/WhatsApp-Image-2022-03-23-at-11.26.25-1-169x300.jpeg",
+  "https://iv-partner.ru/wp-content/uploads/2022/03/WhatsApp-Image-2022-03-23-at-11.26.26-169x300.jpeg",
+  "https://iv-partner.ru/wp-content/uploads/2022/03/WhatsApp-Image-2022-03-23-at-11.26.26-1-169x300.jpeg",
+  "https://iv-partner.ru/wp-content/uploads/2022/03/WhatsApp-Image-2022-03-23-at-11.26.27-169x300.jpeg",
+  "https://iv-partner.ru/wp-content/uploads/2022/03/WhatsApp-Image-2022-03-23-at-11.26.27-1-169x300.jpeg",
+  "https://iv-partner.ru/wp-content/uploads/2022/03/WhatsApp-Image-2022-03-23-at-11.26.28-169x300.jpeg",
+  "https://iv-partner.ru/wp-content/uploads/2022/03/WhatsApp-Image-2022-03-23-at-11.26.28-1-169x300.jpeg",
+  "https://iv-partner.ru/wp-content/uploads/2022/03/WhatsApp-Image-2022-03-23-at-11.26.28-2-169x300.jpeg",
+];
+
 export const about = [
   "Мы уже более 15 лет занимаемся производством, поставкой и монтажом металлических, противопожарных и бронированных дверей, а также противопожарных штор. Работаем как с крупными компаниями-застройщиками, так и с частными лицами.",
   "Наши бригады квалифицированных монтажников выполняют работу быстро и качественно. Мы планируем и согласовываем этапы работ с представителями заказчика, работаем чётко и сдаём объекты в срок.",
