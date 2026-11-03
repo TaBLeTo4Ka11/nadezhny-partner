@@ -60,13 +60,42 @@ export default function Header() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
+        if (menu) menuToggleRef.current?.focus();
         setMenu(false);
         setCall(false);
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [menu, call]);
+
+  useEffect(() => {
+    if (!menu) return;
+    const menuElement = document.getElementById("mobile-navigation");
+    const selector = 'a[href], button:not([disabled])';
+    const getFocusable = () => Array.from(menuElement?.querySelectorAll<HTMLElement>(selector) ?? [])
+      .filter((element) => element.getClientRects().length > 0);
+    getFocusable()[0]?.focus();
+
+    const trapFocus = (event: KeyboardEvent) => {
+      if (event.key !== "Tab") return;
+      const items = getFocusable();
+      if (items.length === 0) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      const focusIsOutside = !menuElement?.contains(document.activeElement);
+      if (event.shiftKey && (document.activeElement === first || focusIsOutside)) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (document.activeElement === last || focusIsOutside)) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", trapFocus);
+    return () => document.removeEventListener("keydown", trapFocus);
+  }, [menu]);
 
   useEffect(() => {
     if (!call) return;
@@ -175,7 +204,7 @@ export default function Header() {
       </header>
 
       {/* Мобильное меню */}
-      <div id="mobile-navigation" hidden={!menu} className="fixed inset-0 z-40 overflow-y-auto bg-white px-6 pb-10 pt-28 xl:hidden">
+      <div id="mobile-navigation" hidden={!menu} role="dialog" aria-modal="true" aria-label="Мобильное меню" className="fixed inset-0 z-40 overflow-y-auto bg-white px-6 pb-10 pt-28 xl:hidden">
           <nav className="flex flex-col gap-5" aria-label="Мобильная навигация">
             <a href="#catalog" onClick={() => setMenu(false)} className="text-3xl font-extrabold tracking-tight">
               Каталог
