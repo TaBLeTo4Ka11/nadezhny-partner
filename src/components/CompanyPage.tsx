@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { ADDRESS, EMAIL, PHONES, WORKING_HOURS } from "../data/content";
+import { ADDRESS, EMAIL, PHONES, WORKING_HOURS, ABOUT_INTRO, ABOUT_STAGES } from "../data/content";
+import { productionImages } from "../data/companyContent";
 
 type CompanyPageKind = "about" | "contacts";
 
@@ -7,8 +8,8 @@ export default function CompanyPage({ page }: { page: CompanyPageKind }) {
   const isAbout = page === "about";
   const title = isAbout ? "О компании" : "Контакты";
   const description = isAbout
-    ? "Производство, поставка и монтаж металлических и противопожарных дверных конструкций."
-    : "Адрес, телефоны, электронная почта и режим работы компании «Надёжный партнёр».";
+    ? "О компании «Надёжный партнёр»: производство, поставка и монтаж металлических, противопожарных и бронированных дверей."
+    : "Адрес, телефоны, электронная почта и режим работы компании «Надёжный партнёр» в Иваново.";
 
   useEffect(() => {
     document.title = `${title} — Надёжный партнёр`;
@@ -41,18 +42,48 @@ export default function CompanyPage({ page }: { page: CompanyPageKind }) {
           {isAbout ? (
             <>
               <div className="mt-10 max-w-4xl space-y-6 text-lg leading-8 text-muted">
-                <p>Компания занимается производством, поставкой и монтажом металлических, противопожарных и бронированных дверей, а также противопожарных штор. На официальном сайте компании указан опыт работы более 15 лет.</p>
-                <p>Компания указывает, что работает как с крупными строительными организациями, так и с частными заказчиками. Направления деятельности включают поставку и монтаж противопожарных преград, металлических дверей, бронированных конструкций и дверных блоков для строительных компаний.</p>
-                <p>По описанию производственного процесса на исходном сайте, изготовление включает подготовку металла и деталей, сборку дверного полотна и коробки, установку фурнитуры, контроль качества, окраску и финальную комплектацию.</p>
+                {ABOUT_INTRO.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
               </div>
+
               <section className="mt-16 border-t border-line pt-10">
-                <h2 className="text-2xl font-extrabold">Производство и монтаж</h2>
-                <div className="mt-6 grid gap-8 md:grid-cols-2">
-                  <div><p className="text-sm font-bold uppercase tracking-wider text-brand">Поставка</p><p className="mt-3 leading-7 text-muted">Противопожарные преграды, бронированные и металлические двери, противопожарные шторы и дверные блоки для объектов.</p></div>
-                  <div><p className="text-sm font-bold uppercase tracking-wider text-brand">Монтаж</p><p className="mt-3 leading-7 text-muted">Монтажные работы на объектах с согласованием этапов работ с представителями заказчика.</p></div>
+                <div className="flex flex-wrap items-end justify-between gap-4">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[.18em] text-muted">Производственный процесс</p>
+                    <h2 className="mt-2 text-3xl font-extrabold tracking-tight">Как создаётся дверь</h2>
+                  </div>
+                  <span className="text-sm text-muted">4 этапа производства</span>
+                </div>
+                <div className="mt-8 divide-y divide-line border-y border-line">
+                  {ABOUT_STAGES.map((stage, index) => (
+                    <details key={stage.title} className="group py-6" open={index === 0}>
+                      <summary className="flex cursor-pointer list-none items-center gap-4 [&::-webkit-details-marker]:hidden">
+                        <span className="text-sm font-bold tabular-nums text-brand">{String(index + 1).padStart(2, "0")}</span>
+                        <span className="flex-1 text-lg font-bold">{stage.title}</span>
+                        <span aria-hidden="true" className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-xl transition-transform group-open:rotate-45">+</span>
+                      </summary>
+                      <div className="max-w-4xl space-y-4 pb-2 pl-10 pt-5 text-base leading-7 text-muted">
+                        {stage.paragraphs.map((paragraph, paragraphIndex) => <p key={paragraphIndex}>{paragraph}</p>)}
+                      </div>
+                    </details>
+                  ))}
                 </div>
               </section>
-              <p className="mt-10 max-w-4xl border-l-2 border-brand bg-soft px-6 py-5 text-sm leading-6 text-muted">Сведения о сертификатах, лицензиях, толщине металла и иных технических параметрах на исходной странице требуют актуального подтверждения владельцем компании перед использованием в договорах и коммерческих предложениях.</p>
+
+              <section className="mt-16 border-t border-line pt-10">
+                <p className="text-xs font-semibold uppercase tracking-[.18em] text-muted">Фото из архива компании</p>
+                <h2 className="mt-2 text-3xl font-extrabold tracking-tight">Производство</h2>
+                <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+                  {productionImages.map((src, index) => (
+                    <figure key={src} className="overflow-hidden border border-line bg-soft">
+                      <img src={src} alt={`Производство дверных конструкций — фото ${index + 1}`} loading="lazy" decoding="async" className="aspect-[4/5] w-full object-cover" />
+                    </figure>
+                  ))}
+                </div>
+              </section>
+
+              <p className="mt-12 max-w-4xl border-l-2 border-brand bg-soft px-6 py-5 text-sm leading-6 text-muted">
+                Технические сведения, сертификаты, лицензии и коммерческие условия приведены по доступному тексту исходного сайта. Перед использованием в договорах и коммерческих предложениях владелец компании должен подтвердить их актуальность.
+              </p>
             </>
           ) : (
             <div className="mt-10 grid gap-12 border-y border-line py-10 md:grid-cols-2">
