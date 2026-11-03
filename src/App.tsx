@@ -15,6 +15,7 @@ import MapSection from "./components/MapSection";
 import Footer from "./components/Footer";
 import CookieConsent from "./components/CookieConsent";
 import CategoryPage from "./components/CategoryPage";
+import LegalPage from "./components/LegalPage";
 
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
@@ -30,6 +31,8 @@ export default function App() {
   const categoryMatch = path.match(/^\/catalog\/([^/]+)$/);
 
   if (categoryMatch) return <CategoryPage slug={decodeURIComponent(categoryMatch[1])} />;
+  const legalMatch = path.match(/^\\/(privacy|cookies)$/);
+  if (legalMatch) return <LegalPage slug={legalMatch[1]} />;
 
   return (
     <>
