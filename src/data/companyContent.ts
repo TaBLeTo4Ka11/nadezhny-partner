@@ -109,3 +109,11 @@ export const catalogUrls: Record<string, string> = {
   "Фурнитура для противопожарных дверей": "https://iv-partner.ru/product-category/lighting/furnitura-dlya-protivopozharnyh-dverej/",
   "Подбор цвета и вариантов окраски": "https://iv-partner.ru/color-palette/ral-classic/",
 };
+
+export const verifiedCategoryProducts = [
+  { title: "Электромеханический передаточный шлюз стандартный (ШПТ-1.ЭМ)", category: "Банковские лотки", href: "https://iv-partner.ru/product/elektromehanicheskij-peredatochnyj-shljuz-standartnyj-shpt-1-em/" },
+  { title: "Шлюз механический стандартный", category: "Банковские лотки", href: "https://iv-partner.ru/product/shljuz-mehanicheskij-standartnyj/" },
+  { title: "Устройство передаточное подвижное ЛТ-21", category: "Банковские лотки", href: "https://iv-partner.ru/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-21/" },
+  { title: "Устройство передаточное подвижное ЛТ-22", category: "Банковские лотки", href: "https://iv-partner.ru/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-22/" },
+  { title: "ЛТ-00 Щелевой", category: "Банковские лотки", href: "https://iv-partner.ru/product/lt-00-shhelevoj/" },
+];
