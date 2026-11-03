@@ -19,11 +19,13 @@ import CategoryPage from "./components/CategoryPage";
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
 
-const infoRoutes: Record<string, "warehouse" | "delivery" | "vacancies" | "useful"> = {
+const infoRoutes: Record<string, "warehouse" | "delivery" | "vacancies" | "useful" | "privacy" | "cookies"> = {
   "/sklad": "warehouse",
   "/dostavka-i-ustanovka": "delivery",
   "/vakansii": "vacancies",
   "/poleznoe": "useful",
+  "/privacy-policy": "privacy",
+  "/kuki": "cookies",
 };
 
 function NotFoundPage() {
