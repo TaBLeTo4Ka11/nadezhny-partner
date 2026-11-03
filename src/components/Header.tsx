@@ -1,5 +1,6 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { PHONES, sendMail } from "../data/content";
+import { catalog, catalogUrls } from "../data/companyContent";
 
 const LOGO = "https://iv-partner.ru/wp-content/uploads/2021/08/dveri-300x301.png";
 
@@ -10,15 +11,9 @@ const TOP = [
   { label: "Наши отзывы", href: "#reviews" },
 ];
 
-const CATALOG = [
-  "Противопожарные преграды",
-  "Входные двери",
-  "Бронированные двери",
-  "Деревянные двери",
-  "Антипаника",
-  "Фурнитура для противопожарных дверей",
-  "Цвета и покраска",
-];
+const CATALOG = catalog.flatMap((group) =>
+  group.items.map((label) => ({ label, href: catalogUrls[label] ?? "#catalog" }))
+);
 
 // «Склад» и «Доставка и установка»: отдельных разделов пока нет, ведём на контакты
 const NAV = [
@@ -107,10 +102,10 @@ export default function Header() {
               </a>
               <div className="invisible absolute left-0 top-full z-10 pt-5 opacity-0 transition-opacity group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
                 <ul className="min-w-[260px] border border-line bg-white py-2">
-                  {CATALOG.map((c) => (
-                    <li key={c}>
-                      <a href="#catalog" className="block px-5 py-3 text-sm transition-colors hover:bg-soft">
-                        {c}
+                  {CATALOG.map((item) => (
+                    <li key={item.label}>
+                      <a href={item.href} target={item.href.startsWith("https://") ? "_blank" : undefined} rel={item.href.startsWith("https://") ? "noreferrer" : undefined} className="block px-5 py-3 text-sm transition-colors hover:bg-soft">
+                        {item.label}
                       </a>
                     </li>
                   ))}
@@ -157,10 +152,10 @@ export default function Header() {
               Каталог
             </a>
             <ul className="-mt-2 mb-2 space-y-3 border-l border-line pl-4">
-              {CATALOG.map((c) => (
-                <li key={c}>
-                  <a href="#catalog" onClick={() => setMenu(false)} className="text-base text-muted">
-                    {c}
+              {CATALOG.map((item) => (
+                <li key={item.label}>
+                  <a href={item.href} target={item.href.startsWith("https://") ? "_blank" : undefined} rel={item.href.startsWith("https://") ? "noreferrer" : undefined} onClick={() => setMenu(false)} className="text-base text-muted">
+                    {item.label}
                   </a>
                 </li>
               ))}
