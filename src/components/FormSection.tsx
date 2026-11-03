@@ -14,7 +14,7 @@ export default function FormSection() {
       Email: String(f.get("email") || ""),
       "Техническое задание": String(f.get("task") || ""),
       "Выбранный файл ТЗ (его нужно приложить к письму вручную)": (f.get("attachment") as File | null)?.name || "Не выбран",
-      "Согласие на обработку персональных данных": f.get("consent") ? "Да" : "Нет",
+      "Подтверждение уведомления о форме": f.get("acknowledgement") ? "Да" : "Нет",
     });
   };
 
@@ -54,16 +54,13 @@ export default function FormSection() {
               accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png"
               className="block w-full text-sm text-white/70 file:mr-4 file:border-0 file:bg-white file:px-5 file:py-3 file:font-semibold file:text-ink hover:file:bg-white/85"
             />
-            <p className="mt-2 text-xs leading-5 text-white/50">Форма откроет почтовое приложение. Файл автоматически не прикрепляется — добавьте его к письму вручную; его имя попадёт в текст письма.</p>
+            <p className="mt-2 text-xs leading-5 text-white/50">Форма только подготовит письмо в почтовом приложении. Данные не отправляются автоматически; файл нужно приложить вручную. Политика обработки персональных данных ещё не подтверждена компанией.</p>
           </div>
 
           <label className="flex cursor-pointer items-start gap-4 text-sm text-white/70">
-            <input type="checkbox" name="consent" value="yes" required className="mt-0.5 h-5 w-5 shrink-0 accent-white" />
+            <input type="checkbox" name="acknowledgement" value="yes" required className="mt-0.5 h-5 w-5 shrink-0 accent-white" />
             <span>
-              Я согласен(на) на обработку персональных данных и с{" "}
-              <a href="https://iv-partner.ru/privacy-policy/" target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-white">
-                политикой конфиденциальности
-              </a>
+              Я понимаю, что кнопка только откроет почтовое приложение, а письмо отправляется мной вручную. Актуальный текст политики обработки персональных данных пока не подтверждён компанией; до этого не отправляйте через форму персональные данные.
             </span>
           </label>
 
