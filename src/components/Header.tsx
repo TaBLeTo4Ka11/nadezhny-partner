@@ -6,8 +6,8 @@ import { catalogPageByTitle } from "../data/catalogPages";
 const LOGO = "https://iv-partner.ru/wp-content/uploads/2021/08/dveri-300x301.png";
 
 const TOP = [
-  { label: "Политика конфиденциальности", href: "https://iv-partner.ru/privacy-policy/" },
-  { label: "Согласие на cookie", href: "https://iv-partner.ru/kuki/" },
+  { label: "Политика конфиденциальности", href: "/privacy/" },
+  { label: "Согласие на cookie", href: "/cookies/" },
   { label: "Наши заказы", href: "#gallery" },
   { label: "Наши отзывы", href: "#reviews" },
 ];
@@ -277,7 +277,7 @@ export default function Header() {
                 <input type="checkbox" name="consent" value="yes" required className="mt-0.5 h-4 w-4 shrink-0 accent-[#c62828]" />
                 <span>
                   Согласен(на) на обработку персональных данных и с{" "}
-                  <a href="https://iv-partner.ru/privacy-policy/" target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-ink">
+                  <a href="/privacy/" target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-ink">
                     политикой конфиденциальности
                   </a>
                 </span>
