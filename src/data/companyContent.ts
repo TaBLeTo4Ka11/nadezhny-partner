@@ -84,7 +84,7 @@ export const catalogUrls: Record<string, string> = {
   "Дверные блоки для строителей": "/catalog/dvernye-bloki-dlya-stroitelej/",
 };
 
-export const verifiedCategoryProducts = [
+export const catalogProductLinks = [
   { title: "Электромеханический передаточный шлюз стандартный (ШПТ-1.ЭМ)", category: "Банковские лотки", href: "https://iv-partner.ru/product/elektromehanicheskij-peredatochnyj-shljuz-standartnyj-shpt-1-em/" },
   { title: "Шлюз механический стандартный", category: "Банковские лотки", href: "https://iv-partner.ru/product/shljuz-mehanicheskij-standartnyj/" },
   { title: "Устройство передаточное подвижное ЛТ-21", category: "Банковские лотки", href: "https://iv-partner.ru/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-21/" },
