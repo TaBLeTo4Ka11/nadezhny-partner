@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState, type FormEvent } from "react";
-import { PHONES, sendMail } from "../data/content";
+import { useEffect, useRef, useState } from "react";
+import { EMAIL, PHONES } from "../data/content";
 import { catalog, catalogUrls } from "../data/companyContent";
 
 const LOGO = "https://iv-partner.ru/wp-content/uploads/2021/08/dveri-300x301.png";
@@ -98,13 +98,6 @@ export default function Header() {
       else menuToggleRef.current?.focus();
     };
   }, [call]);
-
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const f = new FormData(e.currentTarget);
-    sendMail("Заказ звонка", { Имя: String(f.get("name")), Телефон: String(f.get("phone")), "Подтверждение уведомления о форме": f.get("acknowledgement") ? "Да" : "Нет" });
-    setCall(false);
-  };
 
   const cls = (id: string) =>
     "text-sm font-semibold transition-colors hover:underline underline-offset-8 " +
@@ -258,20 +251,17 @@ export default function Header() {
                 Закрыть
               </button>
             </div>
-            <form onSubmit={onSubmit}>
-              <label htmlFor="cb-name" className="sr-only">Имя</label>
-              <input id="cb-name" name="name" type="text" required autoComplete="name" placeholder="Имя" className={field} />
-              <label htmlFor="cb-phone" className="sr-only">Телефон</label>
-              <input id="cb-phone" name="phone" type="tel" required autoComplete="tel" placeholder="Телефон" className={field + " mt-4"} />
-              <label className="mt-6 flex cursor-pointer items-start gap-3 text-xs leading-5 text-muted">
-                <input type="checkbox" name="acknowledgement" value="yes" required className="mt-0.5 h-4 w-4 shrink-0 accent-[#c62828]" />
-                <span>
-                  Я понимаю, что кнопка только откроет почтовое приложение, а письмо отправляется мной вручную. Актуальный текст политики обработки персональных данных пока не подтверждён компанией; до этого не отправляйте через форму персональные данные.
-                </span>
-              </label>
-              <button type="submit" className="btn mt-8">Подготовить письмо</button>
-              <p className="mt-3 text-xs leading-5 text-muted">Откроется почтовое приложение. Данные не отправляются автоматически; политика обработки персональных данных ещё не подтверждена компанией.</p>
-            </form>
+            <div className="space-y-5">
+              <p className="text-sm leading-6 text-muted">
+                Форма заказа звонка временно отключена до проверки политики обработки персональных данных. Позвоните или напишите компании напрямую.
+              </p>
+              <div className="space-y-3">
+                {PHONES.map((phone) => (
+                  <a key={phone.href} href={phone.href} className="block text-lg font-bold hover:underline">{phone.label}</a>
+                ))}
+                <a href={`mailto:${EMAIL}?subject=${encodeURIComponent("Заказ звонка")}`} className="inline-block underline underline-offset-4">{EMAIL}</a>
+              </div>
+            </div>     </form>
           </div>
         </div>
       )}
