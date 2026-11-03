@@ -94,7 +94,7 @@ export default function Header() {
     document.addEventListener("keydown", trapFocus);
     return () => {
       document.removeEventListener("keydown", trapFocus);
-      if (previous?.isConnected) previous.focus();
+      if (previous?.isConnected && previous.getClientRects().length > 0) previous.focus();
       else menuToggleRef.current?.focus();
     };
   }, [call]);
