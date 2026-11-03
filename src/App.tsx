@@ -14,6 +14,7 @@ import FormSection from "./components/FormSection";
 import MapSection from "./components/MapSection";
 import Footer from "./components/Footer";
 import CookieConsent from "./components/CookieConsent";
+import CategoryPage from "./components/CategoryPage";
 
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
@@ -24,6 +25,11 @@ export default function App() {
     window.addEventListener("load", refresh);
     return () => window.removeEventListener("load", refresh);
   }, []);
+
+  const path = window.location.pathname.replace(/\\/+$/, "") || "/";
+  const categoryMatch = path.match(/^\\/catalog\\/([^/]+)$/);
+
+  if (categoryMatch) return <CategoryPage slug={decodeURIComponent(categoryMatch[1])} />;
 
   return (
     <>
