@@ -1,1 +1,23 @@
-import HeroSection from "./components/HeroSection";import AppleShowcase from "./components/AppleShowcase";import AboutSection from "./components/AboutSection";import GallerySection from "./components/GallerySection";import ContactSection from "./components/ContactSection";import Footer from "./components/Footer";export default function App(){return <main className="min-h-screen overflow-hidden bg-[#050505] text-[#f0f1ef]"><HeroSection/><AppleShowcase/><AboutSection/><GallerySection/><ContactSection/><Footer/></main>}
+import HeroSection from "./components/HeroSection";
+import AppleShowcase from "./components/AppleShowcase";
+import CatalogSection from "./components/CatalogSection";
+import AboutSection from "./components/AboutSection";
+import ProductionSection from "./components/ProductionSection";
+import GallerySection from "./components/GallerySection";
+import ReviewsSection from "./components/ReviewsSection";
+import ContactSection from "./components/ContactSection";
+import Footer from "./components/Footer";
+
+export default function App() {
+  return <main className="min-h-screen overflow-hidden bg-[#050505] text-[#f0f1ef]">
+    <HeroSection />
+    <AppleShowcase />
+    <CatalogSection />
+    <AboutSection />
+    <ProductionSection />
+    <GallerySection />
+    <ReviewsSection />
+    <ContactSection />
+    <Footer />
+  </main>;
+}
