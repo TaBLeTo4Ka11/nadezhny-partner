@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { catalog, productImages, verifiedCategoryProducts } from "../data/companyContent";
+import { catalog, productImages, catalogProductLinks } from "../data/companyContent";
 
 const slugs: Record<string, string> = {
   "Двери с зеркалом": "dveri-s-zerkalom",
@@ -20,7 +20,7 @@ const slugs: Record<string, string> = {
 export default function CategoryPage({ slug }: { slug: string }) {
   const item = catalog.flatMap(group => group.items.map(name => ({ name, group: group.group })))
     .find(entry => slugs[entry.name] === slug);
-  const products = item ? verifiedCategoryProducts.filter(product => product.category === item.name) : [];
+  const products = item ? catalogProductLinks.filter(product => product.category === item.name) : [];
   const images = item?.name === "Противопожарные двери"
     ? productImages.filter(product => /^ДМП-/.test(product.title))
     : item?.name === "Противопожарные ворота"
@@ -59,7 +59,7 @@ export default function CategoryPage({ slug }: { slug: string }) {
           </figure>)}
         </section>}
         {products.length > 0 ? <section className="mt-12">
-          <h2 className="text-2xl font-extrabold">Позиции, найденные в исходном каталоге</h2>
+          <h2 className="text-2xl font-extrabold">Ссылки на товарные карточки</h2>
           <ul className="mt-5 divide-y divide-line border-y border-line">
             {products.map(product => <li key={product.href} className="py-5">
               <a href={product.href} target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-4 hover:text-brand">{product.title}</a>
