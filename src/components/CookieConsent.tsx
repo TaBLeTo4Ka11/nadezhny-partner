@@ -13,11 +13,11 @@ export default function CookieConsent() {
     }
   }, []);
 
-  const choose = (value: "essential" | "all") => {
+  const acknowledge = () => {
     try {
-      window.localStorage.setItem(STORAGE_KEY, value);
+      window.localStorage.setItem(STORAGE_KEY, "essential");
     } catch {
-      // If storage is unavailable, keep the choice only for this page view.
+      // The notice will reappear on the next visit if storage is unavailable.
     }
     setVisible(false);
   };
@@ -26,28 +26,22 @@ export default function CookieConsent() {
 
   return (
     <aside
-      aria-label="Настройки cookie"
+      aria-label="Информация о технологиях сайта"
       className="fixed inset-x-4 bottom-4 z-[80] mx-auto max-w-3xl border border-line bg-white p-5 shadow-2xl sm:inset-x-6 sm:p-6"
       role="dialog"
       aria-live="polite"
     >
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="max-w-2xl">
-          <p className="font-bold text-ink">Настройки cookie</p>
+          <p className="font-bold text-ink">Настройки конфиденциальности</p>
           <p className="mt-1 text-sm leading-6 text-muted">
-            Сайт использует необходимые технические cookie для корректной работы.
-            Аналитические и рекламные счётчики сейчас не подключены. Подробнее —
-            в <a className="underline underline-offset-4" href="/cookies/">сведениях об использовании cookie</a>.
+            Для запоминания этого выбора сайт использует локальное хранилище браузера. Аналитические и рекламные счётчики не подключены. Виджет Яндекс Карт загружается только после нажатия. Подробнее — в{" "}
+            <a className="underline underline-offset-4" href="/cookies/">сведениях об использовании cookie</a>.
           </p>
         </div>
-        <div className="flex shrink-0 flex-wrap gap-2">
-          <button type="button" onClick={() => choose("essential")} className="border border-ink px-4 py-3 text-sm font-semibold hover:bg-soft">
-            Только необходимые
-          </button>
-          <button type="button" onClick={() => choose("all")} className="btn">
-            Принять
-          </button>
-        </div>
+        <button type="button" onClick={acknowledge} className="btn shrink-0">
+          Понятно
+        </button>
       </div>
     </aside>
   );
