@@ -40,7 +40,7 @@ export default function HeroSection() {
         </div>
         <div data-hero-image className="relative min-h-[380px] overflow-hidden bg-soft sm:min-h-[520px]">
           <img src={IMG.door1} alt="Пример противопожарной двери из каталога компании" className="absolute inset-0 h-full w-full object-cover object-center" fetchPriority="high" />
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/55 to-transparent p-6 pt-24 text-white">
+          <div className="absolute bottom-0 left-0 right-0 bg-white p-6 text-ink">
             <p className="text-xs font-semibold uppercase tracking-[.18em]">Производство и поставка</p>
             <p className="mt-2 text-lg font-bold">Противопожарные дверные конструкции</p>
           </div>
