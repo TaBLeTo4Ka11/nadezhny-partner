@@ -87,3 +87,24 @@ export const reviews = [
   { author: "Алия", rating: "5 / 5", text: "Высокое качество, стильно и лаконично." },
   { author: "Мария", rating: "5 / 5", text: "Качественная, классическая дверь." },
 ];
+
+export const catalogUrls: Record<string, string> = {
+  "Противопожарные двери": "https://iv-partner.ru/product-category/accessories/protivopozharnye-dveri/",
+  "Противопожарные ворота": "https://iv-partner.ru/product-category/accessories/protivopozharnye-vorota/",
+  "Противопожарные шторы": "https://iv-partner.ru/product-category/accessories/protivopozharnye-shtory/",
+  "Противопожарные люки": "https://iv-partner.ru/product-category/accessories/protivopozharnye-ljuki/",
+  "Светопрозрачные противопожарные перегородки": "https://iv-partner.ru/product-category/accessories/svetoprozrachnye-peregorodki-protivopozharnye/",
+  "Двери с зеркалом": "https://iv-partner.ru/product-category/clocks/dveri-s-zerkalom/",
+  "Двери с терморазрывом": "https://iv-partner.ru/product-category/clocks/dveri-s-termorazryvom/",
+  "Двери МДФ–МДФ": "https://iv-partner.ru/product-category/clocks/dveri-mdf-mdf/",
+  "Коттеджные двери со стеклопакетом": "https://iv-partner.ru/product-category/clocks/kottedzhnye-dveri-so-steklopaketom/",
+  "Двери металл–металл": "https://iv-partner.ru/product-category/clocks/dveri-metall-metall/",
+  "Двери металл–МДФ": "https://iv-partner.ru/product-category/clocks/dveri-metall-mdf/",
+  "Банковские лотки": "https://iv-partner.ru/product-category/cooking/bankovskie-lotki/",
+  "Двери 3 класса защиты": "https://iv-partner.ru/product-category/cooking/dveri-3-klassa-zashhity/",
+  "Защитные двери": "https://iv-partner.ru/product-category/cooking/dveri-zashhitnye/",
+  "Полнотелые деревянные двери": "https://iv-partner.ru/product-category/furniture/polnotelye-derevyannye-dveri/",
+  "Дверные блоки для строителей": "https://iv-partner.ru/product-category/cooking/dvernye-bloki-dlya-stroitelej/",
+  "Фурнитура для противопожарных дверей": "https://iv-partner.ru/product-category/lighting/furnitura-dlya-protivopozharnyh-dverej/",
+  "Подбор цвета и вариантов окраски": "https://iv-partner.ru/color-palette/ral-classic/",
+};
