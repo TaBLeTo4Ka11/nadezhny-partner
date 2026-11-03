@@ -5,8 +5,8 @@ import { catalog, catalogUrls } from "../data/companyContent";
 const LOGO = "https://iv-partner.ru/wp-content/uploads/2021/08/dveri-300x301.png";
 
 const TOP = [
-  { label: "Политика конфиденциальности", href: "https://iv-partner.ru/privacy-policy/" },
-  { label: "Согласие на cookie", href: "https://iv-partner.ru/kuki/" },
+  { label: "Политика конфиденциальности", href: "/privacy-policy/" },
+  { label: "Согласие на cookie", href: "/kuki/" },
   { label: "Наши заказы", href: "#gallery" },
   { label: "Наши отзывы", href: "#reviews" },
   { label: "Вакансии", href: "/vakansii/" },
@@ -102,7 +102,7 @@ export default function Header() {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
-    sendMail("Заказ звонка", { Имя: String(f.get("name")), Телефон: String(f.get("phone")), "Согласие на обработку персональных данных": f.get("consent") ? "Да" : "Нет" });
+    sendMail("Заказ звонка", { Имя: String(f.get("name")), Телефон: String(f.get("phone")), "Подтверждение уведомления о форме": f.get("acknowledgement") ? "Да" : "Нет" });
     setCall(false);
   };
 
@@ -264,16 +264,13 @@ export default function Header() {
               <label htmlFor="cb-phone" className="sr-only">Телефон</label>
               <input id="cb-phone" name="phone" type="tel" required autoComplete="tel" placeholder="Телефон" className={field + " mt-4"} />
               <label className="mt-6 flex cursor-pointer items-start gap-3 text-xs leading-5 text-muted">
-                <input type="checkbox" name="consent" value="yes" required className="mt-0.5 h-4 w-4 shrink-0 accent-[#c62828]" />
+                <input type="checkbox" name="acknowledgement" value="yes" required className="mt-0.5 h-4 w-4 shrink-0 accent-[#c62828]" />
                 <span>
-                  Согласен(на) на обработку персональных данных и с{" "}
-                  <a href="https://iv-partner.ru/privacy-policy/" target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-ink">
-                    политикой конфиденциальности
-                  </a>
+                  Я понимаю, что кнопка только откроет почтовое приложение, а письмо отправляется мной вручную. Актуальный текст политики обработки персональных данных пока не подтверждён компанией; до этого не отправляйте через форму персональные данные.
                 </span>
               </label>
               <button type="submit" className="btn mt-8">Подготовить письмо</button>
-              <p className="mt-3 text-xs leading-5 text-muted">Откроется почтовое приложение с готовым письмом.</p>
+              <p className="mt-3 text-xs leading-5 text-muted">Откроется почтовое приложение. Данные не отправляются автоматически; политика обработки персональных данных ещё не подтверждена компанией.</p>
             </form>
           </div>
         </div>
