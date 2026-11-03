@@ -16,6 +16,7 @@ import Footer from "./components/Footer";
 import InfoPage from "./components/InfoPage";
 import CategoryPage from "./components/CategoryPage";
 import CompanyPage from "./components/CompanyPage";
+import ProductPage from "./components/ProductPage";
 
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
@@ -68,6 +69,7 @@ export default function App() {
     };
   }, []);
 
+  if (path === "/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-21") return <ProductPage />;
   if (path === "/o-kompanii") return <CompanyPage page="about" />;
   if (path === "/kontakty") return <CompanyPage page="contacts" />;
   if (infoRoutes[path]) return <InfoPage page={infoRoutes[path]} />;
