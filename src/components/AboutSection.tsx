@@ -16,6 +16,7 @@ const stageSummaries = [
 export default function AboutSection() {
   const root = useRef<HTMLElement>(null);
   useLayoutEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = gsap.context(() => {
       const items = gsap.utils.toArray<HTMLElement>("[data-p]", root.current ?? undefined);
       gsap.set(items, { opacity: 0, y: 24 });
