@@ -14,11 +14,11 @@ export const company = {
 export const catalog = [
   { group: "Противопожарные преграды", items: [
     "Противопожарные двери", "Противопожарные ворота", "Противопожарные шторы",
-    "Противопожарные люки", "Светопрозрачные противопожарные перегородки",
+    "Противопожарные люки", "Светопрозрачные перегородки противопожарные",
   ]},
   { group: "Входные двери", items: [
-    "Двери с зеркалом", "Двери с терморазрывом", "Двери МДФ–МДФ",
-    "Коттеджные двери со стеклопакетом", "Двери металл–металл", "Двери металл–МДФ",
+    "Двери с зеркалом", "Двери с терморазрывом", "Двери МДФ-МДФ",
+    "Коттеджные двери со стеклопакетом", "Двери металл-металл", "Двери Металл-МДФ",
   ]},
   { group: "Бронированные двери", items: [
     "Банковские лотки", "Двери 3 класса защиты", "Защитные двери",
@@ -92,13 +92,13 @@ export const catalogUrls: Record<string, string> = {
   "Противопожарные ворота": "https://iv-partner.ru/product-category/accessories/protivopozharnye-vorota/",
   "Противопожарные шторы": "https://iv-partner.ru/product-category/accessories/protivopozharnye-shtory/",
   "Противопожарные люки": "https://iv-partner.ru/product-category/accessories/protivopozharnye-ljuki/",
-  "Светопрозрачные противопожарные перегородки": "https://iv-partner.ru/product-category/accessories/svetoprozrachnye-peregorodki-protivopozharnye/",
+  "Светопрозрачные перегородки противопожарные": "https://iv-partner.ru/product-category/accessories/svetoprozrachnye-peregorodki-protivopozharnye/",
   "Двери с зеркалом": "https://iv-partner.ru/product-category/clocks/dveri-s-zerkalom/",
   "Двери с терморазрывом": "https://iv-partner.ru/product-category/clocks/dveri-s-termorazryvom/",
-  "Двери МДФ–МДФ": "https://iv-partner.ru/product-category/clocks/dveri-mdf-mdf/",
+  "Двери МДФ-МДФ": "https://iv-partner.ru/product-category/clocks/dveri-mdf-mdf/",
   "Коттеджные двери со стеклопакетом": "https://iv-partner.ru/product-category/clocks/kottedzhnye-dveri-so-steklopaketom/",
-  "Двери металл–металл": "https://iv-partner.ru/product-category/clocks/dveri-metall-metall/",
-  "Двери металл–МДФ": "https://iv-partner.ru/product-category/clocks/dveri-metall-mdf/",
+  "Двери металл-металл": "https://iv-partner.ru/product-category/clocks/dveri-metall-metall/",
+  "Двери Металл-МДФ": "https://iv-partner.ru/product-category/clocks/dveri-metall-mdf/",
   "Банковские лотки": "https://iv-partner.ru/product-category/cooking/bankovskie-lotki/",
   "Двери 3 класса защиты": "https://iv-partner.ru/product-category/cooking/dveri-3-klassa-zashhity/",
   "Защитные двери": "https://iv-partner.ru/product-category/cooking/dveri-zashhitnye/",
