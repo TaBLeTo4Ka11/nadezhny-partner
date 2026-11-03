@@ -34,6 +34,7 @@ export default function Header() {
   const [call, setCall] = useState(false);
   const [active, setActive] = useState("");
   const callDialogRef = useRef<HTMLDivElement>(null);
+  const menuToggleRef = useRef<HTMLButtonElement>(null);
 
   // Подсветка активного раздела
   useEffect(() => {
@@ -94,6 +95,7 @@ export default function Header() {
     return () => {
       document.removeEventListener("keydown", trapFocus);
       if (previous?.isConnected) previous.focus();
+      else menuToggleRef.current?.focus();
     };
   }, [call]);
 
@@ -170,6 +172,7 @@ export default function Header() {
               className="text-sm font-semibold xl:hidden"
               aria-expanded={menu}
               aria-controls="mobile-navigation"
+              ref={menuToggleRef}
               onClick={() => setMenu((v) => !v)}
             >
               {menu ? "Закрыть" : "Меню"}
