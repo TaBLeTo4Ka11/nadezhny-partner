@@ -31,7 +31,7 @@ export default function App() {
   const categoryMatch = path.match(/^\/catalog\/([^/]+)$/);
 
   if (categoryMatch) return <CategoryPage slug={decodeURIComponent(categoryMatch[1])} />;
-  const legalMatch = path.match(/^\\/(privacy|cookies)$/);
+  const legalMatch = path.match(/^\/(privacy|cookies)$/);
   if (legalMatch) return <LegalPage slug={legalMatch[1]} />;
 
   return (
