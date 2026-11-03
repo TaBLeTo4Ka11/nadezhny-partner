@@ -22,6 +22,7 @@ const CATALOG = [
 // «Склад» и «Доставка и установка»: отдельных разделов пока нет, ведём на контакты
 const NAV = [
   { label: "О компании", href: "#about", id: "about" },
+  { label: "Производство", href: "#production", id: "production" },
   { label: "Склад", href: "#contacts", id: "" },
   { label: "Доставка и установка", href: "#contacts", id: "" },
   { label: "Контакты", href: "#contacts", id: "contacts" },
