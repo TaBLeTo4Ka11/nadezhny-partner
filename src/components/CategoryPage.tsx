@@ -1,110 +1,81 @@
 import { useEffect } from "react";
-import { company } from "../data/companyContent";
-import { verifiedCategoryProducts } from "../data/companyContent";
-import { catalogPageBySlug, catalogPages } from "../data/catalogPages";
+import { catalog, productImages, catalogProductLinks } from "../data/companyContent";
 
-type Props = { slug: string };
+const slugs: Record<string, string> = {
+  "Двери с зеркалом": "dveri-s-zerkalom",
+  "Двери с терморазрывом": "dveri-s-termorazryvom",
+  "Двери МДФ-МДФ": "dveri-mdf-mdf",
+  "Двери Металл-МДФ": "dveri-metall-mdf",
+  "Двери металл-металл": "dveri-metall-metall",
+  "Коттеджные двери со стеклопакетом": "kottedzhnye-dveri-so-steklopaketom",
+  "Противопожарные двери": "protivopozharnye-dveri",
+  "Противопожарные ворота": "protivopozharnye-vorota",
+  "Противопожарные шторы": "protivopozharnye-shtory",
+  "Противопожарные люки": "protivopozharnye-ljuki",
+  "Светопрозрачные перегородки противопожарные": "svetoprozrachnye-peregorodki",
+  "Банковские лотки": "bankovskie-lotki",
+  "Двери 3 класса защиты": "dveri-3-klassa-zashchity",
+  "Двери защитные": "dveri-zashchitnye",
+  "Дверные блоки для строителей": "dvernye-bloki-dlya-stroitelej",
+  "Полнотелые деревянные двери": "polnotelye-derevyannye-dveri",
+  "Фурнитура для противопожарных дверей": "furnitura-dlya-protivopozharnyh-dverej",
+};
 
-export default function CategoryPage({ slug }: Props) {
-  const page = catalogPageBySlug[slug];
-  const products = page ? verifiedCategoryProducts.filter((product) => product.category === page.title || (page.slug === "bankovskie-lotki" && product.category === "Банковские лотки")) : [];
+export default function CategoryPage({ slug }: { slug: string }) {
+  const item = catalog.flatMap(group => group.items.map(name => ({ name, group: group.group })))
+    .find(entry => slugs[entry.name] === slug);
+  const products = item ? catalogProductLinks.filter(product => product.category === item.name) : [];
+  const images = item?.name === "Противопожарные двери"
+    ? productImages.filter(product => /^ДМП-/.test(product.title))
+    : item?.name === "Противопожарные ворота"
+      ? productImages.filter(product => product.title === "Противопожарные ворота")
+      : item?.name === "Противопожарные шторы"
+        ? productImages.filter(product => product.title === "Противопожарные шторы")
+        : [];
 
   useEffect(() => {
-    if (!page) {
-      document.title = "Раздел не найден — " + company.name;
-      return;
-    }
-    document.title = page.title + " — " + company.name + " | Иваново";
-    const description = document.querySelector('meta[name="description"]');
-    if (description) description.setAttribute("content", page.description);
-    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.rel = "canonical";
-      document.head.appendChild(canonical);
-    }
-    canonical.href = window.location.origin + "/catalog/" + page.slug + "/";
-  }, [page]);
+    document.title = item ? `${item.name} — Надёжный партнёр` : "Раздел не найден — Надёжный партнёр";
+    const meta = document.querySelector('meta[name="description"]');
+    meta?.setAttribute("content", item
+      ? `${item.name}. Сведения и ассортимент уточняйте на исходном сайте компании.`
+      : "Раздел не найден.");
+    let robots = document.querySelector('meta[name="robots"]');
+    if (!robots) { robots = document.createElement("meta"); robots.setAttribute("name", "robots"); document.head.appendChild(robots); }
+    robots.setAttribute("content", item ? "noindex, follow" : "noindex, nofollow");
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (item) canonical?.setAttribute("href", `https://iv-partner.ru/catalog/${slug}/`);
+    else canonical?.remove();
+  }, [item?.name, slug]);
 
-  if (!page) {
-    return (
-      <main className="min-h-screen bg-white px-6 py-24 text-ink">
-        <div className="mx-auto max-w-3xl">
-          <p className="text-xs font-semibold uppercase tracking-[.2em] text-muted">404</p>
-          <h1 className="mt-4 text-4xl font-extrabold">Раздел не найден</h1>
-          <a className="btn mt-8" href="/">Вернуться на главную</a>
-        </div>
-      </main>
-    );
-  }
+  if (!item) return <main className="min-h-screen bg-white p-10"><h1 className="text-4xl font-extrabold">Раздел не найден</h1><a href="/#catalog" className="btn mt-8">Вернуться в каталог</a></main>;
 
-  return (
-    <div className="min-h-screen bg-white text-ink">
-      <header className="border-b border-line bg-white">
-        <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-5 px-6 py-5 lg:px-10">
-          <a href="/" className="flex items-center gap-3">
-            <img src="https://iv-partner.ru/wp-content/uploads/2021/08/dveri-300x301.png" alt="" className="h-10 w-10 object-contain" />
-            <span className="text-sm font-extrabold uppercase tracking-wider">Надёжный партнёр</span>
-          </a>
-          <a href="/#catalog" className="text-sm font-semibold hover:text-brand">Весь каталог ↗</a>
+  return <>
+    <header className="border-b border-line bg-white px-6 py-5">
+      <div className="mx-auto flex max-w-[1400px] justify-between"><a href="/" className="font-extrabold uppercase">Надёжный партнёр</a><a href="/#catalog">← Весь каталог</a></div>
+    </header>
+    <main className="min-h-[70vh] bg-white px-6 py-16 lg:px-10">
+      <div className="mx-auto max-w-[1200px]">
+        <p className="mb-5 text-xs font-semibold uppercase tracking-wider text-brand">{item.group}</p>
+        <h1 className="text-[clamp(2.5rem,7vw,6rem)] font-extrabold leading-none">{item.name}</h1>
+        {images.length > 0 && <section className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {images.map(image => <figure key={image.src} className="overflow-hidden border border-line">
+            <img src={image.src} alt={image.title} loading="lazy" className="aspect-[4/3] w-full object-cover"/>
+            <figcaption className="p-4 text-sm font-semibold">{image.title}</figcaption>
+          </figure>)}
+        </section>}
+        {products.length > 0 ? <section className="mt-12">
+          <h2 className="text-2xl font-extrabold">Позиции из исходного каталога</h2>
+          <ul className="mt-5 divide-y divide-line border-y border-line">
+            {products.map(product => <li key={product.sourceUrl} className="py-5 font-semibold">{product.localPath ? <a href={product.localPath} className="underline decoration-transparent underline-offset-4 hover:text-brand hover:decoration-brand">{product.title}</a> : product.title}</li>)}
+          </ul>
+        </section> : <section className="mt-12 border-y border-line py-8">
+          <p className="max-w-2xl text-base leading-7 text-muted">Карточки и характеристики этого раздела пока не перенесены: мы не будем подменять их автоматически сгенерированными описаниями. Уточните актуальную информацию напрямую у компании. Полные карточки и характеристики будут добавлены после повторной проверки первоисточника.</p>
+        </section>}
+        <div className="mt-10 flex flex-wrap gap-5">
+          <a href="/#kp" className="border border-ink px-6 py-3 text-sm font-semibold">Связаться с компанией</a>
         </div>
-      </header>
-      <main>
-        <section className="border-b border-line bg-soft px-6 py-8 lg:px-10">
-          <div className="mx-auto max-w-[1400px] text-sm text-muted">
-            <a href="/" className="hover:text-brand">Главная</a><span className="px-2">/</span><a href="/#catalog" className="hover:text-brand">Каталог</a><span className="px-2">/</span><span className="text-ink">{page.title}</span>
-          </div>
-        </section>
-        <section className="px-6 py-16 lg:px-10 lg:py-24">
-          <div className="mx-auto grid max-w-[1400px] gap-12 lg:grid-cols-12">
-            <div className="lg:col-span-7">
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[.2em] text-muted">{page.group}</p>
-              <h1 className="max-w-[16ch] text-[clamp(2.5rem,6vw,5.5rem)] font-extrabold leading-[.98] tracking-tight">{page.title}</h1>
-              <p className="mt-7 max-w-2xl text-lg leading-8 text-muted">{page.description}</p>
-              <div className="mt-9 flex flex-wrap gap-3">
-                <a href="/#kp" className="btn px-8 py-4">Запросить коммерческое предложение</a>
-                <a href={page.sourceUrl} target="_blank" rel="noreferrer" className="border border-ink px-7 py-4 text-sm font-semibold transition hover:bg-ink hover:text-white">Открыть исходный каталог ↗</a>
-              </div>
-            </div>
-            <div className="overflow-hidden border border-line bg-soft lg:col-span-5">
-              <img src={page.image} alt={page.title} className="aspect-[4/3] h-full w-full object-cover" />
-            </div>
-          </div>
-        </section>
-        <section className="bg-soft px-6 py-16 lg:px-10">
-          <div className="mx-auto max-w-[1400px]">
-            <p className="text-xs font-semibold uppercase tracking-[.2em] text-muted">Ассортимент</p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight">Позиции и комплектация</h2>
-            {products.length > 0 ? (
-              <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {products.map((product) => (
-                  <a key={product.href} href={product.href} target="_blank" rel="noreferrer" className="border border-line bg-white p-6 transition-colors hover:border-brand">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-muted">{product.category}</span>
-                    <h3 className="mt-3 text-lg font-bold">{product.title}</h3>
-                    <span className="mt-6 inline-block text-sm font-semibold text-brand">Подробнее ↗</span>
-                  </a>
-                ))}
-              </div>
-            ) : (
-              <p className="mt-6 max-w-3xl text-base leading-7 text-muted">
-                Подробные характеристики, размеры и комплектация согласуются с менеджером по техническому заданию. Мы не публикуем неподтверждённые модели и параметры: отправьте запрос, чтобы получить информацию по вашему объекту.
-              </p>
-            )}
-          </div>
-        </section>
-        <section className="px-6 py-16 lg:px-10">
-          <div className="mx-auto flex max-w-[1400px] flex-col gap-6 border-t-2 border-ink pt-8 sm:flex-row sm:items-end sm:justify-between">
-            <div><p className="text-xs font-semibold uppercase tracking-[.2em] text-muted">Надёжный партнёр · Иваново</p><h2 className="mt-3 text-3xl font-extrabold">Нужна консультация по объекту?</h2></div>
-            <a href="/#kp" className="btn">Связаться с компанией</a>
-          </div>
-        </section>
-      </main>
-      <footer className="bg-graphite px-6 py-8 text-sm text-white lg:px-10">
-        <div className="mx-auto flex max-w-[1400px] flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <span>© {new Date().getFullYear()} {company.name}</span>
-          <div className="flex gap-5"><a href="/" className="hover:text-white/70">Главная</a><a href="/#contacts" className="hover:text-white/70">Контакты</a></div>
-        </div>
-      </footer>
-    </div>
-  );
+      </div>
+    </main>
+    <footer className="bg-graphite px-6 py-8 text-xs text-white/60"><div className="mx-auto max-w-[1400px]">© {new Date().getFullYear()} «Надёжный партнёр»</div></footer>
+  </>;
 }
