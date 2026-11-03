@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import { ADDRESS, EMAIL, PHONES, WORKING_HOURS } from "../data/content";
 
 type PageKey = "warehouse" | "delivery" | "vacancies" | "useful";
-const pages: Record<PageKey, { title: string; sourcePath: string }> = {
-  warehouse: { title: "Склад", sourcePath: "/sklad/" },
-  delivery: { title: "Доставка и установка", sourcePath: "/dostavka-i-ustanovka/" },
-  vacancies: { title: "Вакансии", sourcePath: "/vakansii/" },
-  useful: { title: "Полезное", sourcePath: "/poleznoe/" },
+const pages: Record<PageKey, { title: string; path: string }> = {
+  warehouse: { title: "Склад", path: "/sklad/" },
+  delivery: { title: "Доставка и установка", path: "/dostavka-i-ustanovka/" },
+  vacancies: { title: "Вакансии", path: "/vakansii/" },
+  useful: { title: "Полезное", path: "/poleznoe/" },
 };
 
 export default function InfoPage({ page }: { page: PageKey }) {
@@ -23,8 +23,8 @@ export default function InfoPage({ page }: { page: PageKey }) {
     }
     robots.setAttribute("content", "noindex, follow");
     const canonical = document.querySelector('link[rel="canonical"]');
-    canonical?.setAttribute("href", `https://iv-partner.ru${data.sourcePath}`);
-  }, [data.title, data.sourcePath]);
+    canonical?.setAttribute("href", `https://iv-partner.ru${data.path}`);
+  }, [data.title, data.path]);
 
   return (
     <>
@@ -39,8 +39,8 @@ export default function InfoPage({ page }: { page: PageKey }) {
           <p className="mb-5 text-xs font-semibold uppercase tracking-[.2em] text-brand">Информация компании</p>
           <h1 className="max-w-4xl text-[clamp(2.8rem,8vw,6.5rem)] font-extrabold leading-[.95] tracking-tight">{data.title}</h1>
           <div className="mt-10 max-w-3xl border-y border-line py-8">
-            <p className="text-lg leading-8 text-muted">Содержание этой страницы ещё не перенесено и не проверено по первоисточнику. Чтобы не публиковать предположения или текст, созданный автоматически, пока оставляем только ссылку на исходный сайт.</p>
-            <a href={`https://iv-partner.ru${data.sourcePath}`} target="_blank" rel="noreferrer" className="btn mt-7 inline-block">Открыть исходную страницу</a>
+            <p className="text-lg leading-8 text-muted">Содержание этой страницы ещё не перенесено и не проверено по первоисточнику. Мы не публикуем предположения или автоматически сгенерированные сведения. Для уточнения информации свяжитесь с компанией по указанным ниже контактам.</p>
+            
           </div>
           <section className="mt-12">
             <h2 className="text-xl font-bold">Контакты с главной страницы компании</h2>
