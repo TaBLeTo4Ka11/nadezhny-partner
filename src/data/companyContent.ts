@@ -1,6 +1,6 @@
 export const company = {
   name: "Надёжный партнёр",
-  experience: "15+",
+  experience: "15",
   email: "bux_partner2017@bk.ru",
   address: "153025, г. Иваново, ул. Тимирязева, д. 1, стр. 2, офисы 324–325",
   phones: [
