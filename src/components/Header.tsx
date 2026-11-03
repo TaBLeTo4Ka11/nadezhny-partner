@@ -156,7 +156,7 @@ export default function Header() {
             <a href={PHONES[0].href} className="hidden whitespace-nowrap text-sm font-bold lg:block">
               {PHONES[0].label}
             </a>
-            <button type="button" onClick={() => setCall(true)} className="btn hidden md:block">
+            <button type="button" onClick={() => setCall(true)} aria-haspopup="dialog" className="btn hidden md:block">
               Заказать звонок
             </button>
             <a
@@ -169,6 +169,7 @@ export default function Header() {
               type="button"
               className="text-sm font-semibold xl:hidden"
               aria-expanded={menu}
+              aria-controls="mobile-navigation"
               onClick={() => setMenu((v) => !v)}
             >
               {menu ? "Закрыть" : "Меню"}
@@ -179,7 +180,7 @@ export default function Header() {
 
       {/* Мобильное меню */}
       {menu && (
-        <div className="fixed inset-0 z-40 overflow-y-auto bg-white px-6 pb-10 pt-28 xl:hidden">
+        <div id="mobile-navigation" className="fixed inset-0 z-40 overflow-y-auto bg-white px-6 pb-10 pt-28 xl:hidden">
           <nav className="flex flex-col gap-5" aria-label="Мобильная навигация">
             <a href="#catalog" onClick={() => setMenu(false)} className="text-3xl font-extrabold tracking-tight">
               Каталог
@@ -214,6 +215,7 @@ export default function Header() {
                 setMenu(false);
                 setCall(true);
               }}
+              aria-haspopup="dialog"
               className="btn"
             >
               Заказать звонок
