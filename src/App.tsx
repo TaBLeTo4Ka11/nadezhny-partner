@@ -19,7 +19,7 @@ gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
 
 export default function App() {
-  const path = window.location.pathname.replace(/\\/+$/, "") || "/";
+  const path = window.location.pathname.length > 1 && window.location.pathname.endsWith("/") ? window.location.pathname.slice(0, -1) : window.location.pathname;
   const infoRoutes: Record<string, "warehouse" | "delivery" | "vacancies" | "useful"> = {
     "/sklad": "warehouse",
     "/dostavka-i-ustanovka": "delivery",
