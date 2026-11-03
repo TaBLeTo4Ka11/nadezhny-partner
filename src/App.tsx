@@ -14,6 +14,7 @@ import FormSection from "./components/FormSection";
 import MapSection from "./components/MapSection";
 import Footer from "./components/Footer";
 import InfoPage from "./components/InfoPage";
+import CategoryPage from "./components/CategoryPage";
 
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
@@ -34,6 +35,10 @@ export default function App() {
   }, []);
 
   if (infoRoutes[path]) return <InfoPage page={infoRoutes[path]} />;
+  if (path.startsWith("/catalog/")) {
+    const slug = path.slice("/catalog/".length).replace(/\/$/, "");
+    return <CategoryPage slug={slug} />;
+  }
 
   return (
     <>
