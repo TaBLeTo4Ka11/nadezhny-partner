@@ -1,73 +1,14 @@
-const MENU = [
-  "Входные двери",
-  "Двери с терморазрывом",
-  "Двери с зеркалом",
-  "Двери МДФ-МДФ",
-  "Двери Металл-МДФ",
-  "Банковские лотки",
-  "Двери 3 класса защиты",
-  "Полнотелые деревянные двери",
-  "Антипаника",
-];
-
-export default function Footer() {
-  return (
-    <footer className="bg-graphite px-6 pb-[calc(3rem+env(safe-area-inset-bottom))] pt-20 text-white lg:px-10">
-      <div className="mx-auto max-w-[1400px]">
-        {/* Меню футера */}
-        <ul className="grid grid-cols-1 gap-x-12 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
-          {MENU.map((m) => (
-            <li key={m}>
-              <a
-                href="#catalog"
-                className="block border-b border-white/15 py-3 text-xl font-bold tracking-tight text-white/90 transition-colors hover:text-white md:text-2xl"
-              >
-                {m}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        {/* Реквизиты */}
-        <div className="mt-20 grid grid-cols-1 gap-12 border-t border-white/15 pt-12 text-sm leading-relaxed text-white/60 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="space-y-2">
-            <p className="font-semibold text-white">ООО «СПЕЦДВЕРИ»</p>
-            <p>ОГРН: 1243700006802</p>
-            <p>ИНН/КПП: 3700022069/370001001</p>
-            <p>Юр. адрес: 153025, г. Иваново, ул. Тимирязева, д.1 стр.2, офис 324</p>
-          </div>
-
-          <div className="space-y-2 break-words">
-            <p>Банк 1: АО «АЛЬФА-БАНК»</p>
-            <p>Р/С: 40702810001030003738</p>
-            <p>Кор счет: 30101810200000000593</p>
-            <p>БИК: 044525593</p>
-          </div>
-
-          <div className="space-y-2 break-words">
-            <p>Банк 2: Филиал «ЦЕНТРАЛЬНЫЙ» Банка ВТБ (ПАО)</p>
-            <p>Р/счет: 40702810111450002064</p>
-            <p>Кор счет: 30101810145250000411</p>
-            <p>БИК: 044525411</p>
-          </div>
-
-          <div className="space-y-2">
-            <p>Ген. директор: Кузнецов И.В.</p>
-            <p>
-              Email:{" "}
-              <a href="mailto:bux_partner2017@bk.ru" className="transition-colors hover:text-white">
-                bux_partner2017@bk.ru
-              </a>
-            </p>
-          </div>
-        </div>
-
-        {/* Низ */}
-        <div className="mt-12 flex flex-col gap-3 border-t border-white/15 pt-8 text-sm text-white/60 sm:flex-row sm:gap-10">
-          <a href="#privacy" className="transition-colors hover:text-white">Политика конфиденциальности</a>
-          <a href="#cookies" className="transition-colors hover:text-white">Согласие на cookie</a>
-        </div>
-      </div>
-    </footer>
-  );
+import { ADDRESS, EMAIL, PHONES } from "../data/content";
+const MENU = ["Противопожарные двери","Противопожарные ворота","Противопожарные шторы","Противопожарные люки","Светопрозрачные перегородки","Входные двери","Бронированные двери","Деревянные двери","Антипаника","Фурнитура"];
+export default function Footer(){
+ return <footer className="bg-graphite px-6 pb-[calc(3rem+env(safe-area-inset-bottom))] pt-20 text-white lg:px-10"><div className="mx-auto max-w-[1400px]">
+ <div className="grid gap-12 lg:grid-cols-[1.3fr_1fr]"><div><p className="mb-5 text-xs font-semibold uppercase tracking-[.2em] text-white/50">Разделы каталога</p><ul className="grid grid-cols-1 gap-x-8 gap-y-2 sm:grid-cols-2">{MENU.map(m=><li key={m}><a href="#catalog" className="block border-b border-white/15 py-3 text-base font-semibold text-white/85 transition-colors hover:text-white">{m}</a></li>)}</ul></div>
+ <div className="space-y-7"><div><p className="mb-3 text-xs font-semibold uppercase tracking-[.2em] text-white/50">Контакты</p><p className="max-w-sm text-base leading-7 text-white/80">{ADDRESS}</p></div><div className="space-y-2">{PHONES.map(p=><a key={p.href} href={p.href} className="block text-lg font-bold hover:underline">{p.label}</a>)}<a href={"mailto:"+EMAIL} className="block text-sm text-white/70 hover:text-white">{EMAIL}</a></div><a href="#kp" className="btn inline-block">Запросить коммерческое предложение</a></div></div>
+ <div className="mt-20 grid grid-cols-1 gap-12 border-t border-white/15 pt-12 text-sm leading-relaxed text-white/60 sm:grid-cols-2 lg:grid-cols-4">
+ <div className="space-y-2"><p className="font-semibold text-white">ООО «СПЕЦДВЕРИ»</p><p>ОГРН: 1243700006802</p><p>ИНН/КПП: 3700022069/370001001</p><p>Юридический адрес: 153025, г. Иваново, ул. Тимирязева, д. 1, стр. 2, офис 324</p></div>
+ <div className="space-y-2 break-words"><p>АО «АЛЬФА-БАНК»</p><p>Р/С: 40702810001030003738</p><p>Кор. счёт: 30101810200000000593</p><p>БИК: 044525593</p></div>
+ <div className="space-y-2 break-words"><p>Филиал «ЦЕНТРАЛЬНЫЙ» Банка ВТБ (ПАО)</p><p>Р/С: 40702810111450002064</p><p>Кор. счёт: 30101810145250000411</p><p>БИК: 044525411</p></div>
+ <div className="space-y-2"><p>Генеральный директор: Кузнецов Игорь Валерьевич</p><p>Email: <a href={"mailto:"+EMAIL} className="hover:text-white">{EMAIL}</a></p></div></div>
+ <div className="mt-12 flex flex-col gap-3 border-t border-white/15 pt-8 text-xs text-white/50 sm:flex-row sm:justify-between"><span>© {new Date().getFullYear()} «Надёжный партнёр»</span><span>Реквизиты перенесены с исходного сайта; перед публикацией рекомендуется сверить актуальность.</span></div>
+ </div></footer>;
 }
