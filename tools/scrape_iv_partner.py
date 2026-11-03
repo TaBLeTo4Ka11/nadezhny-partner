@@ -80,6 +80,17 @@ def safe_json(response: requests.Response) -> Any:
         return None
 
 
+def redact_url(url: str) -> str:
+    parsed = urllib.parse.urlsplit(url)
+    secret_keys = {"consumer_key", "consumer_secret", "password", "app_password"}
+    query = urllib.parse.parse_qsl(parsed.query, keep_blank_values=True)
+    safe_query = urllib.parse.urlencode([
+        (key, "***" if key.lower() in secret_keys else value)
+        for key, value in query
+    ])
+    return urllib.parse.urlunsplit((parsed.scheme, parsed.netloc, parsed.path, safe_query, parsed.fragment))
+
+
 def request(url: str, params: dict[str, Any] | None = None,
             stream: bool = False) -> requests.Response | None:
     global REQUEST_COUNT
@@ -94,7 +105,7 @@ def request(url: str, params: dict[str, Any] | None = None,
         return None
     if response.status_code in (401, 403, 429):
         raise StopExport(
-            f"Сайт/API ответил HTTP {response.status_code}: {response.url}. "
+            f"Сайт/API ответил HTTP {response.status_code}: {redact_url(response.url)}. "
             "Экспорт остановлен; обход защиты не выполняется."
         )
     return response
@@ -226,7 +237,10 @@ def normalize_wc_product(item: dict[str, Any], source: str) -> dict[str, Any]:
         if isinstance(attribute, dict):
             attributes.append({
                 "id": attribute.get("id"), "name": attribute.get("name"),
-                "options": attribute.get("options") or [],
+                "options": attribute.get("options") or [
+                    term.get("name") for term in (attribute.get("terms") or [])
+                    if isinstance(term, dict) and term.get("name")
+                ],
                 "visible": attribute.get("visible"),
                 "variation": attribute.get("variation"),
             })
@@ -416,9 +430,9 @@ def download_file(url: str, folder: Path) -> dict[str, Any]:
                     result["download_status"] = "skipped_too_large"
                     return result
                 handle.write(chunk)
-    except OSError:
+    except (OSError, requests.RequestException):
         path.unlink(missing_ok=True)
-        result["download_status"] = "write_error"
+        result["download_status"] = "download_or_write_error"
         return result
     result.update({"local_file": str(path.relative_to(OUT)), "bytes": size,
                    "mime": content_type, "download_status": "downloaded"})
