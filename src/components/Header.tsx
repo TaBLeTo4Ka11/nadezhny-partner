@@ -11,6 +11,7 @@ const TOP = [
   { label: "Наши отзывы", href: "#reviews" },
   { label: "Вакансии", href: "/vakansii/" },
   { label: "Полезное", href: "/poleznoe/" },
+  { label: "Выбрать цвет", href: "/color-palette/ral-classic/" },
 ];
 
 const CATALOG = catalog.flatMap((group) =>
