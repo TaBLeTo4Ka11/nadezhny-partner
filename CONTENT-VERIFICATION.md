@@ -33,7 +33,7 @@ This file is an internal editorial register. It is not rendered on the website.
 ## Removed or withheld because source evidence was incomplete
 - Generic AI-written copy on category pages.
 - The hand-curated 25-colour RAL sample. It must not be represented as a verified complete palette.
-- Speculative descriptions on warehouse, delivery, vacancies and useful-information pages. Those pages now clearly state that their content has not yet been migrated and link to the original pages.
+- Speculative descriptions on warehouse, delivery, vacancies, useful-information and legal pages. Those pages clearly state that content has not yet been migrated and show company contact details instead of fabricated copy.
 - Catalogue categories not visible in the official homepage extraction used for this audit. Restore them only after checking the corresponding official page/menu.
 - Product characteristics, prices, lead times, stock, warranties, delivery geography and other commercial conditions not explicitly confirmed by a source.
 
