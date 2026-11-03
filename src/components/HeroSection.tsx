@@ -18,7 +18,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section ref={root} id="top" className="industrial-hero overflow-hidden bg-white px-6 text-ink lg:px-10">
+    <section ref={root} id="top" className="overflow-hidden bg-white px-6 text-ink lg:px-10">
       <div className="mx-auto grid min-h-[min(760px,calc(100svh-80px))] max-w-[1400px] grid-cols-1 items-center gap-10 py-16 md:grid-cols-[1fr_.9fr] lg:gap-16 lg:py-20">
         <div className="relative z-10">
           <p data-h className="mb-6 text-xs font-bold uppercase tracking-[.22em] text-brand">Надёжный партнёр · Иваново</p>
@@ -38,7 +38,7 @@ export default function HeroSection() {
             <div><span className="block text-3xl font-extrabold">РФ</span><span className="text-xs text-muted">география работы</span></div>
           </div>
         </div>
-        <div data-hero-image className="hero-media relative min-h-[380px] overflow-hidden bg-soft sm:min-h-[520px]">
+        <div data-hero-image className="relative min-h-[380px] overflow-hidden bg-soft sm:min-h-[520px]">
           <img src={IMG.door1} alt="Пример противопожарной двери из каталога компании" className="absolute inset-0 h-full w-full object-cover object-center" fetchPriority="high" />
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/55 to-transparent p-6 pt-24 text-white">
             <p className="text-xs font-semibold uppercase tracking-[.18em]">Производство и поставка</p>
