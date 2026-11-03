@@ -118,7 +118,7 @@ export default function CatalogSection() {
               <p className="text-xs font-semibold uppercase tracking-[.18em] text-muted">Сохранённые названия</p>
               <h3 className="mt-2 text-2xl font-extrabold tracking-tight">Товары из исходного каталога</h3>
             </div>
-            <p className="max-w-lg text-sm leading-6 text-muted">В проекте сохранены названия и ссылки на эти карточки. Полные описания и характеристики пока не восстановлены и требуют повторной сверки.</p>
+            <p className="max-w-lg text-sm leading-6 text-muted">Названия сохранены из предыдущего извлечения. Полные описания и характеристики пока не восстановлены и требуют повторной сверки.</p>
           </div>
           <div className="mt-6 divide-y divide-line border-y border-line">
             {catalogProductLinks.map((product, index) => (
@@ -130,7 +130,7 @@ export default function CatalogSection() {
                 <span className="flex items-center gap-3 pl-8 text-xs text-muted sm:pl-0">
                   <span>{product.category}</span>
                 </span>
-              </a>
+              </div>
             ))}
           </div>
         </div>
