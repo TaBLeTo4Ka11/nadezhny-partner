@@ -1,0 +1,33 @@
+name: Inspect Replit source archive
+
+on:
+  push:
+    branches:
+      - final/replit-design-integration
+    paths:
+      - replit-source/nadezhny-partner.zip.b64
+
+permissions:
+  contents: write
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: final/replit-design-integration
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Extract archive manifest
+        run: |
+          node scripts/extract-replit-archive.mjs
+          cp public/replit-import/manifest.json replit-source/archive-manifest.json
+      - name: Commit manifest
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add replit-source/archive-manifest.json
+          git commit -m "Record Replit archive manifest [skip ci]" || exit 0
+          git push
