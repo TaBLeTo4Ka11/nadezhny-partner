@@ -6,6 +6,7 @@ on:
       - gpt6/site-completion
     paths:
       - .github/workflows/export-source.yml
+      - tools/README.md
 
 permissions:
   contents: read
