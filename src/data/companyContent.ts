@@ -82,25 +82,19 @@ export const reviews = [
 ];
 
 export const catalogUrls: Record<string, string> = {
-  "Противопожарные двери": "/catalog/protivopozharnye-dveri/",
-  "Противопожарные ворота": "/catalog/protivopozharnye-vorota/",
-  "Противопожарные шторы": "/catalog/protivopozharnye-shtory/",
-  "Противопожарные люки": "/catalog/protivopozharnye-ljuki/",
-  "Светопрозрачные перегородки противопожарные": "/catalog/svetoprozrachnye-peregorodki/",
-  "Двери с зеркалом": "/catalog/dveri-s-zerkalom/",
   "Двери с терморазрывом": "/catalog/dveri-s-termorazryvom/",
+  "Двери с зеркалом": "/catalog/dveri-s-zerkalom/",
   "Двери МДФ-МДФ": "/catalog/dveri-mdf-mdf/",
-  "Коттеджные двери со стеклопакетом": "/catalog/kottedzhnye-dveri-so-steklopaketom/",
-  "Двери металл-металл": "/catalog/dveri-metall-metall/",
   "Двери Металл-МДФ": "/catalog/dveri-metall-mdf/",
+  "Противопожарные ворота": "/catalog/protivopozharnye-vorota/",
+  "Противопожарные двери": "/catalog/protivopozharnye-dveri/",
+  "Противопожарные люки": "/catalog/protivopozharnye-ljuki/",
+  "Противопожарные шторы": "/catalog/protivopozharnye-shtory/",
+  "Светопрозрачные перегородки противопожарные": "/catalog/svetoprozrachnye-peregorodki/",
   "Банковские лотки": "/catalog/bankovskie-lotki/",
   "Двери 3 класса защиты": "/catalog/dveri-3-klassa-zashchity/",
   "Двери защитные": "/catalog/dveri-zashchitnye/",
   "Дверные блоки для строителей": "/catalog/dvernye-bloki-dlya-stroitelej/",
-  "Полнотелые деревянные двери": "/catalog/polnotelye-derevyannye-dveri/",
-  "Антипаника": "/catalog/antipanika/",
-  "Фурнитура для противопожарных дверей": "/catalog/furnitura-dlya-protivopozharnyh-dverej/",
-  "Выбрать цвет": "/catalog/cveta-i-pokraska/",
 };
 
 export const verifiedCategoryProducts = [
