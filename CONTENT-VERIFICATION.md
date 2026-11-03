@@ -33,6 +33,7 @@ This file is an internal editorial register. It is not rendered on the website.
 - The official company page states more than 15 years of activity, describes work with corporate and private customers, supply and installation, and gives a four-stage overview of production. The new `/o-kompanii/` page paraphrases the source without carrying over unverified technical guarantees.
 - The homepage snapshot exposes the `/kontakty/` page in its navigation. A local contact page was added using the contact details already visible on the official homepage.
 - The indexed LT-21 page exposes the original navigation hierarchy, including all 17 category links and their original WooCommerce URL paths. The local site now keeps those original category URLs alive with permanent redirects to the new local `/catalog/<slug>/` routes.
+- The official RAL Classic page https://iv-partner.ru/color-palette/ral-classic/ contains a long table of color names and HEX values. The extracted text includes malformed HEX values and the page snapshot is old, so the table has not been copied as if it were a validated complete manufacturer palette. A local `noindex` information page explains the limitation and directs visitors to confirm a real sample with the company.
 
 ## Repeat extraction limitations
 - Claude's `iv-partner-research.zip` was a scaffold with empty/placeholder JSON structures, not a recovered product database or downloaded media archive.
