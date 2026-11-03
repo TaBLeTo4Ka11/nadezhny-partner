@@ -8,7 +8,7 @@
 - GSAP + ScrollTrigger
 
 ## Запуск
-Требуется Node.js 20.19+ или 22.12+.
+Требуется Node.js 22.12+ или 24.x (CI использует 24.x).
 
 ```bash
 npm ci
