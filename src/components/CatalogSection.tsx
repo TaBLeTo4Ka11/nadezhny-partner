@@ -107,7 +107,7 @@ export default function CatalogSection() {
                     <span>{product.title}</span><span className="text-brand" aria-hidden="true">↗</span>
                   </figcaption>
                 </figure>
-              </div>
+              </a>
             ))}
           </div>
         </div>
