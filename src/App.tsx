@@ -21,13 +21,14 @@ import ProductPage from "./components/ProductPage";
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
 
-const infoRoutes: Record<string, "warehouse" | "delivery" | "vacancies" | "useful" | "privacy" | "cookies"> = {
+const infoRoutes: Record<string, "warehouse" | "delivery" | "vacancies" | "useful" | "privacy" | "cookies" | "colors"> = {
   "/sklad": "warehouse",
   "/dostavka-i-ustanovka": "delivery",
   "/vakansii": "vacancies",
   "/poleznoe": "useful",
   "/privacy-policy": "privacy",
   "/kuki": "cookies",
+  "/color-palette/ral-classic": "colors",
 };
 
 function NotFoundPage() {
