@@ -101,7 +101,7 @@ export default function Header() {
                 Каталог ▾
               </a>
               <div className="invisible absolute left-0 top-full z-10 pt-5 opacity-0 transition-opacity group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
-                <ul className="min-w-[260px] border border-line bg-white py-2">
+                <ul className="max-h-[calc(100svh-7rem)] min-w-[300px] overflow-y-auto border border-line bg-white py-2">
                   {CATALOG.map((item) => (
                     <li key={item.label}>
                       <a href={item.href} target={item.href.startsWith("https://") ? "_blank" : undefined} rel={item.href.startsWith("https://") ? "noreferrer" : undefined} className="block px-5 py-3 text-sm transition-colors hover:bg-soft">
