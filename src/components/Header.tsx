@@ -72,7 +72,7 @@ export default function Header() {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
-    sendMail("Заказ звонка", { Имя: String(f.get("name")), Телефон: String(f.get("phone")) });
+    sendMail("Заказ звонка", { Имя: String(f.get("name")), Телефон: String(f.get("phone")), "Согласие на обработку персональных данных": f.get("consent") ? "Да" : "Нет" });
     setCall(false);
   };
 
@@ -234,7 +234,7 @@ export default function Header() {
               <label htmlFor="cb-phone" className="sr-only">Телефон</label>
               <input id="cb-phone" name="phone" type="tel" required autoComplete="tel" placeholder="Телефон" className={field + " mt-4"} />
               <label className="mt-6 flex cursor-pointer items-start gap-3 text-xs leading-5 text-muted">
-                <input type="checkbox" required className="mt-0.5 h-4 w-4 shrink-0 accent-[#c62828]" />
+                <input type="checkbox" name="consent" value="yes" required className="mt-0.5 h-4 w-4 shrink-0 accent-[#c62828]" />
                 <span>
                   Согласен(на) на обработку персональных данных и с{" "}
                   <a href="https://iv-partner.ru/privacy-policy/" target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-ink">
