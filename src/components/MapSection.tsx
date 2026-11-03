@@ -1,4 +1,4 @@
-import { ADDRESS, EMAIL, PHONES } from "../data/content";
+import { ADDRESS, EMAIL, PHONES, WORKING_HOURS } from "../data/content";
 
 const MAP_SRC =
   "https://yandex.ru/map-widget/v1/?z=16&text=" + encodeURIComponent("г. Иваново, ул. Тимирязева, д. 1, стр. 2");
@@ -26,6 +26,10 @@ export default function MapSection() {
             <div>
               <p className="mb-2 text-sm text-muted">Адрес</p>
               <p className="max-w-[28ch]">{ADDRESS}</p>
+            </div>
+            <div>
+              <p className="mb-2 text-sm text-muted">Режим работы</p>
+              <p>{WORKING_HOURS}</p>
             </div>
           </div>
 
