@@ -77,7 +77,7 @@ export default function CatalogSection() {
                     <li key={item} className="flex gap-3 text-sm leading-6 text-ink/80">
                       <span className="font-bold text-brand" aria-hidden="true">↗</span>
                       {catalogUrls[item] ? (
-                        <a href={catalogUrls[item]} target="_blank" rel="noreferrer" className="underline decoration-transparent underline-offset-4 transition hover:text-brand hover:decoration-brand">{item}</a>
+                        <a href={catalogUrls[item]} className="underline decoration-transparent underline-offset-4 transition hover:text-brand hover:decoration-brand">{item}</a>
                       ) : <span>{item}</span>}
                     </li>
                   ))}
