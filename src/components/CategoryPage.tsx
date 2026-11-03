@@ -65,7 +65,6 @@ export default function CategoryPage({ slug }: { slug: string }) {
         </section> : <section className="mt-12 border-y border-line py-8">
           <p className="max-w-2xl text-base leading-7 text-muted">Карточки и характеристики этого раздела пока не перенесены: мы не будем подменять их автоматически сгенерированными описаниями. Посмотрите актуальную информацию в исходном каталоге компании или уточните её напрямую.</p>
         </section>}
-        {item.name === "Выбрать цвет" && <p className="mt-8 max-w-2xl text-sm leading-6 text-muted">Палитра с кодами и экранными образцами пока не перенесена целиком. Чтобы не показывать неполный или ошибочный список оттенков, используйте исходную страницу компании.</p>}
         <div className="mt-10 flex flex-wrap gap-5">
           <a href="https://iv-partner.ru/" target="_blank" rel="noreferrer" className="btn">Открыть исходный сайт</a>
           <a href="/#kp" className="border border-ink px-6 py-3 text-sm font-semibold">Связаться с компанией</a>
