@@ -37,7 +37,6 @@ export default function Footer() {
             <p className="text-xs font-semibold uppercase tracking-[.2em] text-white/50">Наш адрес на карте</p>
             <h2 className="mt-3 text-3xl font-extrabold">Иваново, ул. Тимирязева</h2>
             <p className="mt-4 max-w-md text-sm leading-6 text-white/65">{ADDRESS}</p>
-            <button type="button" onClick={() => setMapOpen(true)} className="btn mt-6">Показать Яндекс.Карту</button>
             <a href="https://yandex.ru/maps/?text=Иваново%2C%20улица%20Тимирязева%2C%201%2C%20стр.%202" target="_blank" rel="noreferrer" className="mt-4 text-sm font-semibold text-white/70 underline underline-offset-4 hover:text-white">Открыть маршрут в Яндекс Картах ↗</a>
           </div>
           <div className="min-h-[300px] overflow-hidden border border-white/15 bg-white/5">
