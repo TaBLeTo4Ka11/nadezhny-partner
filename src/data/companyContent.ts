@@ -101,7 +101,7 @@ export const catalogUrls: Record<string, string> = {
   "Двери Металл-МДФ": "https://iv-partner.ru/product-category/clocks/dveri-metall-mdf/",
   "Банковские лотки": "https://iv-partner.ru/product-category/cooking/bankovskie-lotki/",
   "Двери 3 класса защиты": "https://iv-partner.ru/product-category/cooking/dveri-3-klassa-zashhity/",
-  "Защитные двери": "https://iv-partner.ru/product-category/cooking/dveri-zashhitnye/",
+  "Двери защитные": "https://iv-partner.ru/product-category/cooking/dveri-zashhitnye/",
   "Полнотелые деревянные двери": "https://iv-partner.ru/product-category/furniture/polnotelye-derevyannye-dveri/",
   "Дверные блоки для строителей": "https://iv-partner.ru/product-category/cooking/dvernye-bloki-dlya-stroitelej/",
   "Антипаника": "https://iv-partner.ru/product-category/lighting/",
