@@ -13,6 +13,7 @@ export default function FormSection() {
       Телефон: String(f.get("phone")),
       Email: String(f.get("email") || ""),
       "Техническое задание": String(f.get("task") || ""),
+      "Согласие на обработку персональных данных": f.get("consent") ? "Да" : "Нет",
     });
   };
 
@@ -45,7 +46,7 @@ export default function FormSection() {
           </div>
 
           <label className="flex cursor-pointer items-start gap-4 text-sm text-white/70">
-            <input type="checkbox" required className="mt-0.5 h-5 w-5 shrink-0 accent-white" />
+            <input type="checkbox" name="consent" value="yes" required className="mt-0.5 h-5 w-5 shrink-0 accent-white" />
             <span>
               Я согласен(на) на обработку персональных данных и с{" "}
               <a href="https://iv-partner.ru/privacy-policy/" target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-white">
