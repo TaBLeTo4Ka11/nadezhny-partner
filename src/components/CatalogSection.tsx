@@ -1,7 +1,7 @@
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { catalog, catalogUrls, productImages, verifiedCategoryProducts } from "../data/companyContent";
+import { catalog, catalogUrls, productImages, catalogProductLinks } from "../data/companyContent";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -115,13 +115,13 @@ export default function CatalogSection() {
         <div className="mt-14 border-t border-line pt-10">
           <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[.18em] text-muted">Проверенные позиции</p>
+              <p className="text-xs font-semibold uppercase tracking-[.18em] text-muted">Ссылки на товары</p>
               <h3 className="mt-2 text-2xl font-extrabold tracking-tight">Товары из исходного каталога</h3>
             </div>
-            <p className="max-w-lg text-sm leading-6 text-muted">Позиции, названия и адреса страниц которых удалось подтвердить на сайте компании.</p>
+            <p className="max-w-lg text-sm leading-6 text-muted">В проекте сохранены названия и ссылки на эти карточки. Полные описания и характеристики пока не восстановлены и требуют повторной сверки.</p>
           </div>
           <div className="mt-6 divide-y divide-line border-y border-line">
-            {verifiedCategoryProducts.map((product, index) => (
+            {catalogProductLinks.map((product, index) => (
               <a key={product.href} href={product.href} target="_blank" rel="noreferrer" className="group flex flex-col gap-2 py-5 transition-colors hover:text-brand sm:flex-row sm:items-center sm:justify-between">
                 <span className="flex items-start gap-4">
                   <span className="pt-0.5 text-xs text-muted">{String(index + 1).padStart(2, "0")}</span>
