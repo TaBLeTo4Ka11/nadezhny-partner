@@ -14,7 +14,7 @@ export default function ReviewsSection() {
   }, []);
   return <section ref={root} id="reviews" className="section bg-[#0a0c0d]">
     <div className="container">
-      <p className="eyebrow mb-8">04 — Отзывы</p>
+      <p className="eyebrow mb-8">06 — Отзывы</p>
       <h2 className="section-title mb-14">Слова <span className="text-[#858d90]">клиентов.</span></h2>
       <div className="grid gap-4 md:grid-cols-3">
         {reviews.map((review, i) => <figure className="review-card panel flex min-h-[270px] flex-col p-7 md:p-8" key={review.author}>
