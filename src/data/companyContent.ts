@@ -13,14 +13,19 @@ export const company = {
 
 export const catalog = [
   { group: "Входные двери", items: [
-    "Двери с терморазрывом", "Двери с зеркалом", "Двери МДФ-МДФ", "Двери Металл-МДФ",
+    "Двери с терморазрывом", "Двери с зеркалом", "Двери МДФ-МДФ", "Двери металл-металл",
+    "Двери Металл-МДФ", "Коттеджные двери со стеклопакетом",
   ]},
   { group: "Противопожарные преграды", items: [
     "Противопожарные ворота", "Противопожарные двери", "Противопожарные люки",
     "Противопожарные шторы", "Светопрозрачные перегородки противопожарные",
   ]},
   { group: "Бронированные двери", items: [
-    "Банковские лотки", "Двери 3 класса защиты", "Двери защитные", "Дверные блоки для строителей",
+    "Банковские лотки", "Двери 3 класса защиты", "Двери защитные",
+  ]},
+  { group: "Деревянные двери и комплектация", items: [
+    "Полнотелые деревянные двери", "Дверные блоки для строителей",
+    "Фурнитура для противопожарных дверей",
   ]},
 ];
 
@@ -73,6 +78,8 @@ export const catalogUrls: Record<string, string> = {
   "Двери с зеркалом": "/catalog/dveri-s-zerkalom/",
   "Двери МДФ-МДФ": "/catalog/dveri-mdf-mdf/",
   "Двери Металл-МДФ": "/catalog/dveri-metall-mdf/",
+  "Двери металл-металл": "/catalog/dveri-metall-metall/",
+  "Коттеджные двери со стеклопакетом": "/catalog/kottedzhnye-dveri-so-steklopaketom/",
   "Противопожарные ворота": "/catalog/protivopozharnye-vorota/",
   "Противопожарные двери": "/catalog/protivopozharnye-dveri/",
   "Противопожарные люки": "/catalog/protivopozharnye-ljuki/",
@@ -82,6 +89,8 @@ export const catalogUrls: Record<string, string> = {
   "Двери 3 класса защиты": "/catalog/dveri-3-klassa-zashchity/",
   "Двери защитные": "/catalog/dveri-zashchitnye/",
   "Дверные блоки для строителей": "/catalog/dvernye-bloki-dlya-stroitelej/",
+  "Полнотелые деревянные двери": "/catalog/polnotelye-derevyannye-dveri/",
+  "Фурнитура для противопожарных дверей": "/catalog/furnitura-dlya-protivopozharnyh-dverej/",
 };
 
 export const catalogProductLinks = [
