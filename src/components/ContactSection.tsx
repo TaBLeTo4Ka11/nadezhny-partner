@@ -5,7 +5,7 @@ export default function ContactSection() {
   const [sent, setSent] = useState(false);
   return <section id="contacts" className="section bg-[#0a0c0d]">
     <div className="container grid gap-14 md:grid-cols-2">
-      <div><p className="eyebrow mb-8">08 — Контакты</p><h2 className="section-title">Обсудим <span className="text-[#858d90]">вашу</span> задачу.</h2>
+      <div><p className="eyebrow mb-8">07 — Контакты</p><h2 className="section-title">Обсудим <span className="text-[#858d90]">вашу</span> задачу.</h2>
         <p className="mt-8 max-w-md text-sm leading-7 text-[#92989a]">Расскажите об объекте и требованиях — обсудим подходящее решение.</p>
         <div className="mt-12 space-y-5 border-t border-[#303638] pt-7 text-sm text-[#c0c5c6]">
           <p>{company.address}</p><p>{company.hours}</p><a className="block" href={"mailto:" + company.email}>{company.email}</a>
