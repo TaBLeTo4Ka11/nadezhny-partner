@@ -76,6 +76,22 @@
     {
       "source": "/kuki/",
       "destination": "/index.html"
+    },
+    {
+      "source": "/catalog/dveri-metall-metall/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/catalog/kottedzhnye-dveri-so-steklopaketom/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/catalog/polnotelye-derevyannye-dveri/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/catalog/furnitura-dlya-protivopozharnyh-dverej/",
+      "destination": "/index.html"
     }
   ],
   "headers": [
