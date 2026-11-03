@@ -62,6 +62,11 @@ export default async function handler(req: RequestLike, res: ResponseLike) {
     return res.status(405).json({ ok: false, error: "Method not allowed" });
   }
 
+  const contentType = getHeader(req, "content-type").toLowerCase();
+  if (!contentType.startsWith("application/json")) return res.status(415).json({ ok: false, error: "Expected JSON" });
+  const declaredLength = Number(getHeader(req, "content-length") || 0);
+  if (declaredLength > MAX_BODY_CHARS) return res.status(413).json({ ok: false, error: "Payload too large" });
+
   const host = getHeader(req, "x-forwarded-host") || getHeader(req, "host");
   const origin = getHeader(req, "origin");
   if (!host || !origin) return res.status(403).json({ ok: false, error: "Forbidden" });
@@ -74,7 +79,8 @@ export default async function handler(req: RequestLike, res: ResponseLike) {
   const env = (globalThis as unknown as { process?: { env?: Record<string, string | undefined> } }).process?.env ?? {};
   const webhookUrl = env.CONTACT_WEBHOOK_URL ?? "";
   const webhookSecret = env.CONTACT_WEBHOOK_SECRET ?? "";
-  if (!webhookUrl || !webhookSecret) {
+  const policyVersion = env.CONTACT_PRIVACY_POLICY_VERSION ?? "";
+  if (!webhookUrl || !webhookSecret || !policyVersion) {
     return res.status(503).json({ ok: false, error: "Форма временно не подключена." });
   }
 
@@ -128,7 +134,7 @@ export default async function handler(req: RequestLike, res: ResponseLike) {
         email,
         message,
         consent: true,
-        consentVersion: "privacy-policy-version-required",
+        consentVersion: policyVersion,
         source: "iv-partner.ru",
         submittedAt: new Date().toISOString(),
       }),
