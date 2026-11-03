@@ -107,7 +107,7 @@ export default function CatalogSection() {
                     <span>{product.title}</span><span className="text-brand" aria-hidden="true">↗</span>
                   </figcaption>
                 </figure>
-              </a>
+              </div>
             ))}
           </div>
         </div>
@@ -115,27 +115,27 @@ export default function CatalogSection() {
         <div className="mt-14 border-t border-line pt-10">
           <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[.18em] text-muted">Ссылки на товары</p>
+              <p className="text-xs font-semibold uppercase tracking-[.18em] text-muted">Сохранённые названия</p>
               <h3 className="mt-2 text-2xl font-extrabold tracking-tight">Товары из исходного каталога</h3>
             </div>
             <p className="max-w-lg text-sm leading-6 text-muted">В проекте сохранены названия и ссылки на эти карточки. Полные описания и характеристики пока не восстановлены и требуют повторной сверки.</p>
           </div>
           <div className="mt-6 divide-y divide-line border-y border-line">
             {catalogProductLinks.map((product, index) => (
-              <a key={product.href} href={product.href} target="_blank" rel="noreferrer" className="group flex flex-col gap-2 py-5 transition-colors hover:text-brand sm:flex-row sm:items-center sm:justify-between">
+              <div key={product.sourceUrl} className="flex flex-col gap-2 py-5 sm:flex-row sm:items-center sm:justify-between">
                 <span className="flex items-start gap-4">
                   <span className="pt-0.5 text-xs text-muted">{String(index + 1).padStart(2, "0")}</span>
                   <span className="font-semibold">{product.title}</span>
                 </span>
                 <span className="flex items-center gap-3 pl-8 text-xs text-muted sm:pl-0">
-                  <span>{product.category}</span><span className="text-brand transition-transform group-hover:translate-x-1" aria-hidden="true">↗</span>
+                  <span>{product.category}</span>
                 </span>
               </a>
             ))}
           </div>
         </div>
         <p className="mt-5 text-xs leading-6 text-muted">
-          Это не полный каталог: остальные карточки и характеристики будут добавляться только после проверки исходных страниц. Для полного ассортимента пока доступны ссылки на соответствующие разделы сайта компании.
+          Это не полный каталог. Исходные адреса карточек не публикуются как активные ссылки, поскольку после замены сайта на домене iv-partner.ru они могут вести обратно на новый сайт или на несуществующие страницы. Ссылки и характеристики будут возвращены после повторной проверки и переноса карточек.
         </p>
       </div>
     </section>
