@@ -21,14 +21,13 @@ export const catalog = [
     "Коттеджные двери со стеклопакетом", "Двери металл–металл", "Двери металл–МДФ",
   ]},
   { group: "Бронированные двери", items: [
-    "Банковские лотки", "Двери 3 класса защиты", "Защитные двери", "Дверные блоки для строителей",
+    "Банковские лотки", "Двери 3 класса защиты", "Защитные двери",
   ]},
   { group: "Деревянные двери", items: [
-    "Полнотелые деревянные двери",
+    "Полнотелые деревянные двери", "Дверные блоки для строителей",
   ]},
-  { group: "Антипаника", items: ["Антипаника"] },
-  { group: "Фурнитура", items: ["Фурнитура для противопожарных дверей"] },
-  { group: "Цвета и отделка", items: ["Подбор цвета и вариантов окраски"] },
+  { group: "Антипаника", items: ["Антипаника", "Фурнитура для противопожарных дверей"] },
+  { group: "Цвета и покраска", items: ["Выбрать цвет"] },
 ];
 
 export const productImages = [
@@ -107,7 +106,7 @@ export const catalogUrls: Record<string, string> = {
   "Дверные блоки для строителей": "https://iv-partner.ru/product-category/cooking/dvernye-bloki-dlya-stroitelej/",
   "Антипаника": "https://iv-partner.ru/product-category/lighting/",
   "Фурнитура для противопожарных дверей": "https://iv-partner.ru/product-category/lighting/furnitura-dlya-protivopozharnyh-dverej/",
-  "Подбор цвета и вариантов окраски": "https://iv-partner.ru/color-palette/ral-classic/",
+  "Выбрать цвет": "https://iv-partner.ru/color-palette/ral-classic/",
 };
 
 export const verifiedCategoryProducts = [
