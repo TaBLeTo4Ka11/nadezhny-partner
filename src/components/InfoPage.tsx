@@ -9,6 +9,7 @@ const pages: Record<PageKey, { title: string; path: string }> = {
   useful: { title: "Полезное", path: "/poleznoe/" },
   privacy: { title: "Политика конфиденциальности", path: "/privacy-policy/" },
   cookies: { title: "Согласие на cookie", path: "/kuki/" },
+  palette: { title: "Выбрать цвет · RAL Classic", path: "/color-palette/ral-classic/" },
   colors: { title: "Выбрать цвет · RAL Classic", path: "/color-palette/ral-classic/" },
 };
 
