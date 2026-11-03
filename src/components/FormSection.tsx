@@ -1,19 +1,28 @@
-import type { FormEvent } from "react";
+import { useRef, type FormEvent } from "react";
 import { sendMail } from "../data/content";
 
 const field =
   "w-full border-0 border-b border-white/30 bg-transparent py-4 text-lg text-white outline-none transition-colors placeholder:text-white/50 focus:border-white";
 
 export default function FormSection() {
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const f = new FormData(e.currentTarget);
+  const mountedAt = useRef(Date.now());
+
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const fields = new FormData(form);
+
+    // Basic client-side bot friction only. A real server endpoint is required for robust spam protection.
+    if (String(fields.get("website") || "").trim()) return;
+    if (Date.now() - mountedAt.current < 2500) return;
+    if (!form.reportValidity()) return;
+
     sendMail("Запрос КП", {
-      Имя: String(f.get("name")),
-      Телефон: String(f.get("phone")),
-      Email: String(f.get("email") || ""),
-      "Техническое задание": String(f.get("task") || ""),
-      "Согласие на обработку персональных данных": f.get("consent") ? "Да" : "Нет",
+      Имя: String(fields.get("name")),
+      Телефон: String(fields.get("phone")),
+      Email: String(fields.get("email") || ""),
+      "Техническое задание": String(fields.get("task") || ""),
+      "Согласие на обработку персональных данных": fields.get("consent") ? "Да" : "Нет",
     });
   };
 
@@ -45,6 +54,11 @@ export default function FormSection() {
             <textarea id="kp-task" name="task" rows={4} placeholder="ТЗ" className={field + " resize-none"} />
           </div>
 
+          <div className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+            <label htmlFor="kp-website">Не заполняйте это поле</label>
+            <input id="kp-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+          </div>
+
           <label className="flex cursor-pointer items-start gap-4 text-sm text-white/70">
             <input type="checkbox" name="consent" value="yes" required className="mt-0.5 h-5 w-5 shrink-0 accent-white" />
             <span>
@@ -56,10 +70,10 @@ export default function FormSection() {
           </label>
 
           <div>
-            <button type="submit" className="btn px-10 py-4 text-base">
-              Подготовить письмо с запросом
-            </button>
-            <p className="mt-4 max-w-xl text-xs leading-5 text-white/50">После отправки откроется почтовое приложение с заполненным письмом. При необходимости приложите к нему файл с техническим заданием вручную.</p>
+            <button type="submit" className="btn px-10 py-4 text-base">Подготовить письмо с запросом</button>
+            <p className="mt-4 max-w-xl text-xs leading-5 text-white/50">
+              После отправки откроется почтовое приложение с заполненным письмом. При необходимости приложите к нему файл с техническим заданием вручную.
+            </p>
           </div>
         </form>
       </div>
