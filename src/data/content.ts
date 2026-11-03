@@ -1,5 +1,5 @@
 export const EMAIL = "bux_partner2017@bk.ru";
-export const ADDRESS = "153025, г. Иваново, ул. Тимирязева, д.1 стр.2, офис 324";
+export const ADDRESS = "153025, г. Иваново, ул. Тимирязева, д. 1, стр. 2, офисы 324–325";
 
 export const PHONES = [
   { label: "8 (800) 222 88 37", href: "tel:88002228837" },
