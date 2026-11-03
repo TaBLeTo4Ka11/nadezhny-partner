@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { PHONES, sendMail } from "../data/content";
 import { catalog, catalogUrls } from "../data/companyContent";
 
@@ -31,6 +31,7 @@ export default function Header() {
   const [menu, setMenu] = useState(false);
   const [call, setCall] = useState(false);
   const [active, setActive] = useState("");
+  const callOpenedAt = useRef(0);
 
   // Подсветка активного раздела
   useEffect(() => {
@@ -66,7 +67,11 @@ export default function Header() {
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const f = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const f = new FormData(form);
+    if (String(f.get("website") || "").trim()) return;
+    if (Date.now() - callOpenedAt.current < 2500) return;
+    if (!form.reportValidity()) return;
     sendMail("Заказ звонка", { Имя: String(f.get("name")), Телефон: String(f.get("phone")), "Согласие на обработку персональных данных": f.get("consent") ? "Да" : "Нет" });
     setCall(false);
   };
@@ -123,7 +128,7 @@ export default function Header() {
             <a href={PHONES[0].href} className="hidden whitespace-nowrap text-sm font-bold lg:block">
               {PHONES[0].label}
             </a>
-            <button type="button" onClick={() => setCall(true)} className="btn hidden md:block">
+            <button type="button" onClick={() => { callOpenedAt.current = Date.now(); setCall(true); }} className="btn hidden md:block">
               Заказать звонок
             </button>
             <a
@@ -181,6 +186,7 @@ export default function Header() {
               type="button"
               onClick={() => {
                 setMenu(false);
+                callOpenedAt.current = Date.now();
                 setCall(true);
               }}
               className="btn"
@@ -228,6 +234,10 @@ export default function Header() {
               <input id="cb-name" name="name" type="text" required autoComplete="name" placeholder="Имя" className={field} />
               <label htmlFor="cb-phone" className="sr-only">Телефон</label>
               <input id="cb-phone" name="phone" type="tel" required autoComplete="tel" placeholder="Телефон" className={field + " mt-4"} />
+              <div className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+                <label htmlFor="cb-website">Не заполняйте это поле</label>
+                <input id="cb-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+              </div>
               <label className="mt-6 flex cursor-pointer items-start gap-3 text-xs leading-5 text-muted">
                 <input type="checkbox" name="consent" value="yes" required className="mt-0.5 h-4 w-4 shrink-0 accent-[#c62828]" />
                 <span>
