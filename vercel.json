@@ -202,6 +202,15 @@
           "value": "noindex, follow"
         }
       ]
+    },
+    {
+      "source": "/product/:path*",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
     }
   ]
 }
