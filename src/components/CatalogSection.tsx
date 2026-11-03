@@ -1,7 +1,8 @@
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { catalog, catalogUrls, productImages, verifiedCategoryProducts } from "../data/companyContent";
+import { catalog, productImages, verifiedCategoryProducts } from "../data/companyContent";
+import { catalogPageByTitle } from "../data/catalogPages";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -77,8 +78,8 @@ export default function CatalogSection() {
                 {group.items.map((item) => (
                   <li key={item} className="flex gap-3 text-sm leading-6 text-ink/80">
                     <span className="font-bold text-brand" aria-hidden="true">↗</span>
-                    {catalogUrls[item] ? (
-                      <a href={catalogUrls[item]} target="_blank" rel="noreferrer" className="underline decoration-transparent underline-offset-4 transition hover:text-brand hover:decoration-brand">{item}</a>
+                    {catalogPageByTitle[item] ? (
+                      <a href={"/catalog/" + catalogPageByTitle[item].slug + "/"} className="underline decoration-transparent underline-offset-4 transition hover:text-brand hover:decoration-brand">{item}</a>
                     ) : <span>{item}</span>}
                   </li>
                 ))}
