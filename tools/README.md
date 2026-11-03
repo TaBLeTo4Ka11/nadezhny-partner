@@ -38,3 +38,8 @@
 - Скачиваются только изображения и PDF с того же домена, максимум 500 файлов по 30 МБ каждый.
 - Публичные sitemap/HTML используются как ограниченный запасной источник, если каталог API пуст.
 - Для юридически и коммерчески значимых данных требуется ручная сверка с владельцем.
+
+
+## Owner-authorized GitHub Actions export
+
+A one-time export workflow is available on branch `gpt6/site-completion`. It runs only when its workflow file or this README changes, checks out the exporter, and attempts a conservative owner-authorized WordPress/WooCommerce export. The output is uploaded as a short-lived Actions artifact (3 days). No credentials are stored in the repository; this first run uses public APIs. If the site requires authentication, use the Colab notebook with owner-provided read-only credentials.
