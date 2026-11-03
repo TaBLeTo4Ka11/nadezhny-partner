@@ -32,6 +32,8 @@ export default function Header() {
   const [menu, setMenu] = useState(false);
   const [call, setCall] = useState(false);
   const [active, setActive] = useState("");
+  const [callSubmitting, setCallSubmitting] = useState(false);
+  const [callStatus, setCallStatus] = useState("");
   const callOpenedAt = useRef(0);
 
   // Подсветка активного раздела
@@ -66,15 +68,47 @@ export default function Header() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
-    const f = new FormData(form);
-    if (String(f.get("website") || "").trim()) return;
-    if (Date.now() - callOpenedAt.current < 2500) return;
-    if (!form.reportValidity()) return;
-    sendMail("Заказ звонка", { Имя: String(f.get("name")), Телефон: String(f.get("phone")), "Согласие на обработку персональных данных": f.get("consent") ? "Да" : "Нет" });
-    setCall(false);
+    const fields = new FormData(form);
+    if (!form.reportValidity() || callSubmitting) return;
+    if (String(fields.get("website") || "").trim()) return;
+
+    const payload = {
+      name: String(fields.get("name") || ""),
+      phone: String(fields.get("phone") || ""),
+      consent: fields.get("consent") === "yes",
+      website: String(fields.get("website") || ""),
+      startedAt: callOpenedAt.current,
+    };
+
+    setCallSubmitting(true);
+    setCallStatus("");
+    try {
+      const response = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "same-origin",
+        body: JSON.stringify(payload),
+      });
+      const result = await response.json().catch(() => ({}));
+      if (response.ok && result.ok) {
+        setCall(false);
+      } else if (response.status === 503 && result.code === "email_not_configured") {
+        sendMail("Заказ звонка", { Имя: payload.name, Телефон: payload.phone, "Согласие на обработку персональных данных": "Да" });
+        setCallStatus("Открылось почтовое приложение. Проверьте данные и отправьте письмо.");
+      } else if (response.status === 429) {
+        setCallStatus("Слишком много заявок. Попробуйте позже или позвоните нам.");
+      } else {
+        setCallStatus("Не удалось отправить запрос. Попробуйте ещё раз или позвоните нам.");
+      }
+    } catch {
+      sendMail("Заказ звонка", { Имя: payload.name, Телефон: payload.phone, "Согласие на обработку персональных данных": "Да" });
+      setCallStatus("Открылось почтовое приложение с подготовленным письмом.");
+    } finally {
+      setCallSubmitting(false);
+    }
   };
 
   const cls = (id: string) =>
@@ -248,8 +282,8 @@ export default function Header() {
                   </a>
                 </span>
               </label>
-              <button type="submit" className="btn mt-8">Подготовить письмо</button>
-              <p className="mt-3 text-xs leading-5 text-muted">Откроется почтовое приложение с готовым письмом.</p>
+              <button type="submit" disabled={callSubmitting} className="btn mt-8 disabled:opacity-60">{callSubmitting ? "Отправка…" : "Отправить"}</button>
+              <p className="mt-3 text-xs leading-5 text-muted" aria-live="polite">{callStatus || "Если серверная отправка ещё не настроена, откроется почтовое приложение."}</p>
             </form>
           </div>
         </div>
