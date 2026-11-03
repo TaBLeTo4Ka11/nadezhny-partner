@@ -5,6 +5,7 @@ const root = process.cwd();
 const dist = path.join(root, "dist");
 const categories = JSON.parse(fs.readFileSync(path.join(root, "seo/catalog-pages.json"), "utf8"));
 const products = JSON.parse(fs.readFileSync(path.join(root, "seo/product-pages.json"), "utf8"));
+const companyPages = JSON.parse(fs.readFileSync(path.join(root, "seo/company-pages.json"), "utf8"));
 const baseUrl = "https://iv-partner.ru";
 const indexHtml = fs.readFileSync(path.join(dist, "index.html"), "utf8");
 const script = indexHtml.match(/<script[^>]+src="([^"]+)"[^>]*>/i)?.[1];
@@ -59,12 +60,17 @@ for (const page of products) {
   writePage("product/" + page.slug, title, page.description, "noindex,follow", body);
 }
 
-const companyPages = [
-  { route: "o-kompanii", title: "О компании — Надёжный партнёр", description: "О компании «Надёжный партнёр»: производство, поставка и монтаж дверных и противопожарных конструкций." },
-  { route: "kontakty", title: "Контакты — Надёжный партнёр", description: "Контактные данные, адрес и режим работы компании «Надёжный партнёр» в Иваново." }
-];
 for (const page of companyPages) {
-  const body = header + "<main><h1>" + escapeHtml(page.title.split(" — ")[0]) + "</h1><p>" + escapeHtml(page.description) + '</p><p><a href="/#kp">Связаться с компанией</a></p></main>';
+  let body = header + "<main><h1>" + escapeHtml(page.title.split(" — ")[0]) + "</h1>";
+  if (page.paragraphs) {
+    body += page.paragraphs.map((paragraph) => "<p>" + escapeHtml(paragraph) + "</p>").join("\\n");
+    body += "<h2>Этапы производства</h2><ul>" + page.stages.map((stage) => "<li>" + escapeHtml(stage) + "</li>").join("") + "</ul>";
+  } else {
+    body += "<p>" + escapeHtml(page.address) + "</p>";
+    body += "<p>" + page.phones.map(escapeHtml).join(" · ") + "</p>";
+    body += "<p>" + escapeHtml(page.email) + "</p><p>" + escapeHtml(page.hours) + "</p>";
+  }
+  body += '<p><a href="/#kp">Связаться с компанией</a></p></main>';
   writePage(page.route, page.title, page.description, "index,follow", body);
 }
 
