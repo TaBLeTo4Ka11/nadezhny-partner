@@ -13,6 +13,7 @@ import ReviewsSection from "./components/ReviewsSection";
 import FormSection from "./components/FormSection";
 import MapSection from "./components/MapSection";
 import Footer from "./components/Footer";
+import CookieConsent from "./components/CookieConsent";
 
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
@@ -26,7 +27,9 @@ export default function App() {
 
   return (
     <>
-      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-white focus:px-4 focus:py-3 focus:text-ink focus:shadow-lg">Перейти к содержимому</a>
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-white focus:px-4 focus:py-3 focus:text-ink focus:shadow-lg">
+        Перейти к содержимому
+      </a>
       <Header />
       <main id="main-content">
         <HeroSection />
@@ -40,6 +43,7 @@ export default function App() {
         <MapSection />
       </main>
       <Footer />
+      <CookieConsent />
     </>
   );
 }
