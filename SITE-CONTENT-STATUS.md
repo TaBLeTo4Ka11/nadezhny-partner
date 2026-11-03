@@ -42,4 +42,4 @@
 
 ## Запуск
 
-Node.js 20.19+ или 22.12+, затем `npm ci` и `npm run dev`. Production-сборка: `npm run build`. TypeScript check: `npx tsc --noEmit`. Проверка зависимостей: `npm audit --audit-level=moderate`.
+Node.js 22.12+ или 24.x; CI использует 24.x, затем `npm ci` и `npm run dev`. Production-сборка: `npm run build`. TypeScript check: `npx tsc --noEmit`. Проверка зависимостей: `npm audit --audit-level=moderate`.
