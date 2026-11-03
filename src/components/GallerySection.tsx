@@ -1,1 +1,33 @@
-import {useLayoutEffect,useRef} from "react";import gsap from "gsap";import {ScrollTrigger} from "gsap/ScrollTrigger";gsap.registerPlugin(ScrollTrigger);const cards=["Производство","Монтажные решения","Готовые конструкции"];export default function GallerySection(){const ref=useRef<HTMLElement>(null);useLayoutEffect(()=>{const c=gsap.context(()=>gsap.from(".work",{y:45,opacity:0,stagger:.15,scrollTrigger:{trigger:ref.current,start:"top 75%"}}),ref);return()=>c.revert()},[]);return <section ref={ref} className="section"><div className="container"><p className="eyebrow mb-8">03 — Практика</p><h2 className="section-title mb-14">Работа <span className="text-[#858d90]">говорит</span><br/>сама за себя.</h2><div className="grid gap-4 md:grid-cols-3">{cards.map((x,i)=><div className="work panel flex aspect-[4/5] flex-col justify-between p-7" key={x}><span className="eyebrow">0{i+1} / Portfolio</span><h3 className="text-2xl">{x}</h3></div>)}</div><p className="mt-6 text-xs text-[#747c7f]">Здесь необходимо заменить визуальные заглушки реальными фотографиями производства и объектов компании.</p></div></section>}
+import { useLayoutEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { workImages } from "../data/companyContent";
+gsap.registerPlugin(ScrollTrigger);
+
+export default function GallerySection() {
+  const ref = useRef<HTMLElement>(null);
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => gsap.from(".work-image", {
+      y: 35, opacity: 0, stagger: 0.07, duration: 0.75,
+      scrollTrigger: { trigger: ref.current, start: "top 78%" }
+    }), ref);
+    return () => ctx.revert();
+  }, []);
+  return <section ref={ref} id="gallery" className="section">
+    <div className="container">
+      <p className="eyebrow mb-8">06 — Реализованные работы</p>
+      <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <h2 className="section-title">Результат <span className="text-[#858d90]">в деталях.</span></h2>
+        <p className="max-w-sm text-sm leading-7 text-[#92989a]">Фотографии объектов из галереи оригинального сайта компании.</p>
+      </div>
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
+        {workImages.map((src, i) => <figure className="work-image group overflow-hidden border border-[#292d2f] bg-[#111516]" key={src}>
+          <div className="aspect-[4/5] overflow-hidden">
+            <img src={src} alt={`Реализованный объект компании — фото ${i + 1}`} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          </div>
+          <figcaption className="flex justify-between p-3 text-[10px] uppercase tracking-[.15em] text-[#92989a]"><span>Объект компании</span><span>0{i + 1}</span></figcaption>
+        </figure>)}
+      </div>
+    </div>
+  </section>;
+}
