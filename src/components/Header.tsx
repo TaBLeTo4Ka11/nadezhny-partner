@@ -17,7 +17,7 @@ const CATALOG = catalog.flatMap((group) =>
   group.items.map((label) => ({ label, href: catalogUrls[label] ?? "#catalog" }))
 );
 
-// «Склад» и «Доставка и установка»: отдельных разделов пока нет, ведём на контакты
+// Информационные страницы пока содержат заглушки до переноса проверенных оригинальных текстов.
 const NAV = [
   { label: "О компании", href: "#about", id: "about" },
   { label: "Производство", href: "#production", id: "production" },
