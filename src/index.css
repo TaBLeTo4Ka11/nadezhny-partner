@@ -2,43 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: dark;
-  --page: #0A0B0C;
-  --surface: #111416;
-  --surface-raised: #171B1E;
-  --surface-deep: #080A0B;
-  --line: #2A2F33;
-  --text: #F0F1EF;
-  --muted: #92999D;
-  --accent: #B7C0C4;
-}
-
 @layer base {
   html {
-    background: var(--page);
-    color-scheme: dark;
+    background: #ffffff;
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
   body {
-    min-height: 100vh;
-    background: var(--page);
-    color: var(--text);
-    @apply font-sans antialiased;
-  }
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    opacity: .16;
-    background-image:
-      linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-    background-size: 72px 72px;
-    mask-image: linear-gradient(to bottom, black, transparent 78%);
+    @apply bg-white font-sans text-ink antialiased;
   }
   *,
   *::before,
@@ -54,15 +25,17 @@
     border-radius: 0;
   }
   ::selection {
-    background: #DCE1E3;
-    color: #080A0B;
+    background: #1a1a1a;
+    color: #fff;
   }
   :focus-visible {
-    outline: 2px solid #DCE1E3;
+    outline: 2px solid #1a1a1a;
     outline-offset: 3px;
   }
   @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
+    html {
+      scroll-behavior: auto;
+    }
   }
 }
 
@@ -70,86 +43,8 @@
   .safe-area-top {
     padding-top: env(safe-area-inset-top, 0px);
   }
+
   .btn {
-    @apply inline-block bg-brand px-6 py-3 text-sm font-semibold transition-colors duration-300;
-    color: #080A0B;
+    @apply inline-block bg-brand px-6 py-3 text-sm font-semibold text-white transition-colors duration-300 hover:bg-[#a52020];
   }
-  .btn:hover {
-    background: #E1E5E6;
-    color: #080A0B;
-  }
-}
-
-/* Semantic overrides keep the existing content components on the dark theme. */
-html body .bg-white { background-color: var(--surface); }
-html body section.bg-white,
-html body main.bg-white { background-color: var(--page); }
-html body header.bg-white { background-color: rgba(10, 11, 12, .9); }
-html body article.bg-white,
-html body li.bg-white,
-html body div.bg-white,
-html body ul.bg-white,
-html body .bg-white[role="dialog"] { background-color: var(--surface-raised); }
-html body .bg-soft { background-color: #111416; }
-html body .bg-graphite { background-color: var(--surface-deep); }
-html body .text-ink { color: var(--text); }
-html body .text-muted { color: var(--muted); }
-html body .text-brand { color: var(--accent); }
-html body .border-line { border-color: var(--line); }
-html body .border-ink { border-color: #737D82; }
-html body .bg-brand { background-color: var(--accent); }
-html body .hover\:bg-ink:hover { background-color: #DCE1E3; }
-html body .hover\:text-white:hover { color: #080A0B; }
-
-header.sticky {
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-color: rgba(255,255,255,.11);
-}
-header.sticky > div:first-child {
-  background: rgba(255,255,255,.025);
-}
-.industrial-hero {
-  position: relative;
-  isolation: isolate;
-  background:
-    radial-gradient(ellipse at 78% 40%, rgba(133,148,154,.12), transparent 42%),
-    linear-gradient(135deg, #0A0B0C 0%, #0D1012 55%, #101416 100%) !important;
-}
-.industrial-hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: .18;
-  background: linear-gradient(115deg, transparent 0 54%, rgba(255,255,255,.06) 54.1%, transparent 54.4%);
-}
-.hero-media {
-  border: 1px solid rgba(220,225,227,.2);
-  background: #171B1E;
-  box-shadow: 0 32px 90px rgba(0,0,0,.38);
-}
-.hero-media img {
-  filter: saturate(.72) contrast(1.06);
-}
-.hero-media::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(180deg, rgba(8,10,11,.04) 35%, rgba(8,10,11,.78) 100%);
-}
-input:not([type="checkbox"]):not([type="radio"]),
-textarea,
-select {
-  border-color: #3B4347 !important;
-  color: var(--text);
-}
-input::placeholder,
-textarea::placeholder { color: #747D82; }
-a { text-underline-offset: 4px; }
-img { color: #92999D; }
-@media (max-width: 767px) {
-  body::before { background-size: 48px 48px; }
 }
