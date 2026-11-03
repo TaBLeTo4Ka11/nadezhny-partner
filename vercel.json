@@ -120,6 +120,10 @@
     {
       "source": "/product/lt-00-shhelevoj/",
       "destination": "/index.html"
+    },
+    {
+      "source": "/color-palette/ral-classic/",
+      "destination": "/index.html"
     }
   ],
   "headers": [
@@ -221,6 +225,15 @@
     },
     {
       "source": "/product/:path*",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    },
+    {
+      "source": "/color-palette/ral-classic/",
       "headers": [
         {
           "key": "X-Robots-Tag",
