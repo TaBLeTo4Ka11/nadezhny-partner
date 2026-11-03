@@ -66,7 +66,7 @@ export default function CategoryPage({ slug }: { slug: string }) {
         {products.length > 0 ? <section className="mt-12">
           <h2 className="text-2xl font-extrabold">Названия из предыдущего извлечения</h2>
           <ul className="mt-5 divide-y divide-line border-y border-line">
-            {products.map(product => <li key={product.sourceUrl} className="py-5 font-semibold">{product.title}</li>)}
+            {products.map(product => <li key={product.sourceUrl} className="py-5 font-semibold">{product.localPath ? <a href={product.localPath} className="underline decoration-transparent underline-offset-4 hover:text-brand hover:decoration-brand">{product.title}</a> : product.title}</li>)}
           </ul>
         </section> : <section className="mt-12 border-y border-line py-8">
           <p className="max-w-2xl text-base leading-7 text-muted">Карточки и характеристики этого раздела пока не перенесены: мы не будем подменять их автоматически сгенерированными описаниями. Уточните актуальную информацию напрямую у компании. Полные карточки и характеристики будут добавлены после повторной проверки первоисточника.</p>
