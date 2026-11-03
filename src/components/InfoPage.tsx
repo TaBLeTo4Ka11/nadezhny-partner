@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { ADDRESS, EMAIL, PHONES, WORKING_HOURS } from "../data/content";
 
 type PageKey = "warehouse" | "delivery" | "vacancies" | "useful";
@@ -51,6 +52,15 @@ const pages: Record<PageKey, {
 
 export default function InfoPage({ page }: { page: PageKey }) {
   const data = pages[page];
+  useEffect(() => {
+    document.title = `${data.title} — Надёжный партнёр | Иваново`;
+    let meta = document.querySelector('meta[name="description"]');
+    if (!meta) { meta = document.createElement("meta"); meta.setAttribute("name", "description"); document.head.appendChild(meta); }
+    meta.setAttribute("content", data.intro);
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) { canonical = document.createElement("link"); canonical.setAttribute("rel", "canonical"); document.head.appendChild(canonical); }
+    canonical.setAttribute("href", `https://iv-partner.ru/${page === "warehouse" ? "sklad" : page === "delivery" ? "dostavka-i-ustanovka" : page === "vacancies" ? "vakansii" : "poleznoe"}/`);
+  }, [data.title, data.intro, page]);
   return (
     <>
       <header className="border-b border-line bg-white px-6 py-5 lg:px-10">
