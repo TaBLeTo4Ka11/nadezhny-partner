@@ -6,8 +6,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# The build only needs read access. PR code and install scripts must never
+# receive a token that can write to repository contents.
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build:
@@ -15,30 +17,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref || github.ref_name }}
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
       - name: Install dependencies
-        run: npm install
-      - name: Commit lockfile for reproducible installs
-        if: github.ref != 'refs/heads/main'
-        env:
-          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add package-lock.json
-          if git diff --cached --quiet; then
-            echo "package-lock.json is already up to date"
-          else
-            git commit -m "build: add reproducible npm lockfile"
-            git fetch origin "${BRANCH_NAME}"
-            git rebase "origin/${BRANCH_NAME}"
-            git push origin "HEAD:${BRANCH_NAME}"
-          fi
+        run: npm install --no-audit --no-fund
       - name: Dependency audit
         run: npm audit --audit-level=moderate
       - name: TypeScript check
