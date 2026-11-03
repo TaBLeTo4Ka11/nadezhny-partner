@@ -233,7 +233,17 @@ export default function Header() {
               <input id="cb-name" name="name" type="text" required autoComplete="name" placeholder="Имя" className={field} />
               <label htmlFor="cb-phone" className="sr-only">Телефон</label>
               <input id="cb-phone" name="phone" type="tel" required autoComplete="tel" placeholder="Телефон" className={field + " mt-4"} />
-              <button type="submit" className="btn mt-8">Отправить</button>
+              <label className="mt-6 flex cursor-pointer items-start gap-3 text-xs leading-5 text-muted">
+                <input type="checkbox" required className="mt-0.5 h-4 w-4 shrink-0 accent-[#c62828]" />
+                <span>
+                  Согласен(на) на обработку персональных данных и с{" "}
+                  <a href="https://iv-partner.ru/privacy-policy/" target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-ink">
+                    политикой конфиденциальности
+                  </a>
+                </span>
+              </label>
+              <button type="submit" className="btn mt-8">Подготовить письмо</button>
+              <p className="mt-3 text-xs leading-5 text-muted">Откроется почтовое приложение с готовым письмом.</p>
             </form>
           </div>
         </div>
