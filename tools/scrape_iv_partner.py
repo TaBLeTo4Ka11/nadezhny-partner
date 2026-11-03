@@ -494,7 +494,7 @@ def main() -> int:
             details = item.get("media_details") or {}
             source_url = item.get("source_url")
             record = {
-                "id": item.get("id), "file": urllib.parse.urlparse(source_url or "").path.rsplit("/", 1)[-1],
+                "id": item.get("id"), "file": urllib.parse.urlparse(source_url or "").path.rsplit("/", 1)[-1],
                 "url": source_url, "mime": mime, "width": details.get("width"),
                 "height": details.get("height"), "alt": item.get("alt_text"),
                 "title": html_to_record(item, "title"), "page_url": item.get("link"),
