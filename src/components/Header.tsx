@@ -4,8 +4,8 @@ import { PHONES, sendMail } from "../data/content";
 const LOGO = "https://iv-partner.ru/wp-content/uploads/2021/08/dveri-300x301.png";
 
 const TOP = [
-  { label: "Политика конфиденциальности", href: "#privacy" },
-  { label: "Согласие на cookie", href: "#cookies" },
+  { label: "Политика конфиденциальности", href: "https://iv-partner.ru/privacy-policy/" },
+  { label: "Согласие на cookie", href: "https://iv-partner.ru/kuki/" },
   { label: "Наши заказы", href: "#gallery" },
   { label: "Наши отзывы", href: "#reviews" },
 ];
