@@ -1,64 +1,10 @@
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { IMG } from "../data/content";
-
+import { catalog, productImages } from "../data/companyContent";
 gsap.registerPlugin(ScrollTrigger);
-
-const PLACEHOLDER = "https://placehold.co/800x600/f8f9fa/1a1a1a?text=Photo";
-
-const ITEMS: { title: string; text: string; image?: string }[] = [
-  { title: "Противопожарные двери", text: "Производство, поставка и монтаж. Изготовление под размеры и эскиз заказчика.", image: IMG.door1 },
-  { title: "Ворота", text: "Противопожарные ворота: производство, поставка и монтаж.", image: IMG.gates },
-  { title: "Шторы", text: "Противопожарные шторы: производство, поставка и монтаж.", image: IMG.curtains },
-  { title: "Люки", text: "Противопожарные люки под размеры вашего объекта." },
-  { title: "Перегородки", text: "Противопожарные перегородки для административных и муниципальных объектов." },
-  { title: "Бронированные двери", text: "Сталь полотна 2 — 3 мм, по желанию заказчика 5 мм." },
-];
-
 export default function CatalogSection() {
   const root = useRef<HTMLElement>(null);
-
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray<HTMLElement>("[data-card]", root.current ?? undefined);
-      gsap.set(cards, { opacity: 0, y: 40 });
-      ScrollTrigger.batch(cards, {
-        start: "top 90%",
-        once: true,
-        onEnter: (b) => gsap.to(b, { opacity: 1, y: 0, duration: 0.9, ease: "power3.out", stagger: 0.1, overwrite: true }),
-      });
-    }, root);
-    return () => ctx.revert();
-  }, []);
-
-  return (
-    <section ref={root} id="catalog" className="scroll-mt-28 bg-white px-6 py-24 lg:px-10 lg:py-36">
-      <div className="mx-auto max-w-[1400px]">
-        <h2 className="max-w-[14ch] text-[clamp(2rem,5vw,4.5rem)] font-extrabold leading-none tracking-tight">Каталог</h2>
-
-        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {ITEMS.map((c) => (
-            <article key={c.title} data-card className="flex flex-col border border-line bg-white">
-              <div className="aspect-[4/3] overflow-hidden bg-soft">
-                <img
-                  src={c.image ?? PLACEHOLDER}
-                  alt={c.title}
-                  loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-                />
-              </div>
-              <div className="flex flex-1 flex-col p-6">
-                <h3 className="text-xl font-extrabold tracking-tight">{c.title}</h3>
-                <p className="mt-3 flex-1 text-base leading-relaxed text-muted">{c.text}</p>
-                <a href="#kp" className="btn mt-6 self-start">
-                  Подробнее
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+  useLayoutEffect(() => { const ctx = gsap.context(() => { const cards = gsap.utils.toArray<HTMLElement>("[data-category]", root.current ?? undefined); gsap.set(cards,{opacity:0,y:28}); ScrollTrigger.batch(cards,{start:"top 90%",once:true,onEnter:batch=>gsap.to(batch,{opacity:1,y:0,stagger:.08,duration:.8,ease:"power3.out"})}); },root); return()=>ctx.revert(); },[]);
+  return <section ref={root} id="catalog" className="scroll-mt-28 bg-white px-6 py-24 lg:px-10 lg:py-36"><div className="mx-auto max-w-[1400px]"><p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-muted">Ассортимент продукции</p><h2 className="max-w-[14ch] text-[clamp(2.25rem,5vw,4.5rem)] font-extrabold leading-none tracking-tight">Каталог</h2><div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{catalog.map((group,i)=><article data-category key={group.group} className="border border-line bg-white p-7 transition-colors hover:border-brand"><div className="mb-7 flex items-center justify-between border-b-2 border-ink pb-5"><h3 className="text-xl font-extrabold tracking-tight">{group.group}</h3><span className="text-xs font-semibold tabular-nums text-muted">0{i+1}</span></div><ul className="space-y-3">{group.items.map(item=><li key={item} className="flex gap-3 text-sm leading-6 text-ink/80"><span className="font-bold text-brand">↗</span>{item}</li>)}</ul><a href="#kp" className="btn mt-8">Запросить КП</a></article>)}</div><div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">{productImages.map(p=><figure key={p.src} className="overflow-hidden border border-line bg-soft"><div className="aspect-[4/5] overflow-hidden"><img src={p.src} alt={p.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"/></div><figcaption className="p-4 text-sm font-semibold">{p.title}</figcaption></figure>)}</div><p className="mt-5 text-xs leading-6 text-muted">Представлены основные направления и доступные фотографии продукции. Полный перечень товарных карточек с характеристиками ещё требует выгрузки из каталога.</p></div></section>;
 }
