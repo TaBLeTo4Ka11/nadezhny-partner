@@ -1,0 +1,52 @@
+name: Authorized source export
+
+on:
+  push:
+    branches:
+      - gpt6/site-completion
+    paths:
+      - .github/workflows/export-source.yml
+      - tools/README.md
+
+permissions:
+  contents: read
+
+concurrency:
+  group: authorized-source-export
+  cancel-in-progress: false
+
+jobs:
+  export:
+    name: Export authorized WordPress content
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout project tools
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install exporter dependencies
+        run: python -m pip install --disable-pip-version-check requests beautifulsoup4
+
+      - name: Run owner-authorized export
+        env:
+          IVP_OWNER_AUTHORIZED: "1"
+          IVP_BASE_URL: "https://iv-partner.ru"
+          IVP_DELAY_SECONDS: "1.5"
+          IVP_DOWNLOAD_MEDIA: "1"
+        run: python tools/scrape_iv_partner.py
+
+      - name: Upload export archive and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iv-partner-authorized-export
+          path: |
+            iv-partner-export.zip
+            iv-partner-export/
+          if-no-files-found: warn
+          retention-days: 3

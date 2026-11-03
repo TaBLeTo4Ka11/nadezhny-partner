@@ -1,6 +1,6 @@
 export const company = {
   name: "Надёжный партнёр",
-  experience: "15+",
+  experience: "15",
   email: "bux_partner2017@bk.ru",
   address: "153025, г. Иваново, ул. Тимирязева, д. 1, стр. 2, офисы 324–325",
   phones: [
@@ -13,29 +13,30 @@ export const company = {
 
 export const catalog = [
   { group: "Входные двери", items: [
-    "Двери с зеркалом", "Двери с терморазрывом", "Двери МДФ-МДФ",
-    "Коттеджные двери со стеклопакетом", "Двери металл-металл", "Двери Металл-МДФ",
+    "Двери с терморазрывом", "Двери с зеркалом", "Двери МДФ-МДФ", "Двери металл-металл",
+    "Двери Металл-МДФ", "Коттеджные двери со стеклопакетом",
   ]},
   { group: "Противопожарные преграды", items: [
-    "Противопожарные двери", "Противопожарные ворота", "Противопожарные шторы",
-    "Противопожарные люки", "Светопрозрачные перегородки противопожарные",
+    "Противопожарные ворота", "Противопожарные двери", "Противопожарные люки",
+    "Противопожарные шторы", "Светопрозрачные перегородки противопожарные",
   ]},
   { group: "Бронированные двери", items: [
-    "Банковские лотки", "Двери 3 класса защиты", "Двери защитные", "Дверные блоки для строителей",
+    "Банковские лотки", "Двери 3 класса защиты", "Двери защитные",
   ]},
   { group: "Деревянные двери", items: [
-    "Полнотелые деревянные двери",
+    "Полнотелые деревянные двери", "Дверные блоки для строителей",
   ]},
-  { group: "Антипаника", items: ["Антипаника", "Фурнитура для противопожарных дверей"] },
-  { group: "Цвета и покраска", items: ["Выбрать цвет"] },
+  { group: "Антипаника", items: [
+    "Фурнитура для противопожарных дверей",
+  ]},
 ];
 
 export const productImages = [
-  { title: "ДМП-1-EIS60", src: "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-1-EIS60-e1647434608692.jpg", href: "https://iv-partner.ru/product-category/accessories/protivopozharnye-dveri/" },
-  { title: "ДМП-2-EIS60", src: "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-2-EIS60-e1647434559868.jpg", href: "https://iv-partner.ru/product-category/accessories/protivopozharnye-dveri/" },
-  { title: "ДМП-01-EIS60", src: "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-01-EIS60-e1647434479532.jpg", href: "https://iv-partner.ru/product-category/accessories/protivopozharnye-dveri/" },
-  { title: "Противопожарные ворота", src: "https://iv-partner.ru/wp-content/uploads/2022/03/vorota-protivopojarnie.jpg", href: "https://iv-partner.ru/product-category/accessories/protivopozharnye-vorota/" },
-  { title: "Противопожарные шторы", src: "https://iv-partner.ru/wp-content/uploads/2022/03/protivopojarniye-shtori.jpg", href: "https://iv-partner.ru/product-category/accessories/protivopozharnye-shtory/" },
+  { title: "ДМП-1-EIS60", src: "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-1-EIS60-e1647434608692.jpg", href: "/catalog/protivopozharnye-dveri/" },
+  { title: "ДМП-2-EIS60", src: "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-2-EIS60-e1647434559868.jpg", href: "/catalog/protivopozharnye-dveri/" },
+  { title: "ДМП-01-EIS60", src: "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-01-EIS60-e1647434479532.jpg", href: "/catalog/protivopozharnye-dveri/" },
+  { title: "Противопожарные ворота", src: "https://iv-partner.ru/wp-content/uploads/2022/03/vorota-protivopojarnie.jpg", href: "/catalog/protivopozharnye-vorota/" },
+  { title: "Противопожарные шторы", src: "https://iv-partner.ru/wp-content/uploads/2022/03/protivopojarniye-shtori.jpg", href: "/catalog/protivopozharnye-shtory/" },
 ];
 
 export const workImages = [
@@ -68,51 +69,36 @@ export const productionImages = [
   "https://iv-partner.ru/wp-content/uploads/2022/03/WhatsApp-Image-2022-03-23-at-11.26.28-2-169x300.jpeg",
 ];
 
-export const about = [
-  "Мы уже более 15 лет занимаемся производством, поставкой и монтажом металлических, противопожарных и бронированных дверей, а также противопожарных штор. Работаем как с крупными компаниями-застройщиками, так и с частными лицами.",
-  "Наши бригады квалифицированных монтажников выполняют работу быстро и качественно. Мы планируем и согласовываем этапы работ с представителями заказчика, работаем чётко и сдаём объекты в срок.",
-  "При сдаче объекта с монтажом противопожарных преград заказчик получает паспорт на каждое изделие, сертификат на всю поставленную партию продукции, а также лицензию МЧС, необходимую для монтажа и обслуживания противопожарных преград.",
-];
-
-export const productionStages = [
-  { title: "Подготовка металла и конструкции", text: "Производство начинается с замеров и выбора металла. Листы стали проверяются на деформации и коррозию. В описании компании указана стандартная толщина полотна 2–3 мм и возможность изготовления из стали 5 мм по желанию заказчика. Коробка выполняется цельногнутой; полотно собирается на каркасе из профильной трубы с рёбрами жёсткости и базальтовой плитой между стальными листами." },
-  { title: "Установка фурнитуры и контроль", text: "На коробку и полотно устанавливаются петли, подготавливаются отверстия под замки и фурнитуру. Проверяются зазоры, сварные швы и качество сборки, затем соединения шлифуются и зачищаются. Перед окраской изделие очищается и обрабатывается для защиты от коррозии." },
-  { title: "Подготовка и окраска", text: "Перед нанесением полимерного покрытия поверхность очищается от старого покрытия, ржавчины и окислов, затем обезжиривается. Для подготовки применяется дробеструйная или пескоструйная обработка." },
-  { title: "Комплектация и завершение", text: "На завершающем этапе устанавливаются фурнитура, уплотнители, ригели и торцевые шпингалеты. На противопожарные двери дополнительно устанавливается термоактивный уплотнитель." },
-];
-
 export const reviews = [
-  { author: "Без имени", rating: "4,5 / 5", text: "Все очень понравилось. Сервис на высоте! Качество дверей отличное. Менеджеры отлично выполняли свою работу, так же как и установщики." },
-  { author: "Алия", rating: "5 / 5", text: "Высокое качество, стильно и лаконично." },
-  { author: "Мария", rating: "5 / 5", text: "Качественная, классическая дверь." },
+  { author: "Алия", rating: "4,5 / 5", text: "Все очень понравилось. Сервис на высоте! Качество дверей отличное. Менеджеры отлично выполняли свою работу, так же как и установщики." },
+  { author: "Мария", rating: "5 / 5", text: "Высокое качество, стильно и лаконично." },
+  { author: "Ольга Петровна", rating: "5 / 5", text: "Качественная, классическая дверь." },
 ];
 
 export const catalogUrls: Record<string, string> = {
-  "Противопожарные двери": "https://iv-partner.ru/product-category/accessories/protivopozharnye-dveri/",
-  "Противопожарные ворота": "https://iv-partner.ru/product-category/accessories/protivopozharnye-vorota/",
-  "Противопожарные шторы": "https://iv-partner.ru/product-category/accessories/protivopozharnye-shtory/",
-  "Противопожарные люки": "https://iv-partner.ru/product-category/accessories/protivopozharnye-ljuki/",
-  "Светопрозрачные перегородки противопожарные": "https://iv-partner.ru/product-category/accessories/svetoprozrachnye-peregorodki-protivopozharnye/",
-  "Двери с зеркалом": "https://iv-partner.ru/product-category/clocks/dveri-s-zerkalom/",
-  "Двери с терморазрывом": "https://iv-partner.ru/product-category/clocks/dveri-s-termorazryvom/",
-  "Двери МДФ-МДФ": "https://iv-partner.ru/product-category/clocks/dveri-mdf-mdf/",
-  "Коттеджные двери со стеклопакетом": "https://iv-partner.ru/product-category/clocks/kottedzhnye-dveri-so-steklopaketom/",
-  "Двери металл-металл": "https://iv-partner.ru/product-category/clocks/dveri-metall-metall/",
-  "Двери Металл-МДФ": "https://iv-partner.ru/product-category/clocks/dveri-metall-mdf/",
-  "Банковские лотки": "https://iv-partner.ru/product-category/cooking/bankovskie-lotki/",
-  "Двери 3 класса защиты": "https://iv-partner.ru/product-category/cooking/dveri-3-klassa-zashhity/",
-  "Двери защитные": "https://iv-partner.ru/product-category/cooking/dveri-zashhitnye/",
-  "Полнотелые деревянные двери": "https://iv-partner.ru/product-category/furniture/polnotelye-derevyannye-dveri/",
-  "Дверные блоки для строителей": "https://iv-partner.ru/product-category/cooking/dvernye-bloki-dlya-stroitelej/",
-  "Антипаника": "https://iv-partner.ru/product-category/lighting/",
-  "Фурнитура для противопожарных дверей": "https://iv-partner.ru/product-category/lighting/furnitura-dlya-protivopozharnyh-dverej/",
-  "Выбрать цвет": "https://iv-partner.ru/color-palette/ral-classic/",
+  "Двери с терморазрывом": "/catalog/dveri-s-termorazryvom/",
+  "Двери с зеркалом": "/catalog/dveri-s-zerkalom/",
+  "Двери МДФ-МДФ": "/catalog/dveri-mdf-mdf/",
+  "Двери Металл-МДФ": "/catalog/dveri-metall-mdf/",
+  "Двери металл-металл": "/catalog/dveri-metall-metall/",
+  "Коттеджные двери со стеклопакетом": "/catalog/kottedzhnye-dveri-so-steklopaketom/",
+  "Противопожарные ворота": "/catalog/protivopozharnye-vorota/",
+  "Противопожарные двери": "/catalog/protivopozharnye-dveri/",
+  "Противопожарные люки": "/catalog/protivopozharnye-ljuki/",
+  "Противопожарные шторы": "/catalog/protivopozharnye-shtory/",
+  "Светопрозрачные перегородки противопожарные": "/catalog/svetoprozrachnye-peregorodki/",
+  "Банковские лотки": "/catalog/bankovskie-lotki/",
+  "Двери 3 класса защиты": "/catalog/dveri-3-klassa-zashchity/",
+  "Двери защитные": "/catalog/dveri-zashchitnye/",
+  "Дверные блоки для строителей": "/catalog/dvernye-bloki-dlya-stroitelej/",
+  "Полнотелые деревянные двери": "/catalog/polnotelye-derevyannye-dveri/",
+  "Фурнитура для противопожарных дверей": "/catalog/furnitura-dlya-protivopozharnyh-dverej/",
 };
 
-export const verifiedCategoryProducts = [
-  { title: "Электромеханический передаточный шлюз стандартный (ШПТ-1.ЭМ)", category: "Банковские лотки", href: "https://iv-partner.ru/product/elektromehanicheskij-peredatochnyj-shljuz-standartnyj-shpt-1-em/" },
-  { title: "Шлюз механический стандартный", category: "Банковские лотки", href: "https://iv-partner.ru/product/shljuz-mehanicheskij-standartnyj/" },
-  { title: "Устройство передаточное подвижное ЛТ-21", category: "Банковские лотки", href: "https://iv-partner.ru/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-21/" },
-  { title: "Устройство передаточное подвижное ЛТ-22", category: "Банковские лотки", href: "https://iv-partner.ru/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-22/" },
-  { title: "ЛТ-00 Щелевой", category: "Банковские лотки", href: "https://iv-partner.ru/product/lt-00-shhelevoj/" },
+export const catalogProductLinks = [
+  { title: "Электромеханический передаточный шлюз стандартный (ШПТ-1.ЭМ)", category: "Банковские лотки", sourceUrl: "https://iv-partner.ru/product/elektromehanicheskij-peredatochnyj-shljuz-standartnyj-shpt-1-em/", localPath: "/product/elektromehanicheskij-peredatochnyj-shljuz-standartnyj-shpt-1-em/" },
+  { title: "Шлюз механический стандартный", category: "Банковские лотки", sourceUrl: "https://iv-partner.ru/product/shljuz-mehanicheskij-standartnyj/", localPath: "/product/shljuz-mehanicheskij-standartnyj/" },
+  { title: "Устройство передаточное подвижное ЛТ-21", category: "Банковские лотки", sourceUrl: "https://iv-partner.ru/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-21/", localPath: "/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-21/" },
+  { title: "Устройство передаточное подвижное ЛТ-22", category: "Банковские лотки", sourceUrl: "https://iv-partner.ru/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-22/", localPath: "/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-22/" },
+  { title: "ЛТ-00 Щелевой", category: "Банковские лотки", sourceUrl: "https://iv-partner.ru/product/lt-00-shhelevoj/", localPath: "/product/lt-00-shhelevoj/" },
 ];
