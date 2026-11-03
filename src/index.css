@@ -98,8 +98,8 @@ html body .text-brand { color: var(--accent); }
 html body .border-line { border-color: var(--line); }
 html body .border-ink { border-color: #737D82; }
 html body .bg-brand { background-color: var(--accent); }
-html body .hover\\:bg-ink:hover { background-color: #DCE1E3; }
-html body .hover\\:text-white:hover { color: #080A0B; }
+html body .hover\:bg-ink:hover { background-color: #DCE1E3; }
+html body .hover\:text-white:hover { color: #080A0B; }
 
 header.sticky {
   backdrop-filter: blur(18px);
