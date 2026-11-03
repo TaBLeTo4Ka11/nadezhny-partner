@@ -36,8 +36,8 @@ export default function CookieConsent() {
           <p className="font-bold text-ink">Настройки cookie</p>
           <p className="mt-1 text-sm leading-6 text-muted">
             Сайт использует необходимые технические cookie для корректной работы.
-            Аналитические и рекламные cookie сейчас не подключены. Подробнее —
-            в <a className="underline underline-offset-4" href="https://iv-partner.ru/kuki/" target="_blank" rel="noreferrer">согласии на использование cookie</a>.
+            Аналитические и рекламные счётчики сейчас не подключены. Подробнее —
+            в <a className="underline underline-offset-4" href="/cookies/">сведениях об использовании cookie</a>.
           </p>
         </div>
         <div className="flex shrink-0 flex-wrap gap-2">
