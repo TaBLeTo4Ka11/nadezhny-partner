@@ -28,6 +28,7 @@ const infoRoutes: Record<string, "warehouse" | "delivery" | "vacancies" | "usefu
   "/poleznoe": "useful",
   "/privacy-policy": "privacy",
   "/kuki": "cookies",
+  "/color-palette/ral-classic": "palette",
   "/color-palette/ral-classic": "colors",
 };
 
