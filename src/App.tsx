@@ -15,6 +15,7 @@ import MapSection from "./components/MapSection";
 import Footer from "./components/Footer";
 import InfoPage from "./components/InfoPage";
 import CategoryPage from "./components/CategoryPage";
+import CompanyPage from "./components/CompanyPage";
 
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
@@ -67,6 +68,8 @@ export default function App() {
     };
   }, []);
 
+  if (path === "/o-kompanii") return <CompanyPage page="about" />;
+  if (path === "/kontakty") return <CompanyPage page="contacts" />;
   if (infoRoutes[path]) return <InfoPage page={infoRoutes[path]} />;
   if (path.startsWith("/catalog/")) {
     const slug = path.slice("/catalog/".length);
