@@ -69,7 +69,7 @@ export default function App() {
     };
   }, []);
 
-  if (path === "/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-21") return <ProductPage />;
+  if (path.startsWith("/product/")) return <ProductPage slug={path.slice("/product/".length)} />;
   if (path === "/o-kompanii") return <CompanyPage page="about" />;
   if (path === "/kontakty") return <CompanyPage page="contacts" />;
   if (infoRoutes[path]) return <InfoPage page={infoRoutes[path]} />;
