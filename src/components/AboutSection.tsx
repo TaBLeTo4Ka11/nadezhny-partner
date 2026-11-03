@@ -12,7 +12,7 @@ export default function AboutSection() {
   }, []);
   return <section ref={ref} id="about" className="section bg-[#0a0c0d]">
     <div className="container">
-      <p className="eyebrow about-in mb-8">05 — О компании</p>
+      <p className="eyebrow about-in mb-8">03 — О компании</p>
       <div className="grid gap-14 md:grid-cols-[.9fr_1.1fr]">
         <div><h2 className="about-in section-title">Опыт, <span className="text-[#858d90]">которому</span> доверяют.</h2>
           <div className="about-in mt-12 border-t border-[#303638] pt-7"><strong className="text-6xl">{company.experience}</strong><span className="eyebrow ml-4">Лет опыта</span></div>
