@@ -6,12 +6,12 @@ export default {
     boxShadow: { none: "none" },
     extend: {
       colors: {
-        soft: "#111416",
-        graphite: "#080A0B",
-        ink: "#F0F1EF",
-        muted: "#92999D",
-        line: "#2A2F33",
-        brand: "#B7C0C4",
+        soft: "#f8f9fa",
+        graphite: "#1a1a1a",
+        ink: "#1a1a1a",
+        muted: "#5f6368",
+        line: "#e5e7eb",
+        brand: "#c62828",
       },
       fontFamily: {
         sans: ["Manrope", "Inter", "-apple-system", "BlinkMacSystemFont", "system-ui", "sans-serif"],
