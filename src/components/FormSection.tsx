@@ -11,6 +11,7 @@ export default function FormSection() {
     sendMail("Запрос КП", {
       Имя: String(f.get("name")),
       Телефон: String(f.get("phone")),
+      Email: String(f.get("email") || ""),
       "Техническое задание": String(f.get("task") || ""),
     });
   };
@@ -35,6 +36,10 @@ export default function FormSection() {
             <input id="kp-phone" name="phone" type="tel" required autoComplete="tel" placeholder="Телефон" className={field} />
           </div>
           <div>
+            <label htmlFor="kp-email" className="sr-only">Email</label>
+            <input id="kp-email" name="email" type="email" autoComplete="email" placeholder="E-mail для ответа" className={field} />
+          </div>
+          <div>
             <label htmlFor="kp-task" className="sr-only">Техническое задание</label>
             <textarea id="kp-task" name="task" rows={4} placeholder="ТЗ" className={field + " resize-none"} />
           </div>
@@ -49,9 +54,12 @@ export default function FormSection() {
             </span>
           </label>
 
-          <button type="submit" className="btn px-10 py-4 text-base">
-            Выслать КП
-          </button>
+          <div>
+            <button type="submit" className="btn px-10 py-4 text-base">
+              Подготовить письмо с запросом
+            </button>
+            <p className="mt-4 max-w-xl text-xs leading-5 text-white/50">После отправки откроется почтовое приложение с заполненным письмом. При необходимости приложите к нему файл с техническим заданием вручную.</p>
+          </div>
         </form>
       </div>
     </section>
