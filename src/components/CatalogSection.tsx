@@ -127,7 +127,7 @@ export default function CatalogSection() {
                   <a key={product.href} href={product.href} target="_blank" rel="noreferrer" className="group flex flex-col gap-2 py-5 transition-colors hover:text-brand sm:flex-row sm:items-center sm:justify-between">
                     <span className="flex items-start gap-4">
                       <span className="pt-0.5 text-xs text-muted">{String(index + 1).padStart(2, "0")}</span>
-                      <span className="font-semibold">{product.title}</span>
+                      <a href={product.localPath} className="font-semibold underline decoration-transparent underline-offset-4 hover:text-brand hover:decoration-brand">{product.title}</a>
                     </span>
                     <span className="flex items-center gap-3 pl-8 text-xs text-muted sm:pl-0">
                       <span>{product.category}</span><span className="text-brand transition-transform group-hover:translate-x-1" aria-hidden="true">↗</span>
