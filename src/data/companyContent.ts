@@ -13,21 +13,22 @@ export const company = {
 
 export const catalog = [
   { group: "Входные двери", items: [
-    "Двери с зеркалом", "Двери с терморазрывом", "Двери МДФ-МДФ",
-    "Коттеджные двери со стеклопакетом", "Двери металл-металл", "Двери Металл-МДФ",
+    "Двери с терморазрывом", "Двери с зеркалом", "Двери МДФ-МДФ", "Двери металл-металл",
+    "Двери Металл-МДФ", "Коттеджные двери со стеклопакетом",
   ]},
   { group: "Противопожарные преграды", items: [
-    "Противопожарные двери", "Противопожарные ворота", "Противопожарные шторы",
-    "Противопожарные люки", "Светопрозрачные перегородки противопожарные",
+    "Противопожарные ворота", "Противопожарные двери", "Противопожарные люки",
+    "Противопожарные шторы", "Светопрозрачные перегородки противопожарные",
   ]},
   { group: "Бронированные двери", items: [
-    "Банковские лотки", "Двери 3 класса защиты", "Двери защитные", "Дверные блоки для строителей",
+    "Банковские лотки", "Двери 3 класса защиты", "Двери защитные",
   ]},
   { group: "Деревянные двери", items: [
-    "Полнотелые деревянные двери",
+    "Полнотелые деревянные двери", "Дверные блоки для строителей",
   ]},
-  { group: "Антипаника", items: ["Антипаника", "Фурнитура для противопожарных дверей"] },
-  { group: "Цвета и покраска", items: ["Выбрать цвет"] },
+  { group: "Антипаника", items: [
+    "Фурнитура для противопожарных дверей",
+  ]},
 ];
 
 export const productImages = [
@@ -88,31 +89,35 @@ export const reviews = [
 ];
 
 export const catalogUrls: Record<string, string> = {
-  "Противопожарные двери": "https://iv-partner.ru/product-category/accessories/protivopozharnye-dveri/",
-  "Противопожарные ворота": "https://iv-partner.ru/product-category/accessories/protivopozharnye-vorota/",
-  "Противопожарные шторы": "https://iv-partner.ru/product-category/accessories/protivopozharnye-shtory/",
-  "Противопожарные люки": "https://iv-partner.ru/product-category/accessories/protivopozharnye-ljuki/",
-  "Светопрозрачные перегородки противопожарные": "https://iv-partner.ru/product-category/accessories/svetoprozrachnye-peregorodki-protivopozharnye/",
-  "Двери с зеркалом": "https://iv-partner.ru/product-category/clocks/dveri-s-zerkalom/",
-  "Двери с терморазрывом": "https://iv-partner.ru/product-category/clocks/dveri-s-termorazryvom/",
-  "Двери МДФ-МДФ": "https://iv-partner.ru/product-category/clocks/dveri-mdf-mdf/",
-  "Коттеджные двери со стеклопакетом": "https://iv-partner.ru/product-category/clocks/kottedzhnye-dveri-so-steklopaketom/",
-  "Двери металл-металл": "https://iv-partner.ru/product-category/clocks/dveri-metall-metall/",
-  "Двери Металл-МДФ": "https://iv-partner.ru/product-category/clocks/dveri-metall-mdf/",
-  "Банковские лотки": "https://iv-partner.ru/product-category/cooking/bankovskie-lotki/",
-  "Двери 3 класса защиты": "https://iv-partner.ru/product-category/cooking/dveri-3-klassa-zashhity/",
-  "Двери защитные": "https://iv-partner.ru/product-category/cooking/dveri-zashhitnye/",
-  "Полнотелые деревянные двери": "https://iv-partner.ru/product-category/furniture/polnotelye-derevyannye-dveri/",
-  "Дверные блоки для строителей": "https://iv-partner.ru/product-category/cooking/dvernye-bloki-dlya-stroitelej/",
-  "Антипаника": "https://iv-partner.ru/product-category/lighting/",
-  "Фурнитура для противопожарных дверей": "https://iv-partner.ru/product-category/lighting/furnitura-dlya-protivopozharnyh-dverej/",
-  "Выбрать цвет": "https://iv-partner.ru/color-palette/ral-classic/",
+  "Двери с терморазрывом": "/catalog/dveri-s-termorazryvom/",
+  "Двери с зеркалом": "/catalog/dveri-s-zerkalom/",
+  "Двери МДФ-МДФ": "/catalog/dveri-mdf-mdf/",
+  "Двери металл-металл": "/catalog/dveri-metall-metall/",
+  "Двери Металл-МДФ": "/catalog/dveri-metall-mdf/",
+  "Коттеджные двери со стеклопакетом": "/catalog/kottedzhnye-dveri-so-steklopaketom/",
+  "Противопожарные ворота": "/catalog/protivopozharnye-vorota/",
+  "Противопожарные двери": "/catalog/protivopozharnye-dveri/",
+  "Противопожарные люки": "/catalog/protivopozharnye-ljuki/",
+  "Противопожарные шторы": "/catalog/protivopozharnye-shtory/",
+  "Светопрозрачные перегородки противопожарные": "/catalog/svetoprozrachnye-peregorodki/",
+  "Банковские лотки": "/catalog/bankovskie-lotki/",
+  "Двери 3 класса защиты": "/catalog/dveri-3-klassa-zashchity/",
+  "Двери защитные": "/catalog/dveri-zashchitnye/",
+  "Дверные блоки для строителей": "/catalog/dvernye-bloki-dlya-stroitelej/",
+  "Полнотелые деревянные двери": "/catalog/polnotelye-derevyannye-dveri/",
+  "Фурнитура для противопожарных дверей": "/catalog/furnitura-dlya-protivopozharnyh-dverej/",
 };
 
-export const verifiedCategoryProducts = [
-  { title: "Электромеханический передаточный шлюз стандартный (ШПТ-1.ЭМ)", category: "Банковские лотки", href: "https://iv-partner.ru/product/elektromehanicheskij-peredatochnyj-shljuz-standartnyj-shpt-1-em/" },
-  { title: "Шлюз механический стандартный", category: "Банковские лотки", href: "https://iv-partner.ru/product/shljuz-mehanicheskij-standartnyj/" },
-  { title: "Устройство передаточное подвижное ЛТ-21", category: "Банковские лотки", href: "https://iv-partner.ru/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-21/" },
-  { title: "Устройство передаточное подвижное ЛТ-22", category: "Банковские лотки", href: "https://iv-partner.ru/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-22/" },
-  { title: "ЛТ-00 Щелевой", category: "Банковские лотки", href: "https://iv-partner.ru/product/lt-00-shhelevoj/" },
+export const catalogProductLinks = [
+  { title: "Электромеханический передаточный шлюз стандартный (ШПТ-1.ЭМ)", category: "Банковские лотки", sourceUrl: "https://iv-partner.ru/product/elektromehanicheskij-peredatochnyj-shljuz-standartnyj-shpt-1-em/", localPath: "/product/elektromehanicheskij-peredatochnyj-shljuz-standartnyj-shpt-1-em/" },
+  { title: "Шлюз механический стандартный", category: "Банковские лотки", sourceUrl: "https://iv-partner.ru/product/shljuz-mehanicheskij-standartnyj/", localPath: "/product/shljuz-mehanicheskij-standartnyj/" },
+  { title: "Устройство передаточное подвижное ЛТ-21", category: "Банковские лотки", sourceUrl: "https://iv-partner.ru/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-21/", localPath: "/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-21/" },
+  { title: "Устройство передаточное подвижное ЛТ-22", category: "Банковские лотки", sourceUrl: "https://iv-partner.ru/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-22/", localPath: "/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-22/" },
+  { title: "ЛТ-00 Щелевой", category: "Банковские лотки", sourceUrl: "https://iv-partner.ru/product/lt-00-shhelevoj/", localPath: "/product/lt-00-shhelevoj/" },
 ];
+
+export const verifiedCategoryProducts = catalogProductLinks.map((product) => ({
+  title: product.title,
+  category: product.category,
+  href: product.sourceUrl,
+}));
