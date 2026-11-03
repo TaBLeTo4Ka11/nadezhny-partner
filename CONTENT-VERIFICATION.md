@@ -5,6 +5,7 @@ This file is an internal editorial register. It is not rendered on the website.
 ## Source checked
 - Official homepage: https://iv-partner.ru/
 - Earlier work used an indexed extraction of the official homepage on 2026-11-03; this was not a full live-site crawl.
+- A separate search-index result for the official homepage, retrieved on 2026-11-03 and marked as crawled roughly three weeks earlier, also shows three catalogue groups and the same 13 categories, plus the 15-year claim, 11 work photos, three reviews and the listed contact details. This corroborates the indexed homepage snapshot, not a full live catalogue inventory.
 - Claude's repeat attempt on 2026-11-03 received `ROBOTS_DISALLOWED` for direct automated access and did not bypass the restriction. With no network access in its execution environment, it did not check Internet Archive, sitemap, WordPress REST API, XML-RPC, or download media.
 - Replit archive repository: https://github.com/TaBLeTo4Ka11/nadezhny-partner-replit
 - The Replit archive contains source code and repeated image references, not a separate verified 68-product catalogue or a new binary photo collection.
