@@ -71,7 +71,7 @@ export default function Header() {
   useEffect(() => {
     if (!call) return;
     const dialog = callDialogRef.current;
-    const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const previous = document.activeElement instanceof HTMLElement && document.activeElement !== document.body ? document.activeElement : null;
     const selector = 'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled])';
     const getFocusable = () => Array.from(dialog?.querySelectorAll<HTMLElement>(selector) ?? []);
     getFocusable()[0]?.focus();
