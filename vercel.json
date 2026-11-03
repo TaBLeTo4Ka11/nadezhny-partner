@@ -212,5 +212,92 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/product-category/accessories/protivopozharnye-dveri/",
+      "destination": "/catalog/protivopozharnye-dveri/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/accessories/protivopozharnye-vorota/",
+      "destination": "/catalog/protivopozharnye-vorota/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/accessories/protivopozharnye-shtory/",
+      "destination": "/catalog/protivopozharnye-shtory/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/accessories/protivopozharnye-ljuki/",
+      "destination": "/catalog/protivopozharnye-ljuki/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/accessories/svetoprozrachnye-peregorodki-protivopozharnye/",
+      "destination": "/catalog/svetoprozrachnye-peregorodki/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/clocks/dveri-s-zerkalom/",
+      "destination": "/catalog/dveri-s-zerkalom/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/clocks/dveri-s-termorazryvom/",
+      "destination": "/catalog/dveri-s-termorazryvom/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/clocks/dveri-mdf-mdf/",
+      "destination": "/catalog/dveri-mdf-mdf/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/clocks/kottedzhnye-dveri-so-steklopaketom/",
+      "destination": "/catalog/kottedzhnye-dveri-so-steklopaketom/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/clocks/dveri-metall-metall/",
+      "destination": "/catalog/dveri-metall-metall/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/clocks/dveri-metall-mdf/",
+      "destination": "/catalog/dveri-metall-mdf/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/cooking/bankovskie-lotki/",
+      "destination": "/catalog/bankovskie-lotki/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/cooking/dveri-3-klassa-zashhity/",
+      "destination": "/catalog/dveri-3-klassa-zashchity/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/cooking/dveri-zashhitnye/",
+      "destination": "/catalog/dveri-zashchitnye/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/furniture/polnotelye-derevyannye-dveri/",
+      "destination": "/catalog/polnotelye-derevyannye-dveri/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/furniture/dvernye-bloki-dlya-stroitelej/",
+      "destination": "/catalog/dvernye-bloki-dlya-stroitelej/",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/lighting/furnitura-dlya-protivopozharnyh-dverej/",
+      "destination": "/catalog/furnitura-dlya-protivopozharnyh-dverej/",
+      "permanent": true
+    }
   ]
 }
