@@ -1,7 +1,7 @@
 name: Build check
 on:
   push:
-    branches: [main, transfer/full-content-redwhite]
+    branches: [main, transfer/full-content-redwhite, gpt6/site-completion]
   pull_request:
     branches: [main]
   workflow_dispatch:
