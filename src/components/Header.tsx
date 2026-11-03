@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { PHONES, sendMail } from "../data/content";
-import { catalog, catalogUrls } from "../data/companyContent";
+import { catalog } from "../data/companyContent";
+import { catalogPageByTitle } from "../data/catalogPages";
 
 const LOGO = "https://iv-partner.ru/wp-content/uploads/2021/08/dveri-300x301.png";
 
@@ -12,7 +13,7 @@ const TOP = [
 ];
 
 const CATALOG = catalog.flatMap((group) =>
-  group.items.map((label) => ({ label, href: catalogUrls[label] ?? "#catalog" }))
+  group.items.map((label) => ({ label, href: catalogPageByTitle[label] ? "/catalog/" + catalogPageByTitle[label].slug + "/" : "/#catalog" }))
 );
 
 // «Склад» и «Доставка и установка»: отдельных разделов пока нет, ведём на контакты
