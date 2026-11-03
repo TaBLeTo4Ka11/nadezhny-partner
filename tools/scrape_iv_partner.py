@@ -294,24 +294,31 @@ def discover_sitemaps() -> list[str]:
             log(f"Sitemap найден: {candidate} ({len(locs)} ссылок первого уровня).")
             break
     # Follow only sitemap URLs on the same host; depth and count are bounded.
-    queue = [(u, 1) for u in found if urllib.parse.urlparse(u).netloc == urllib.parse.urlparse(BASE).netloc]
+    queue: list[tuple[str, int]] = []
     urls: list[str] = []
+    host = urllib.parse.urlparse(BASE).netloc
+    for loc in found:
+        parsed = urllib.parse.urlparse(loc)
+        if parsed.netloc != host:
+            continue
+        if parsed.path.lower().endswith(".xml"):
+            queue.append((loc, 1))
+        else:
+            urls.append(loc)
     while queue and len(seen) < 30:
         current, depth = queue.pop(0)
-        if current in seen:
+        if current in seen or depth > 3:
             continue
         seen.add(current)
-        if depth > 3:
-            continue
         response = request(current)
         if response is None or response.status_code != 200:
             continue
         locs = re.findall(r"<loc>\s*(.*?)\s*</loc>", response.text, flags=re.I)
         for loc in locs:
             parsed = urllib.parse.urlparse(loc)
-            if parsed.netloc != urllib.parse.urlparse(BASE).netloc:
+            if parsed.netloc != host:
                 continue
-            if loc.lower().endswith(".xml") and depth < 3:
+            if parsed.path.lower().endswith(".xml") and depth < 3:
                 queue.append((loc, depth + 1))
             else:
                 urls.append(loc)
@@ -462,6 +469,19 @@ def main() -> int:
                 "WooCommerce Store API: категории"
             )
             categories = raw_categories
+
+        # Fetch full variation records when authenticated WooCommerce REST API is available.
+        if WC_KEY and WC_SECRET and products:
+            for product in products:
+                if product.get("type") != "variable" or not product.get("id"):
+                    continue
+                raw_variations, variations_ok = paginate(
+                    BASE + f"/wp-json/wc/v3/products/{product['id']}/variations",
+                    f"WooCommerce REST: вариации товара {product['id']}",
+                    {"status": "publish"}, wc_auth=True
+                )
+                if variations_ok:
+                    product["variation_records"] = raw_variations
 
         raw_pages, _ = paginate(BASE + "/wp-json/wp/v2/pages", "WordPress: страницы",
                                 {"status": "publish"})
