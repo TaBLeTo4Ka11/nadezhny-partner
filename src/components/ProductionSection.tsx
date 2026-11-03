@@ -14,7 +14,7 @@ export default function ProductionSection() {
   }, []);
   return <section ref={root} id="production" className="section">
     <div className="container">
-      <p className="eyebrow mb-8">03 — Производство</p>
+      <p className="eyebrow mb-8">04 — Производство</p>
       <h2 className="section-title mb-16 max-w-5xl">Контроль <span className="text-[#858d90]">на каждом</span> этапе.</h2>
       <div className="border-t border-[#34393b]">
         {productionStages.map((stage, i) => <article className="production-step grid gap-5 border-b border-[#34393b] py-9 md:grid-cols-[100px_1fr_1.2fr] md:gap-10" key={stage.title}>
