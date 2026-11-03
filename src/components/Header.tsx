@@ -182,8 +182,7 @@ export default function Header() {
       </header>
 
       {/* Мобильное меню */}
-      {menu && (
-        <div id="mobile-navigation" className="fixed inset-0 z-40 overflow-y-auto bg-white px-6 pb-10 pt-28 xl:hidden">
+      <div id="mobile-navigation" hidden={!menu} className="fixed inset-0 z-40 overflow-y-auto bg-white px-6 pb-10 pt-28 xl:hidden">
           <nav className="flex flex-col gap-5" aria-label="Мобильная навигация">
             <a href="#catalog" onClick={() => setMenu(false)} className="text-3xl font-extrabold tracking-tight">
               Каталог
@@ -240,8 +239,7 @@ export default function Header() {
               </li>
             ))}
           </ul>
-        </div>
-      )}
+      </div>
 
       {/* Окно «Заказать звонок» */}
       {call && (
