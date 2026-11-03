@@ -105,7 +105,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-line bg-white" style={{ paddingTop: "env(safe-area-inset-top)" }}>
+      <header className="safe-area-top sticky top-0 z-50 border-b border-line bg-white">
         {/* Тонкая верхняя полоса */}
         <div className="hidden border-b border-line bg-soft md:block">
           <div className="mx-auto flex h-9 max-w-[1400px] items-center justify-end gap-8 px-6 lg:px-10">
