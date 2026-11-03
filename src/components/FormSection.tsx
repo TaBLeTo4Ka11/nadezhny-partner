@@ -13,6 +13,7 @@ export default function FormSection() {
       Телефон: String(f.get("phone")),
       Email: String(f.get("email") || ""),
       "Техническое задание": String(f.get("task") || ""),
+      "Выбранный файл ТЗ (его нужно приложить к письму вручную)": (f.get("attachment") as File | null)?.name || "Не выбран",
       "Согласие на обработку персональных данных": f.get("consent") ? "Да" : "Нет",
     });
   };
@@ -42,7 +43,18 @@ export default function FormSection() {
           </div>
           <div>
             <label htmlFor="kp-task" className="sr-only">Техническое задание</label>
-            <textarea id="kp-task" name="task" rows={4} placeholder="ТЗ" className={field + " resize-none"} />
+            <textarea id="kp-task" name="task" rows={4} placeholder="ТЗ или описание задачи" className={field + " resize-none"} />
+          </div>
+          <div>
+            <label htmlFor="kp-attachment" className="mb-3 block text-sm font-semibold text-white">Прикрепить техническое задание</label>
+            <input
+              id="kp-attachment"
+              name="attachment"
+              type="file"
+              accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png"
+              className="block w-full text-sm text-white/70 file:mr-4 file:border-0 file:bg-white file:px-5 file:py-3 file:font-semibold file:text-ink hover:file:bg-white/85"
+            />
+            <p className="mt-2 text-xs leading-5 text-white/50">Форма откроет почтовое приложение. Файл автоматически не прикрепляется — добавьте его к письму вручную; его имя попадёт в текст письма.</p>
           </div>
 
           <label className="flex cursor-pointer items-start gap-4 text-sm text-white/70">
@@ -59,7 +71,7 @@ export default function FormSection() {
             <button type="submit" className="btn px-10 py-4 text-base">
               Подготовить письмо с запросом
             </button>
-            <p className="mt-4 max-w-xl text-xs leading-5 text-white/50">После отправки откроется почтовое приложение с заполненным письмом. При необходимости приложите к нему файл с техническим заданием вручную.</p>
+            <p className="mt-4 max-w-xl text-xs leading-5 text-white/50">После нажатия откроется почтовое приложение. Проверьте письмо и вручную добавьте выбранный файл, если он нужен.</p>
           </div>
         </form>
       </div>
