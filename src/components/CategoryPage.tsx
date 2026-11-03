@@ -64,7 +64,7 @@ export default function CategoryPage({ slug }: { slug: string }) {
           </figure>)}
         </section>}
         {products.length > 0 ? <section className="mt-12">
-          <h2 className="text-2xl font-extrabold">Названия из предыдущего извлечения</h2>
+          <h2 className="text-2xl font-extrabold">Позиции из исходного каталога</h2>
           <ul className="mt-5 divide-y divide-line border-y border-line">
             {products.map(product => <li key={product.sourceUrl} className="py-5 font-semibold">{product.localPath ? <a href={product.localPath} className="underline decoration-transparent underline-offset-4 hover:text-brand hover:decoration-brand">{product.title}</a> : product.title}</li>)}
           </ul>
