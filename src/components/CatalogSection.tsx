@@ -13,13 +13,16 @@ export default function CatalogSection() {
     const normalized = query.trim().toLocaleLowerCase("ru");
     if (!normalized) return catalog;
     return catalog
-      .map((group) => ({
-        ...group,
-        items: group.items.filter((item) =>
-          item.toLocaleLowerCase("ru").includes(normalized)
-        ),
-      }))
-      .filter((group) => group.items.length > 0 || group.group.toLocaleLowerCase("ru").includes(normalized));
+      .map((group) => {
+        const groupMatches = group.group.toLocaleLowerCase("ru").includes(normalized);
+        return {
+          ...group,
+          items: groupMatches
+            ? group.items
+            : group.items.filter((item) => item.toLocaleLowerCase("ru").includes(normalized)),
+        };
+      })
+      .filter((group) => group.items.length > 0);
   }, [query]);
 
   useLayoutEffect(() => {
