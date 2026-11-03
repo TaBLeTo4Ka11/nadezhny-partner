@@ -1,27 +1,4 @@
-type Review = { author: string; text: string };
-
-/* ВСТАВЬТЕ СЮДА 3 оригинальных отзыва с сайта, например:
-   { author: "ООО «Название»", text: "Текст отзыва дословно" },
-   Пока массив пуст — раздел на сайте не показывается. */
-const REVIEWS: Review[] = [];
-
-export default function ReviewsSection() {
-  if (REVIEWS.length === 0) return null;
-
-  return (
-    <section id="reviews" className="scroll-mt-28 bg-soft px-6 py-24 lg:px-10 lg:py-32">
-      <div className="mx-auto max-w-[1400px]">
-        <h2 className="text-[clamp(2rem,5vw,4.5rem)] font-extrabold leading-none tracking-tight">Отзывы</h2>
-
-        <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3">
-          {REVIEWS.map((r, i) => (
-            <figure key={i} className="flex flex-col border border-line bg-white p-8">
-              <blockquote className="flex-1 text-lg leading-relaxed text-ink/80">{r.text}</blockquote>
-              <figcaption className="mt-6 border-t border-line pt-4 text-sm font-bold">{r.author}</figcaption>
-            </figure>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+import { reviews } from "../data/companyContent";
+export default function ReviewsSection(){
+ return <section id="reviews" className="scroll-mt-28 bg-soft px-6 py-24 lg:px-10 lg:py-32"><div className="mx-auto max-w-[1400px]"><p className="mb-4 text-xs font-semibold uppercase tracking-[.2em] text-muted">Опыт клиентов</p><h2 className="text-[clamp(2rem,5vw,4.5rem)] font-extrabold leading-none tracking-tight">Отзывы</h2><div className="mt-12 grid gap-5 md:grid-cols-3">{reviews.map((r,i)=><figure key={r.author} className="flex min-h-[270px] flex-col border border-line bg-white p-7 md:p-8"><div className="flex items-center justify-between"><span className="text-xs font-semibold uppercase tracking-[.15em] text-muted">Отзыв 0{i+1}</span><span className="font-semibold text-brand">★ {r.rating}</span></div><blockquote className="my-8 flex-1 text-lg leading-8 text-ink/85">«{r.text}»</blockquote><figcaption className="border-t border-line pt-5 text-sm font-bold">{r.author}</figcaption></figure>)}</div></div></section>;
 }
