@@ -10,16 +10,23 @@ export default function CatalogSection() {
   const root = useRef<HTMLElement>(null);
   const [query, setQuery] = useState("");
 
+  const normalizedQuery = query.trim().toLocaleLowerCase("ru");
   const filteredCatalog = useMemo(() => {
-    const normalized = query.trim().toLocaleLowerCase("ru");
-    if (!normalized) return catalog;
+    if (!normalizedQuery) return catalog;
     return catalog
       .map((group) => ({
         ...group,
-        items: group.items.filter((item) => item.toLocaleLowerCase("ru").includes(normalized)),
+        items: group.items.filter((item) => item.toLocaleLowerCase("ru").includes(normalizedQuery)),
       }))
       .filter((group) => group.items.length > 0);
-  }, [query]);
+  }, [normalizedQuery]);
+
+  const filteredProducts = useMemo(() => {
+    if (!normalizedQuery) return verifiedCategoryProducts;
+    return verifiedCategoryProducts.filter((product) =>
+      `${product.title} ${product.category}`.toLocaleLowerCase("ru").includes(normalizedQuery)
+    );
+  }, [normalizedQuery]);
 
   useLayoutEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -63,7 +70,9 @@ export default function CatalogSection() {
             )}
           </div>
           <p className="mt-2 text-xs text-muted" aria-live="polite">
-            {query ? `Найдено позиций: ${filteredCatalog.reduce((sum, group) => sum + group.items.length, 0)}` : "Поиск по названиям категорий и направлений."}
+            {query
+              ? `Найдено категорий: ${filteredCatalog.reduce((sum, group) => sum + group.items.length, 0)} · товаров: ${filteredProducts.length}`
+              : "Поиск по названиям категорий, направлений и подтверждённых товаров."}
           </p>
         </div>
 
@@ -87,10 +96,23 @@ export default function CatalogSection() {
               <a href="#kp" className="btn mt-7">Запросить КП</a>
             </article>
           ))}
-          {filteredCatalog.length === 0 && (
+          {query && filteredCatalog.length === 0 && filteredProducts.length === 0 && (
             <p className="border border-line p-7 text-sm text-muted sm:col-span-2 lg:col-span-3">
               По запросу «{query}» ничего не найдено. Попробуйте изменить формулировку.
             </p>
+          )}
+          {query && filteredProducts.length > 0 && (
+            <div className="border border-line p-6 sm:col-span-2 lg:col-span-3">
+              <h3 className="text-lg font-extrabold">Найденные товары</h3>
+              <ul className="mt-4 divide-y divide-line border-y border-line">
+                {filteredProducts.map((product) => (
+                  <li key={product.href} className="flex flex-col gap-2 py-4 sm:flex-row sm:items-center sm:justify-between">
+                    <a href={product.localPath} className="font-semibold underline decoration-transparent underline-offset-4 hover:text-brand hover:decoration-brand">{product.title}</a>
+                    <span className="text-xs text-muted">{product.category}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
         </div>
 
@@ -100,7 +122,7 @@ export default function CatalogSection() {
               <h3 className="text-2xl font-extrabold tracking-tight">Примеры продукции</h3>
               <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
                 {productImages.map((product) => (
-                  <a key={product.src} href={product.href} target="_blank" rel="noreferrer" className="group overflow-hidden border border-line bg-soft transition-colors hover:border-brand">
+                  <a key={product.src} href={product.href} className="group overflow-hidden border border-line bg-soft transition-colors hover:border-brand">
                     <figure>
                       <div className="aspect-[4/5] overflow-hidden">
                         <img src={product.src} alt={product.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
@@ -122,19 +144,17 @@ export default function CatalogSection() {
                 </div>
                 <p className="max-w-lg text-sm leading-6 text-muted">Позиции, названия и адреса страниц которых удалось подтвердить на сайте компании.</p>
               </div>
-              <div className="mt-6 divide-y divide-line border-y border-line">
-                {verifiedCategoryProducts.map((product, index) => (
-                  <a key={product.href} href={product.href} target="_blank" rel="noreferrer" className="group flex flex-col gap-2 py-5 transition-colors hover:text-brand sm:flex-row sm:items-center sm:justify-between">
-                    <span className="flex items-start gap-4">
+              <ul className="mt-6 divide-y divide-line border-y border-line">
+                {filteredProducts.map((product, index) => (
+                  <li key={product.href} className="flex flex-col gap-2 py-5 sm:flex-row sm:items-center sm:justify-between">
+                    <a href={product.localPath} className="flex items-start gap-4 font-semibold underline decoration-transparent underline-offset-4 hover:text-brand hover:decoration-brand">
                       <span className="pt-0.5 text-xs text-muted">{String(index + 1).padStart(2, "0")}</span>
-                      <a href={product.localPath} className="font-semibold underline decoration-transparent underline-offset-4 hover:text-brand hover:decoration-brand">{product.title}</a>
-                    </span>
-                    <span className="flex items-center gap-3 pl-8 text-xs text-muted sm:pl-0">
-                      <span>{product.category}</span><span className="text-brand transition-transform group-hover:translate-x-1" aria-hidden="true">↗</span>
-                    </span>
-                  </a>
+                      <span>{product.title}</span>
+                    </a>
+                    <span className="pl-8 text-xs text-muted sm:pl-0">{product.category}</span>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
             <p className="mt-5 text-xs leading-6 text-muted">
               Это не полный каталог: остальные карточки и характеристики будут добавляться только после проверки исходных страниц. Для полного ассортимента пока доступны ссылки на соответствующие разделы сайта компании.
