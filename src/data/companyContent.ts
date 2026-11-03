@@ -26,7 +26,7 @@ export const catalog = [
   { group: "Деревянные двери", items: [
     "Полнотелые деревянные двери", "Дверные блоки для строителей",
   ]},
-  { group: "Антипаника", items: ["Системы «Антипаника»"] },
+  { group: "Антипаника", items: ["Антипаника"] },
   { group: "Фурнитура", items: ["Фурнитура для противопожарных дверей"] },
   { group: "Цвета и отделка", items: ["Подбор цвета и вариантов окраски"] },
 ];
@@ -105,6 +105,7 @@ export const catalogUrls: Record<string, string> = {
   "Защитные двери": "https://iv-partner.ru/product-category/cooking/dveri-zashhitnye/",
   "Полнотелые деревянные двери": "https://iv-partner.ru/product-category/furniture/polnotelye-derevyannye-dveri/",
   "Дверные блоки для строителей": "https://iv-partner.ru/product-category/cooking/dvernye-bloki-dlya-stroitelej/",
+  "Антипаника": "https://iv-partner.ru/product-category/lighting/",
   "Фурнитура для противопожарных дверей": "https://iv-partner.ru/product-category/lighting/furnitura-dlya-protivopozharnyh-dverej/",
   "Подбор цвета и вариантов окраски": "https://iv-partner.ru/color-palette/ral-classic/",
 };
