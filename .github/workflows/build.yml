@@ -22,6 +22,12 @@ jobs:
         with:
           node-version: 24
           cache: npm
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Check exporter syntax
+        run: python -m py_compile tools/scrape_iv_partner.py
       - name: Install locked dependencies
         run: npm ci
       - name: Dependency audit
