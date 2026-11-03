@@ -6,6 +6,8 @@ const slugs: Record<string, string> = {
   "Двери с терморазрывом": "dveri-s-termorazryvom",
   "Двери МДФ-МДФ": "dveri-mdf-mdf",
   "Двери Металл-МДФ": "dveri-metall-mdf",
+  "Двери металл-металл": "dveri-metall-metall",
+  "Коттеджные двери со стеклопакетом": "kottedzhnye-dveri-so-steklopaketom",
   "Противопожарные двери": "protivopozharnye-dveri",
   "Противопожарные ворота": "protivopozharnye-vorota",
   "Противопожарные шторы": "protivopozharnye-shtory",
@@ -15,6 +17,8 @@ const slugs: Record<string, string> = {
   "Двери 3 класса защиты": "dveri-3-klassa-zashchity",
   "Двери защитные": "dveri-zashchitnye",
   "Дверные блоки для строителей": "dvernye-bloki-dlya-stroitelej",
+  "Полнотелые деревянные двери": "polnotelye-derevyannye-dveri",
+  "Фурнитура для противопожарных дверей": "furnitura-dlya-protivopozharnyh-dverej",
 };
 
 export default function CategoryPage({ slug }: { slug: string }) {
