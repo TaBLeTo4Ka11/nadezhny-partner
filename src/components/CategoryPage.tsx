@@ -39,7 +39,8 @@ export default function CategoryPage({ slug }: { slug: string }) {
     if (!robots) { robots = document.createElement("meta"); robots.setAttribute("name", "robots"); document.head.appendChild(robots); }
     robots.setAttribute("content", item ? "noindex, follow" : "noindex, nofollow");
     const canonical = document.querySelector('link[rel="canonical"]');
-    canonical?.setAttribute("href", `https://iv-partner.ru/catalog/${slug}/`);
+    if (item) canonical?.setAttribute("href", `https://iv-partner.ru/catalog/${slug}/`);
+    else canonical?.remove();
   }, [item?.name, slug]);
 
   if (!item) return <main className="min-h-screen bg-white p-10"><h1 className="text-4xl font-extrabold">Раздел не найден</h1><a href="/#catalog" className="btn mt-8">Вернуться в каталог</a></main>;
