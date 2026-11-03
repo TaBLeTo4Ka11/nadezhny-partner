@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { ADDRESS, EMAIL, PHONES, WORKING_HOURS } from "../data/content";
 
-type PageKey = "warehouse" | "delivery" | "vacancies" | "useful" | "privacy" | "cookies";
+type PageKey = "warehouse" | "delivery" | "vacancies" | "useful" | "privacy" | "cookies" | "colors";
 const pages: Record<PageKey, { title: string; path: string }> = {
   warehouse: { title: "Склад", path: "/sklad/" },
   delivery: { title: "Доставка и установка", path: "/dostavka-i-ustanovka/" },
@@ -9,6 +9,7 @@ const pages: Record<PageKey, { title: string; path: string }> = {
   useful: { title: "Полезное", path: "/poleznoe/" },
   privacy: { title: "Политика конфиденциальности", path: "/privacy-policy/" },
   cookies: { title: "Согласие на cookie", path: "/kuki/" },
+  colors: { title: "Выбрать цвет · RAL Classic", path: "/color-palette/ral-classic/" },
 };
 
 export default function InfoPage({ page }: { page: PageKey }) {
@@ -41,7 +42,7 @@ export default function InfoPage({ page }: { page: PageKey }) {
           <p className="mb-5 text-xs font-semibold uppercase tracking-[.2em] text-brand">Информация компании</p>
           <h1 className="max-w-4xl text-[clamp(2.8rem,8vw,6.5rem)] font-extrabold leading-[.95] tracking-tight">{data.title}</h1>
           <div className="mt-10 max-w-3xl border-y border-line py-8">
-            <p className="text-lg leading-8 text-muted">{page === "privacy" ? "Актуальный текст политики конфиденциальности пока не перенесён и не проверен. Эта страница не является действующей политикой и не заменяет юридический документ. До публикации владелец компании должен предоставить и подтвердить актуальную редакцию." : page === "cookies" ? "Сведения об используемых cookie-файлах, аналитике и условиях согласия пока не восстановлены и не проверены. Эта страница не является действующим согласием на cookie." : "Содержание этой страницы ещё не перенесено и не проверено по первоисточнику. Мы не публикуем предположения или автоматически сгенерированные сведения. Для уточнения информации свяжитесь с компанией по указанным ниже контактам."}</p>
+            <p className="text-lg leading-8 text-muted">{page === "privacy" ? "Актуальный текст политики конфиденциальности пока не перенесён и не проверен. Эта страница не является действующей политикой и не заменяет юридический документ. До публикации владелец компании должен предоставить и подтвердить актуальную редакцию." : page === "cookies" ? "Сведения об используемых cookie-файлах, аналитике и условиях согласия пока не восстановлены и не проверены. Эта страница не является действующим согласием на cookie." : page === "colors" ? "На исходном сайте была опубликована палитра RAL Classic. Доступный архивный снимок содержит повреждённые значения отдельных HEX-кодов и не подтверждает актуальный перечень цветов, поэтому мы не переносим образцы, которые могут отображаться неверно. Уточните доступные цвета и покрытие у менеджера компании." : "Содержание этой страницы ещё не перенесено и не проверено по первоисточнику. Мы не публикуем предположения или автоматически сгенерированные сведения. Для уточнения информации свяжитесь с компанией по указанным ниже контактам."}</p>
             
           </div>
           <section className="mt-12">
