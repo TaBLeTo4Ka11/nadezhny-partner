@@ -1,27 +1,29 @@
-import { useEffect, useRef, useState, type FormEvent } from "react";
-import { PHONES, sendMail } from "../data/content";
-import { catalog } from "../data/companyContent";
-import { catalogPageByTitle } from "../data/catalogPages";
+import { useEffect, useRef, useState } from "react";
+import { EMAIL, PHONES } from "../data/content";
+import { catalog, catalogUrls } from "../data/companyContent";
 
 const LOGO = "https://iv-partner.ru/wp-content/uploads/2021/08/dveri-300x301.png";
 
 const TOP = [
-  { label: "Политика конфиденциальности", href: "/privacy/" },
-  { label: "Согласие на cookie", href: "/cookies/" },
+  { label: "Политика конфиденциальности", href: "/privacy-policy/" },
+  { label: "Согласие на cookie", href: "/kuki/" },
   { label: "Наши заказы", href: "#gallery" },
   { label: "Наши отзывы", href: "#reviews" },
+  { label: "Вакансии", href: "/vakansii/" },
+  { label: "Полезное", href: "/poleznoe/" },
+  { label: "Выбрать цвет", href: "/color-palette/ral-classic/" },
 ];
 
 const CATALOG = catalog.flatMap((group) =>
-  group.items.map((label) => ({ label, href: catalogPageByTitle[label] ? "/catalog/" + catalogPageByTitle[label].slug + "/" : "/#catalog" }))
+  group.items.map((label) => ({ label, href: catalogUrls[label] ?? "#catalog" }))
 );
 
-// «Склад» и «Доставка и установка»: отдельных разделов пока нет, ведём на контакты
+// Информационные страницы пока содержат заглушки до переноса проверенных оригинальных текстов.
 const NAV = [
   { label: "О компании", href: "#about", id: "about" },
   { label: "Производство", href: "#production", id: "production" },
-  { label: "Склад", href: "https://iv-partner.ru/sklad/", id: "" },
-  { label: "Доставка и установка", href: "https://iv-partner.ru/dostavka-i-ustanovka/", id: "" },
+  { label: "Склад", href: "/sklad/", id: "" },
+  { label: "Доставка и установка", href: "/dostavka-i-ustanovka/", id: "" },
   { label: "Контакты", href: "#contacts", id: "contacts" },
 ];
 
@@ -32,9 +34,8 @@ export default function Header() {
   const [menu, setMenu] = useState(false);
   const [call, setCall] = useState(false);
   const [active, setActive] = useState("");
-  const [callSubmitting, setCallSubmitting] = useState(false);
-  const [callStatus, setCallStatus] = useState("");
-  const callOpenedAt = useRef(0);
+  const callDialogRef = useRef<HTMLDivElement>(null);
+  const menuToggleRef = useRef<HTMLButtonElement>(null);
 
   // Подсветка активного раздела
   useEffect(() => {
@@ -60,56 +61,73 @@ export default function Header() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
+        if (menu) menuToggleRef.current?.focus();
         setMenu(false);
         setCall(false);
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [menu, call]);
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const fields = new FormData(form);
-    if (!form.reportValidity() || callSubmitting) return;
-    if (String(fields.get("website") || "").trim()) return;
+  useEffect(() => {
+    if (!menu) return;
+    const menuElement = document.getElementById("mobile-navigation");
+    const selector = 'a[href], button:not([disabled])';
+    const getFocusable = () => Array.from(menuElement?.querySelectorAll<HTMLElement>(selector) ?? [])
+      .filter((element) => element.getClientRects().length > 0);
+    getFocusable()[0]?.focus();
 
-    const payload = {
-      name: String(fields.get("name") || ""),
-      phone: String(fields.get("phone") || ""),
-      consent: fields.get("consent") === "yes",
-      website: String(fields.get("website") || ""),
-      startedAt: callOpenedAt.current,
+    const trapFocus = (event: KeyboardEvent) => {
+      if (event.key !== "Tab") return;
+      const items = getFocusable();
+      if (items.length === 0) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      const focusIsOutside = !menuElement?.contains(document.activeElement);
+      if (event.shiftKey && (document.activeElement === first || focusIsOutside)) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (document.activeElement === last || focusIsOutside)) {
+        event.preventDefault();
+        first.focus();
+      }
     };
 
-    setCallSubmitting(true);
-    setCallStatus("");
-    try {
-      const response = await fetch("/api/lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "same-origin",
-        body: JSON.stringify(payload),
-      });
-      const result = await response.json().catch(() => ({}));
-      if (response.ok && result.ok) {
-        setCall(false);
-      } else if (response.status === 503 && result.code === "email_not_configured") {
-        sendMail("Заказ звонка", { Имя: payload.name, Телефон: payload.phone, "Согласие на обработку персональных данных": "Да" });
-        setCallStatus("Открылось почтовое приложение. Проверьте данные и отправьте письмо.");
-      } else if (response.status === 429) {
-        setCallStatus("Слишком много заявок. Попробуйте позже или позвоните нам.");
-      } else {
-        setCallStatus("Не удалось отправить запрос. Попробуйте ещё раз или позвоните нам.");
+    document.addEventListener("keydown", trapFocus);
+    return () => document.removeEventListener("keydown", trapFocus);
+  }, [menu]);
+
+  useEffect(() => {
+    if (!call) return;
+    const dialog = callDialogRef.current;
+    const previous = document.activeElement instanceof HTMLElement && document.activeElement !== document.body ? document.activeElement : null;
+    const selector = 'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled])';
+    const getFocusable = () => Array.from(dialog?.querySelectorAll<HTMLElement>(selector) ?? []);
+    getFocusable()[0]?.focus();
+
+    const trapFocus = (event: KeyboardEvent) => {
+      if (event.key !== "Tab") return;
+      const items = getFocusable();
+      if (items.length === 0) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
       }
-    } catch {
-      sendMail("Заказ звонка", { Имя: payload.name, Телефон: payload.phone, "Согласие на обработку персональных данных": "Да" });
-      setCallStatus("Открылось почтовое приложение с подготовленным письмом.");
-    } finally {
-      setCallSubmitting(false);
-    }
-  };
+    };
+
+    document.addEventListener("keydown", trapFocus);
+    return () => {
+      document.removeEventListener("keydown", trapFocus);
+      if (previous?.isConnected && previous.getClientRects().length > 0) previous.focus();
+      else menuToggleRef.current?.focus();
+    };
+  }, [call]);
 
   const cls = (id: string) =>
     "text-sm font-semibold transition-colors hover:underline underline-offset-8 " +
@@ -117,7 +135,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-line bg-white" style={{ paddingTop: "env(safe-area-inset-top)" }}>
+      <header className="safe-area-top sticky top-0 z-50 border-b border-line bg-white">
         {/* Тонкая верхняя полоса */}
         <div className="hidden border-b border-line bg-soft md:block">
           <div className="mx-auto flex h-9 max-w-[1400px] items-center justify-end gap-8 px-6 lg:px-10">
@@ -153,7 +171,7 @@ export default function Header() {
               </div>
             </div>
             {NAV.map((n) => (
-              <a key={n.label} href={n.href} target={n.href.startsWith("https://") ? "_blank" : undefined} rel={n.href.startsWith("https://") ? "noreferrer" : undefined} className={cls(n.id)}>
+              <a key={n.label} href={n.href} className={cls(n.id)}>
                 {n.label}
               </a>
             ))}
@@ -163,7 +181,7 @@ export default function Header() {
             <a href={PHONES[0].href} className="hidden whitespace-nowrap text-sm font-bold lg:block">
               {PHONES[0].label}
             </a>
-            <button type="button" onClick={() => { callOpenedAt.current = Date.now(); setCall(true); }} className="btn hidden md:block">
+            <button type="button" onClick={() => setCall(true)} aria-haspopup="dialog" className="btn hidden md:block">
               Заказать звонок
             </button>
             <a
@@ -176,6 +194,8 @@ export default function Header() {
               type="button"
               className="text-sm font-semibold xl:hidden"
               aria-expanded={menu}
+              aria-controls="mobile-navigation"
+              ref={menuToggleRef}
               onClick={() => setMenu((v) => !v)}
             >
               {menu ? "Закрыть" : "Меню"}
@@ -185,8 +205,7 @@ export default function Header() {
       </header>
 
       {/* Мобильное меню */}
-      {menu && (
-        <div className="fixed inset-0 z-40 overflow-y-auto bg-white px-6 pb-10 pt-28 xl:hidden">
+      <div id="mobile-navigation" hidden={!menu} role="dialog" aria-modal="true" aria-label="Мобильное меню" className="fixed inset-0 z-40 overflow-y-auto bg-white px-6 pb-10 pt-28 xl:hidden">
           <nav className="flex flex-col gap-5" aria-label="Мобильная навигация">
             <a href="#catalog" onClick={() => setMenu(false)} className="text-3xl font-extrabold tracking-tight">
               Каталог
@@ -204,8 +223,6 @@ export default function Header() {
               <a
                 key={n.label}
                 href={n.href}
-                target={n.href.startsWith("https://") ? "_blank" : undefined}
-                rel={n.href.startsWith("https://") ? "noreferrer" : undefined}
                 onClick={() => setMenu(false)}
                 className="text-3xl font-extrabold tracking-tight"
               >
@@ -221,9 +238,9 @@ export default function Header() {
               type="button"
               onClick={() => {
                 setMenu(false);
-                callOpenedAt.current = Date.now();
                 setCall(true);
               }}
+              aria-haspopup="dialog"
               className="btn"
             >
               Заказать звонок
@@ -245,46 +262,36 @@ export default function Header() {
               </li>
             ))}
           </ul>
-        </div>
-      )}
+      </div>
 
       {/* Окно «Заказать звонок» */}
       {call && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 p-6" onClick={() => setCall(false)}>
           <div
+            ref={callDialogRef}
             role="dialog"
             aria-modal="true"
-            aria-label="Заказать звонок"
+            aria-labelledby="call-dialog-title"
             className="w-full max-w-md border border-line bg-white p-8"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-8 flex items-start justify-between gap-6">
-              <h2 className="text-3xl font-extrabold tracking-tight">Заказать звонок</h2>
+              <h2 id="call-dialog-title" className="text-3xl font-extrabold tracking-tight">Заказать звонок</h2>
               <button type="button" onClick={() => setCall(false)} className="text-sm text-muted hover:text-ink">
                 Закрыть
               </button>
             </div>
-            <form onSubmit={onSubmit}>
-              <label htmlFor="cb-name" className="sr-only">Имя</label>
-              <input id="cb-name" name="name" type="text" required autoComplete="name" placeholder="Имя" className={field} />
-              <label htmlFor="cb-phone" className="sr-only">Телефон</label>
-              <input id="cb-phone" name="phone" type="tel" required autoComplete="tel" placeholder="Телефон" className={field + " mt-4"} />
-              <div className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
-                <label htmlFor="cb-website">Не заполняйте это поле</label>
-                <input id="cb-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+            <div className="space-y-5">
+              <p className="text-sm leading-6 text-muted">
+                Форма заказа звонка временно отключена до проверки политики обработки персональных данных. Позвоните или напишите компании напрямую.
+              </p>
+              <div className="space-y-3">
+                {PHONES.map((phone) => (
+                  <a key={phone.href} href={phone.href} className="block text-lg font-bold hover:underline">{phone.label}</a>
+                ))}
+                <a href={`mailto:${EMAIL}?subject=${encodeURIComponent("Заказ звонка")}`} className="inline-block underline underline-offset-4">{EMAIL}</a>
               </div>
-              <label className="mt-6 flex cursor-pointer items-start gap-3 text-xs leading-5 text-muted">
-                <input type="checkbox" name="consent" value="yes" required className="mt-0.5 h-4 w-4 shrink-0 accent-[#c62828]" />
-                <span>
-                  Согласен(на) на обработку персональных данных и с{" "}
-                  <a href="/privacy/" target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-ink">
-                    политикой конфиденциальности
-                  </a>
-                </span>
-              </label>
-              <button type="submit" disabled={callSubmitting} className="btn mt-8 disabled:opacity-60">{callSubmitting ? "Отправка…" : "Отправить"}</button>
-              <p className="mt-3 text-xs leading-5 text-muted" aria-live="polite">{callStatus || "Если серверная отправка ещё не настроена, откроется почтовое приложение."}</p>
-            </form>
+            </div>
           </div>
         </div>
       )}
