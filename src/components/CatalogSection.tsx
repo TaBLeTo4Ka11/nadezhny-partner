@@ -118,7 +118,7 @@ export default function CatalogSection() {
               <p className="text-xs font-semibold uppercase tracking-[.18em] text-muted">Сохранённые названия</p>
               <h3 className="mt-2 text-2xl font-extrabold tracking-tight">Товары из исходного каталога</h3>
             </div>
-            <p className="max-w-lg text-sm leading-6 text-muted">Названия сохранены из предыдущего извлечения. Полные описания и характеристики пока не восстановлены и требуют повторной сверки.</p>
+            <p className="max-w-lg text-sm leading-6 text-muted">В исходном разделе «Банковские лотки» индексированный снимок показывает пять позиций. Полные карточки четырёх из них пока недоступны; для ЛТ-21 восстановлена отдельная карточка с пометкой о необходимости проверки.</p>
           </div>
           <div className="mt-6 divide-y divide-line border-y border-line">
             {catalogProductLinks.map((product, index) => (
