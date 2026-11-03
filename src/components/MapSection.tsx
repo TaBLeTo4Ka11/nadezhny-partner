@@ -1,7 +1,7 @@
 import { ADDRESS, EMAIL, PHONES } from "../data/content";
 
 const MAP_SRC =
-  "https://yandex.ru/map-widget/v1/?z=16&text=" + encodeURIComponent("г. Иваново, ул. Тимирязева, 1");
+  "https://yandex.ru/map-widget/v1/?z=16&text=" + encodeURIComponent("г. Иваново, ул. Тимирязева, д. 1, стр. 2");
 
 export default function MapSection() {
   return (
@@ -31,7 +31,7 @@ export default function MapSection() {
 
           <div className="h-[420px] border border-line bg-soft lg:col-span-8">
             <iframe
-              title="Карта: г. Иваново, ул. Тимирязева, 1"
+              title="Карта: г. Иваново, ул. Тимирязева, д. 1, стр. 2"
               src={MAP_SRC}
               loading="lazy"
               className="h-full w-full border-0"
