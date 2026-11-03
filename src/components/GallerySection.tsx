@@ -15,7 +15,7 @@ export default function GallerySection() {
   }, []);
   return <section ref={ref} id="gallery" className="section">
     <div className="container">
-      <p className="eyebrow mb-8">06 — Реализованные работы</p>
+      <p className="eyebrow mb-8">05 — Реализованные работы</p>
       <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
         <h2 className="section-title">Результат <span className="text-[#858d90]">в деталях.</span></h2>
         <p className="max-w-sm text-sm leading-7 text-[#92989a]">Фотографии объектов из галереи оригинального сайта компании.</p>
