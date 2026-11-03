@@ -36,7 +36,7 @@ export default function CookieConsent() {
           <p className="font-bold text-ink">Настройки конфиденциальности</p>
           <p className="mt-1 text-sm leading-6 text-muted">
             Для запоминания этого выбора сайт использует локальное хранилище браузера. Аналитические и рекламные счётчики не подключены. Виджет Яндекс Карт загружается только после нажатия. Подробнее — в{" "}
-            <a className="underline underline-offset-4" href="/cookies/">сведениях об использовании cookie</a>.
+            <a className="underline underline-offset-4" href="/kuki/">сведениях об использовании cookie</a>.
           </p>
         </div>
         <button type="button" onClick={acknowledge} className="btn shrink-0">
