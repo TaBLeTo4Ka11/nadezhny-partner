@@ -7,6 +7,7 @@ import HeroSection from "./components/HeroSection";
 import CatalogSection from "./components/CatalogSection";
 import PartnersSection from "./components/PartnersSection";
 import AboutSection from "./components/AboutSection";
+import ProductionSection from "./components/ProductionSection";
 import GallerySection from "./components/GallerySection";
 import ReviewsSection from "./components/ReviewsSection";
 import FormSection from "./components/FormSection";
@@ -31,6 +32,7 @@ export default function App() {
         <CatalogSection />
         <PartnersSection />
         <AboutSection />
+        <ProductionSection />
         <GallerySection />
         <ReviewsSection />
         <FormSection />
