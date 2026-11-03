@@ -13,16 +13,27 @@ import ReviewsSection from "./components/ReviewsSection";
 import FormSection from "./components/FormSection";
 import MapSection from "./components/MapSection";
 import Footer from "./components/Footer";
+import InfoPage from "./components/InfoPage";
 
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
 
 export default function App() {
+  const path = window.location.pathname.replace(/\\/+$/, "") || "/";
+  const infoRoutes: Record<string, "warehouse" | "delivery" | "vacancies" | "useful"> = {
+    "/sklad": "warehouse",
+    "/dostavka-i-ustanovka": "delivery",
+    "/vakansii": "vacancies",
+    "/poleznoe": "useful",
+  };
+
   useEffect(() => {
     const refresh = () => ScrollTrigger.refresh();
     window.addEventListener("load", refresh);
     return () => window.removeEventListener("load", refresh);
   }, []);
+
+  if (infoRoutes[path]) return <InfoPage page={infoRoutes[path]} />;
 
   return (
     <>
