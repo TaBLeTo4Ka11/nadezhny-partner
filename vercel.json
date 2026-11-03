@@ -92,6 +92,14 @@
     {
       "source": "/catalog/furnitura-dlya-protivopozharnyh-dverej/",
       "destination": "/index.html"
+    },
+    {
+      "source": "/o-kompanii/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/kontakty/",
+      "destination": "/index.html"
     }
   ],
   "headers": [
