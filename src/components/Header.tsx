@@ -9,6 +9,8 @@ const TOP = [
   { label: "Согласие на cookie", href: "https://iv-partner.ru/kuki/" },
   { label: "Наши заказы", href: "#gallery" },
   { label: "Наши отзывы", href: "#reviews" },
+  { label: "Вакансии", href: "/vakansii/" },
+  { label: "Полезное", href: "/poleznoe/" },
 ];
 
 const CATALOG = catalog.flatMap((group) =>
