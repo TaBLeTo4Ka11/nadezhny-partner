@@ -15,6 +15,9 @@ export default function InfoPage({ page }: { page: PageKey }) {
     document.title = `${data.title} — Надёжный партнёр`;
     const meta = document.querySelector('meta[name="description"]');
     meta?.setAttribute("content", `${data.title}. Перенос исходной информации ещё не завершён.`);
+    let robots = document.querySelector('meta[name="robots"]');
+    if (!robots) { robots = document.createElement("meta"); robots.setAttribute("name", "robots"); document.head.appendChild(robots); }
+    robots.setAttribute("content", "noindex, follow");
   }, [data.title]);
 
   return <>
