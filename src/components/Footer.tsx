@@ -1,6 +1,7 @@
 import { ADDRESS, EMAIL, PHONES } from "../data/content";
-import { catalog, catalogUrls } from "../data/companyContent";
-const MENU = catalog.flatMap((group) => group.items.map((label) => ({ label, href: catalogUrls[label] ?? "#catalog" })));
+import { catalog } from "../data/companyContent";
+import { catalogPageByTitle } from "../data/catalogPages";
+const MENU = catalog.flatMap((group) => group.items.map((label) => ({ label, href: catalogPageByTitle[label] ? "/catalog/" + catalogPageByTitle[label].slug + "/" : "/#catalog" })));
 export default function Footer(){
  return <footer className="bg-graphite px-6 pb-[calc(3rem+env(safe-area-inset-bottom))] pt-20 text-white lg:px-10"><div className="mx-auto max-w-[1400px]">
  <div className="grid gap-12 lg:grid-cols-[1.3fr_1fr]"><div><p className="mb-5 text-xs font-semibold uppercase tracking-[.2em] text-white/50">Разделы каталога</p><ul className="grid grid-cols-1 gap-x-8 gap-y-2 sm:grid-cols-2">{MENU.map(m=><li key={m.label}><a href={m.href} target={m.href.startsWith("https://") ? "_blank" : undefined} rel={m.href.startsWith("https://") ? "noreferrer" : undefined} className="block border-b border-white/15 py-3 text-sm font-semibold text-white/85 transition-colors hover:text-white">{m.label}</a></li>)}</ul></div>
