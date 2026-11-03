@@ -96,7 +96,7 @@ export const catalogUrls: Record<string, string> = {
 export const catalogProductLinks = [
   { title: "Электромеханический передаточный шлюз стандартный (ШПТ-1.ЭМ)", category: "Банковские лотки", sourceUrl: "https://iv-partner.ru/product/elektromehanicheskij-peredatochnyj-shljuz-standartnyj-shpt-1-em/" },
   { title: "Шлюз механический стандартный", category: "Банковские лотки", sourceUrl: "https://iv-partner.ru/product/shljuz-mehanicheskij-standartnyj/" },
-  { title: "Устройство передаточное подвижное ЛТ-21", category: "Банковские лотки", sourceUrl: "https://iv-partner.ru/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-21/" },
+  { title: "Устройство передаточное подвижное ЛТ-21", category: "Банковские лотки", sourceUrl: "https://iv-partner.ru/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-21/", localPath: "/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-21/" },
   { title: "Устройство передаточное подвижное ЛТ-22", category: "Банковские лотки", sourceUrl: "https://iv-partner.ru/product/ustrojstvo-peredatochnoe-podvizhnoe-lt-22/" },
   { title: "ЛТ-00 Щелевой", category: "Банковские лотки", sourceUrl: "https://iv-partner.ru/product/lt-00-shhelevoj/" },
 ];
