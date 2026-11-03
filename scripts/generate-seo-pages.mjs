@@ -30,8 +30,8 @@ function writePage(route, title, description, robots, body, image) {
     '<meta property="og:url" content="' + canonical + '">',
     image ? '<meta property="og:image" content="' + escapeHtml(image) + '">' : "",
     ...styles.map((href) => '<link rel="stylesheet" href="' + href + '">'),
-    '</head><body style="margin:0;background:#fff;font-family:Arial,sans-serif;color:#1a1a1a">',
-    '<div id="root">' + body + '</div>',
+    "</head><body>",
+    '<div id="root">' + body + "</div>",
     '<script type="module" crossorigin src="' + script + '"></script></body></html>'
   ].join("\n");
   const target = path.join(dist, route, "index.html");
@@ -39,24 +39,22 @@ function writePage(route, title, description, robots, body, image) {
   fs.writeFileSync(target, html);
 }
 
-const header = '<header style="padding:20px 6vw;border-bottom:1px solid #e5e7eb"><a href="/" style="color:inherit;text-decoration:none;font-weight:800">НАДЁЖНЫЙ ПАРТНЁР</a></header>';
+const header = '<header><a href="/">НАДЁЖНЫЙ ПАРТНЁР</a></header>';
 
 for (const page of categories) {
   const title = page.title + " — Надёжный партнёр | Иваново";
   const body = header
-    + '<main style="max-width:1200px;margin:auto;padding:64px 6vw"><p style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#5f6368">' + escapeHtml(page.group) + '</p>'
-    + '<h1 style="font-size:clamp(36px,6vw,72px);line-height:1.02;max-width:16ch">' + escapeHtml(page.title) + '</h1>'
-    + '<p style="font-size:18px;line-height:1.7;max-width:720px;color:#5f6368">' + escapeHtml(page.description) + '</p>'
-    + '<p><a href="/#kp" style="display:inline-block;background:#c62828;color:#fff;padding:16px 24px;text-decoration:none">Связаться с компанией</a></p></main>';
+    + "<main><p>" + escapeHtml(page.group) + "</p><h1>" + escapeHtml(page.title) + "</h1>"
+    + "<p>" + escapeHtml(page.description) + "</p>"
+    + '<p><a href="/#kp">Связаться с компанией</a></p></main>';
   writePage("catalog/" + page.slug, title, page.description, "noindex,follow", body, page.image);
 }
 
 for (const page of products) {
   const title = page.title + " — Надёжный партнёр";
   const body = header
-    + '<main style="max-width:1100px;margin:auto;padding:64px 6vw"><p style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#5f6368">Банковские лотки</p>'
-    + '<h1 style="font-size:clamp(32px,6vw,64px);line-height:1.05">' + escapeHtml(page.title) + '</h1>'
-    + '<p style="max-width:720px;font-size:18px;line-height:1.7;color:#555">' + escapeHtml(page.description) + '</p>'
+    + "<main><p>Банковские лотки</p><h1>" + escapeHtml(page.title) + "</h1>"
+    + "<p>" + escapeHtml(page.description) + "</p>"
     + '<p><a href="/catalog/bankovskie-lotki/">Вернуться к категории</a></p></main>';
   writePage("product/" + page.slug, title, page.description, "noindex,follow", body);
 }
@@ -66,7 +64,7 @@ const companyPages = [
   { route: "kontakty", title: "Контакты — Надёжный партнёр", description: "Контактные данные, адрес и режим работы компании «Надёжный партнёр» в Иваново." }
 ];
 for (const page of companyPages) {
-  const body = header + '<main style="max-width:1100px;margin:auto;padding:64px 6vw"><h1 style="font-size:clamp(36px,6vw,72px)">' + escapeHtml(page.title.split(" — ")[0]) + '</h1><p style="font-size:18px;line-height:1.7;color:#555">' + escapeHtml(page.description) + '</p><p><a href="/#kp">Связаться с компанией</a></p></main>';
+  const body = header + "<main><h1>" + escapeHtml(page.title.split(" — ")[0]) + "</h1><p>" + escapeHtml(page.description) + '</p><p><a href="/#kp">Связаться с компанией</a></p></main>';
   writePage(page.route, page.title, page.description, "index,follow", body);
 }
 
@@ -80,18 +78,14 @@ const infoPages = [
   ["color-palette/ral-classic", "Цвета RAL Classic", "Архивный снимок палитры содержит повреждённые HEX-коды; значения не публикуются до проверки."]
 ];
 for (const [route, title, description] of infoPages) {
-  const body = header + '<main style="max-width:1100px;margin:auto;padding:64px 6vw"><h1 style="font-size:clamp(36px,6vw,72px)">' + escapeHtml(title) + '</h1><p style="font-size:18px;line-height:1.7;color:#555">' + escapeHtml(description) + '</p><p><a href="/#kp">Связаться с компанией</a></p></main>';
+  const body = header + "<main><h1>" + escapeHtml(title) + "</h1><p>" + escapeHtml(description) + '</p><p><a href="/#kp">Связаться с компанией</a></p></main>';
   writePage(route, title + " — Надёжный партнёр", description, "noindex,follow", body);
 }
 
-const urls = [
-  baseUrl + "/",
-  baseUrl + "/o-kompanii/",
-  baseUrl + "/kontakty/"
-];
+const urls = [baseUrl + "/", baseUrl + "/o-kompanii/", baseUrl + "/kontakty/"];
 const sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
   + urls.map((url) => "  <url><loc>" + url + "</loc><changefreq>monthly</changefreq></url>").join("\n")
   + "\n</urlset>\n";
 fs.writeFileSync(path.join(dist, "sitemap.xml"), sitemap);
-fs.writeFileSync(path.join(dist, "robots.txt"), "User-agent: *\nAllow: /\n\nSitemap: " + baseUrl + "/sitemap.xml\n");
+fs.writeFileSync(path.join(dist, "robots.txt"), "User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: " + baseUrl + "/sitemap.xml\n");
 console.log("Generated " + categories.length + " noindex category pages, " + products.length + " noindex product pages, company/info pages and a focused sitemap.");
