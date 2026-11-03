@@ -26,9 +26,9 @@ export const catalog = [
   { group: "Деревянные двери", items: [
     "Полнотелые деревянные двери", "Дверные блоки для строителей",
   ]},
-  { group: "Дополнительные решения", items: [
-    "Системы «Антипаника»", "Фурнитура для противопожарных дверей", "Подбор цвета",
-  ]},
+  { group: "Антипаника", items: ["Системы «Антипаника»"] },
+  { group: "Фурнитура", items: ["Фурнитура для противопожарных дверей"] },
+  { group: "Цвета и отделка", items: ["Подбор цвета и вариантов окраски"] },
 ];
 
 export const productImages = [
@@ -37,6 +37,20 @@ export const productImages = [
   { title: "Противопожарная дверь", src: "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-01-EIS60-e1647434479532.jpg" },
   { title: "Противопожарные ворота", src: "https://iv-partner.ru/wp-content/uploads/2022/03/vorota-protivopojarnie.jpg" },
   { title: "Противопожарные шторы", src: "https://iv-partner.ru/wp-content/uploads/2022/03/protivopojarniye-shtori.jpg" },
+];
+
+export const workImages = [
+  "https://iv-partner.ru/wp-content/uploads/2022/04/5ab59d74-02cd-42ba-940b-5fa2d965034a-2-225x300.jpg",
+  "https://iv-partner.ru/wp-content/uploads/2022/04/34aea35c-5c64-4fbd-b5c3-5b34c396ea39-225x300.jpg",
+  "https://iv-partner.ru/wp-content/uploads/2022/04/74cc0178-18f5-456d-8a71-fd7a74172adc-225x300.jpg",
+  "https://iv-partner.ru/wp-content/uploads/2022/04/105200d7-8801-4e82-afaa-2b846ec7f49d-225x300.jpg",
+  "https://iv-partner.ru/wp-content/uploads/2022/04/706842d4-f5f9-443c-b8f7-ced75da93a96-2-225x300.jpg",
+  "https://iv-partner.ru/wp-content/uploads/2022/04/aa5693dc-cd1a-46df-bee4-c12a1af65d78-1-225x300.jpg",
+  "https://iv-partner.ru/wp-content/uploads/2022/04/b29c46ff-0bfb-4482-a6a7-126a4f806ec5-1-225x300.jpg",
+  "https://iv-partner.ru/wp-content/uploads/2022/04/c6b5d4c5-5f94-4054-a7e6-acfdde745bc1-225x300.jpg",
+  "https://iv-partner.ru/wp-content/uploads/2022/04/c99fee76-d829-42ff-bc9a-cc98d0a3fba5-1-225x300.jpg",
+  "https://iv-partner.ru/wp-content/uploads/2022/04/3afab024-4043-460e-b61b-b80567094ff0-1-225x300.jpg",
+  "https://iv-partner.ru/wp-content/uploads/2022/04/3afab024-4043-460e-b61b-b80567094ff0-1-1-225x300.jpg",
 ];
 
 export const about = [
@@ -55,5 +69,5 @@ export const productionStages = [
 export const reviews = [
   { author: "Отзыв с сайта компании", rating: "4,5 / 5", text: "Все очень понравилось. Сервис на высоте! Качество дверей отличное. Менеджеры отлично выполняли свою работу, так же как и установщики." },
   { author: "Алия", rating: "5 / 5", text: "Высокое качество, стильно и лаконично." },
-  { author: "Мария", rating: "5 / 5", text: "Качественная, классическая дверь." },
+  { author: "Ольга Петровна", rating: "5 / 5", text: "Качественная, классическая дверь." },
 ];
