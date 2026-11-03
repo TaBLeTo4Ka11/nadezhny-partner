@@ -9,6 +9,7 @@ export default function HeroSection() {
   const root = useRef<HTMLElement>(null);
 
   useLayoutEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = gsap.context(() => {
       gsap.from("[data-h]", { opacity: 0, y: 28, duration: 0.9, ease: "power3.out", stagger: 0.12 });
       gsap.from("[data-hero-image]", { opacity: 0, x: 28, duration: 1.1, ease: "power3.out", delay: 0.2 });
