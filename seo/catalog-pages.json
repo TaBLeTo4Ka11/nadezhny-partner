@@ -5,7 +5,10 @@
     "group": "Входные двери",
     "description": "Входные металлические двери с зеркалом. Вариант исполнения и комплектацию можно согласовать при подготовке коммерческого предложения.",
     "sourceUrl": "https://iv-partner.ru/product-category/clocks/dveri-s-zerkalom/",
-    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-1-EIS60-e1647434608692.jpg"
+    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-1-EIS60-e1647434608692.jpg",
+    "catalogLabels": [
+      "Двери с зеркалом"
+    ]
   },
   {
     "slug": "dveri-s-termorazryvom",
@@ -13,7 +16,10 @@
     "group": "Входные двери",
     "description": "Входные двери с терморазрывом. Размеры, отделку и комплектацию уточняют под требования объекта.",
     "sourceUrl": "https://iv-partner.ru/product-category/clocks/dveri-s-termorazryvom/",
-    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-2-EIS60-e1647434559868.jpg"
+    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-2-EIS60-e1647434559868.jpg",
+    "catalogLabels": [
+      "Двери с терморазрывом"
+    ]
   },
   {
     "slug": "dveri-mdf-mdf",
@@ -21,7 +27,10 @@
     "group": "Входные двери",
     "description": "Входные металлические двери с отделкой МДФ с обеих сторон. Конкретное исполнение согласуется с заказчиком.",
     "sourceUrl": "https://iv-partner.ru/product-category/clocks/dveri-mdf-mdf/",
-    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-01-EIS60-e1647434479532.jpg"
+    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-01-EIS60-e1647434479532.jpg",
+    "catalogLabels": [
+      "Двери МДФ-МДФ"
+    ]
   },
   {
     "slug": "kottedzhnye-dveri-so-steklopaketom",
@@ -29,7 +38,10 @@
     "group": "Входные двери",
     "description": "Коттеджные входные двери со стеклопакетом. Конфигурацию и размеры можно согласовать по эскизу объекта.",
     "sourceUrl": "https://iv-partner.ru/product-category/clocks/kottedzhnye-dveri-so-steklopaketom/",
-    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-1-EIS60-e1647434608692.jpg"
+    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-1-EIS60-e1647434608692.jpg",
+    "catalogLabels": [
+      "Коттеджные двери со стеклопакетом"
+    ]
   },
   {
     "slug": "dveri-metall-metall",
@@ -37,7 +49,10 @@
     "group": "Входные двери",
     "description": "Металлические двери с металлической отделкой полотна. Возможность изготовления по размерам и эскизу заказчика указана в материалах компании.",
     "sourceUrl": "https://iv-partner.ru/product-category/clocks/dveri-metall-metall/",
-    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-2-EIS60-e1647434559868.jpg"
+    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-2-EIS60-e1647434559868.jpg",
+    "catalogLabels": [
+      "Двери металл–металл"
+    ]
   },
   {
     "slug": "dveri-metall-mdf",
@@ -45,7 +60,10 @@
     "group": "Входные двери",
     "description": "Входные двери с металлической конструкцией и отделкой МДФ. Подробности исполнения согласуются при запросе.",
     "sourceUrl": "https://iv-partner.ru/product-category/clocks/dveri-metall-mdf/",
-    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-01-EIS60-e1647434479532.jpg"
+    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-01-EIS60-e1647434479532.jpg",
+    "catalogLabels": [
+      "Двери металл–МДФ"
+    ]
   },
   {
     "slug": "protivopozharnye-dveri",
@@ -53,7 +71,10 @@
     "group": "Противопожарные преграды",
     "description": "Производство, поставка и монтаж противопожарных дверей. Для поставленных изделий исходный сайт указывает передачу паспортов и сертификатов на партию продукции.",
     "sourceUrl": "https://iv-partner.ru/product-category/accessories/protivopozharnye-dveri/",
-    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-1-EIS60-e1647434608692.jpg"
+    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-1-EIS60-e1647434608692.jpg",
+    "catalogLabels": [
+      "Противопожарные двери"
+    ]
   },
   {
     "slug": "protivopozharnye-vorota",
@@ -61,7 +82,10 @@
     "group": "Противопожарные преграды",
     "description": "Противопожарные ворота для объектов различного назначения. Технические параметры и вариант монтажа уточняются по проекту.",
     "sourceUrl": "https://iv-partner.ru/product-category/accessories/protivopozharnye-vorota/",
-    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/vorota-protivopojarnie.jpg"
+    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/vorota-protivopojarnie.jpg",
+    "catalogLabels": [
+      "Противопожарные ворота"
+    ]
   },
   {
     "slug": "protivopozharnye-shtory",
@@ -69,7 +93,10 @@
     "group": "Противопожарные преграды",
     "description": "Поставка и монтаж противопожарных штор. Подбор решения выполняется с учётом параметров проёма и требований объекта.",
     "sourceUrl": "https://iv-partner.ru/product-category/accessories/protivopozharnye-shtory/",
-    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/protivopojarniye-shtori.jpg"
+    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/protivopojarniye-shtori.jpg",
+    "catalogLabels": [
+      "Противопожарные шторы"
+    ]
   },
   {
     "slug": "protivopozharnye-lyuki",
@@ -77,7 +104,10 @@
     "group": "Противопожарные преграды",
     "description": "Противопожарные люки для инженерных и строительных объектов. Размеры и исполнение уточняются при подготовке запроса.",
     "sourceUrl": "https://iv-partner.ru/product-category/accessories/protivopozharnye-ljuki/",
-    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-1-EIS60-e1647434608692.jpg"
+    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-1-EIS60-e1647434608692.jpg",
+    "catalogLabels": [
+      "Противопожарные люки"
+    ]
   },
   {
     "slug": "svetoprozrachnye-peregorodki",
@@ -85,7 +115,10 @@
     "group": "Противопожарные преграды",
     "description": "Светопрозрачные противопожарные перегородки. Состав конструкции и размеры определяются требованиями конкретного объекта.",
     "sourceUrl": "https://iv-partner.ru/product-category/accessories/svetoprozrachnye-peregorodki-protivopozharnye/",
-    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-2-EIS60-e1647434559868.jpg"
+    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-2-EIS60-e1647434559868.jpg",
+    "catalogLabels": [
+      "Светопрозрачные перегородки противопожарные"
+    ]
   },
   {
     "slug": "bankovskie-lotki",
@@ -93,7 +126,10 @@
     "group": "Бронированные двери и специальные изделия",
     "description": "Передаточные устройства и банковские лотки. В исходном каталоге представлены механические и электромеханические модели.",
     "sourceUrl": "https://iv-partner.ru/product-category/cooking/bankovskie-lotki/",
-    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-01-EIS60-e1647434479532.jpg"
+    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-01-EIS60-e1647434479532.jpg",
+    "catalogLabels": [
+      "Банковские лотки"
+    ]
   },
   {
     "slug": "dveri-3-klassa-zashchity",
@@ -101,7 +137,10 @@
     "group": "Бронированные двери и специальные изделия",
     "description": "Двери 3 класса защиты. Требования к конструкции и комплектующим согласуются в рамках технического задания.",
     "sourceUrl": "https://iv-partner.ru/product-category/cooking/dveri-3-klassa-zashhity/",
-    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-1-EIS60-e1647434608692.jpg"
+    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-1-EIS60-e1647434608692.jpg",
+    "catalogLabels": [
+      "Двери 3 класса защиты"
+    ]
   },
   {
     "slug": "dveri-zashchitnye",
@@ -109,7 +148,10 @@
     "group": "Бронированные двери и специальные изделия",
     "description": "Защитные дверные конструкции для объектов с особыми требованиями. Подбор исполнения выполняется по параметрам проекта.",
     "sourceUrl": "https://iv-partner.ru/product-category/cooking/dveri-zashhitnye/",
-    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-2-EIS60-e1647434559868.jpg"
+    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-2-EIS60-e1647434559868.jpg",
+    "catalogLabels": [
+      "Двери защитные"
+    ]
   },
   {
     "slug": "dvernye-bloki-dlya-stroiteley",
@@ -117,7 +159,10 @@
     "group": "Бронированные двери и специальные изделия",
     "description": "Дверные блоки для строительных компаний и объектов. Поставка и монтаж согласуются с графиком работ заказчика.",
     "sourceUrl": "https://iv-partner.ru/product-category/cooking/dvernye-bloki-dlya-stroitelej/",
-    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-01-EIS60-e1647434479532.jpg"
+    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-01-EIS60-e1647434479532.jpg",
+    "catalogLabels": [
+      "Дверные блоки для строителей"
+    ]
   },
   {
     "slug": "polnotelye-derevyannye-dveri",
@@ -125,7 +170,10 @@
     "group": "Деревянные двери",
     "description": "Полнотелые деревянные двери. Доступные варианты отделки, размеры и комплектацию можно уточнить у менеджера.",
     "sourceUrl": "https://iv-partner.ru/product-category/furniture/polnotelye-derevyannye-dveri/",
-    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-1-EIS60-e1647434608692.jpg"
+    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-1-EIS60-e1647434608692.jpg",
+    "catalogLabels": [
+      "Полнотелые деревянные двери"
+    ]
   },
   {
     "slug": "antipanika",
@@ -133,7 +181,10 @@
     "group": "Антипаника и фурнитура",
     "description": "Системы «Антипаника» для дверных конструкций. Совместимость и комплектация уточняются по типу двери и требованиям объекта.",
     "sourceUrl": "https://iv-partner.ru/product-category/lighting/",
-    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-2-EIS60-e1647434559868.jpg"
+    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-2-EIS60-e1647434559868.jpg",
+    "catalogLabels": [
+      "Антипаника"
+    ]
   },
   {
     "slug": "furnitura-dlya-protivopozharnyh-dverey",
@@ -141,7 +192,10 @@
     "group": "Антипаника и фурнитура",
     "description": "Фурнитура для противопожарных дверей. Подбор комплектующих производится с учётом конструкции и условий эксплуатации.",
     "sourceUrl": "https://iv-partner.ru/product-category/lighting/furnitura-dlya-protivopozharnyh-dverej/",
-    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-01-EIS60-e1647434479532.jpg"
+    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-01-EIS60-e1647434479532.jpg",
+    "catalogLabels": [
+      "Фурнитура для противопожарных дверей"
+    ]
   },
   {
     "slug": "ral-classic",
@@ -149,6 +203,9 @@
     "group": "Цвета и покраска",
     "description": "Выбор цвета покрытия по палитре RAL Classic. Точный цвет и возможность его применения согласуются при оформлении заказа.",
     "sourceUrl": "https://iv-partner.ru/color-palette/ral-classic/",
-    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-1-EIS60-e1647434608692.jpg"
+    "image": "https://iv-partner.ru/wp-content/uploads/2022/03/DMP-1-EIS60-e1647434608692.jpg",
+    "catalogLabels": [
+      "Выбрать цвет"
+    ]
   }
 ]
