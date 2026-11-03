@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { PHONES, sendMail } from "../data/content";
 import { catalog, catalogUrls } from "../data/companyContent";
 
@@ -33,6 +33,7 @@ export default function Header() {
   const [menu, setMenu] = useState(false);
   const [call, setCall] = useState(false);
   const [active, setActive] = useState("");
+  const callDialogRef = useRef<HTMLDivElement>(null);
 
   // Подсветка активного раздела
   useEffect(() => {
@@ -65,6 +66,36 @@ export default function Header() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
+
+  useEffect(() => {
+    if (!call) return;
+    const dialog = callDialogRef.current;
+    const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const selector = 'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled])';
+    const getFocusable = () => Array.from(dialog?.querySelectorAll<HTMLElement>(selector) ?? []);
+    getFocusable()[0]?.focus();
+
+    const trapFocus = (event: KeyboardEvent) => {
+      if (event.key !== "Tab") return;
+      const items = getFocusable();
+      if (items.length === 0) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", trapFocus);
+    return () => {
+      document.removeEventListener("keydown", trapFocus);
+      if (previous?.isConnected) previous.focus();
+    };
+  }, [call]);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -211,14 +242,15 @@ export default function Header() {
       {call && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 p-6" onClick={() => setCall(false)}>
           <div
+            ref={callDialogRef}
             role="dialog"
             aria-modal="true"
-            aria-label="Заказать звонок"
+            aria-labelledby="call-dialog-title"
             className="w-full max-w-md border border-line bg-white p-8"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-8 flex items-start justify-between gap-6">
-              <h2 className="text-3xl font-extrabold tracking-tight">Заказать звонок</h2>
+              <h2 id="call-dialog-title" className="text-3xl font-extrabold tracking-tight">Заказать звонок</h2>
               <button type="button" onClick={() => setCall(false)} className="text-sm text-muted hover:text-ink">
                 Закрыть
               </button>
