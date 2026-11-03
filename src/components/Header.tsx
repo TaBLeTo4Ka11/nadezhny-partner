@@ -24,8 +24,8 @@ const CATALOG = [
 const NAV = [
   { label: "О компании", href: "#about", id: "about" },
   { label: "Производство", href: "#production", id: "production" },
-  { label: "Склад", href: "#contacts", id: "" },
-  { label: "Доставка и установка", href: "#contacts", id: "" },
+  { label: "Склад", href: "https://iv-partner.ru/sklad/", id: "" },
+  { label: "Доставка и установка", href: "https://iv-partner.ru/dostavka-i-ustanovka/", id: "" },
   { label: "Контакты", href: "#contacts", id: "contacts" },
 ];
 
@@ -118,7 +118,7 @@ export default function Header() {
               </div>
             </div>
             {NAV.map((n) => (
-              <a key={n.label} href={n.href} className={cls(n.id)}>
+              <a key={n.label} href={n.href} target={n.href.startsWith("https://") ? "_blank" : undefined} rel={n.href.startsWith("https://") ? "noreferrer" : undefined} className={cls(n.id)}>
                 {n.label}
               </a>
             ))}
@@ -169,6 +169,8 @@ export default function Header() {
               <a
                 key={n.label}
                 href={n.href}
+                target={n.href.startsWith("https://") ? "_blank" : undefined}
+                rel={n.href.startsWith("https://") ? "noreferrer" : undefined}
                 onClick={() => setMenu(false)}
                 className="text-3xl font-extrabold tracking-tight"
               >
