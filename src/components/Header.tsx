@@ -261,7 +261,7 @@ export default function Header() {
                 ))}
                 <a href={`mailto:${EMAIL}?subject=${encodeURIComponent("Заказ звонка")}`} className="inline-block underline underline-offset-4">{EMAIL}</a>
               </div>
-            </div>     </form>
+            </div>
           </div>
         </div>
       )}
