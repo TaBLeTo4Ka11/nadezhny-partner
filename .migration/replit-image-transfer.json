@@ -165,6 +165,26 @@
       "path": "artifacts/nadyozhny-partner/public/images/products/9-5-sm-vena-vinorit-patina-mdf-mdf-greckij-oreh-01.png",
       "sha": "30ce5bb4b1d6b809e3a565af015ae7af65fc593d",
       "size": 524800
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/apeks-pb-1700a-panic-bl-red-dlya-vreznogo-zamka-01.webp",
+      "sha": "86fbb05b4bdf4efc7a3832c47bb1a4863e1e8415",
+      "size": 19293
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dlya-protivopozharnyh-dverej-v0190-inox-nerzhavejushhaya-stal-01.webp",
+      "sha": "f05ab0cb58016d5acd16cdcf2798eb04eff27d70",
+      "size": 3815
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dmpo-1-eis60-dver-metallicheskaya-protivopozharnaya-odnopolnaya-osteklennaya-02.png",
+      "sha": "b40133148ef8a8f3c0ef8077ac907f5e9d65a9ee",
+      "size": 195347
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dmpo-2-eis60-dver-metallicheskaya-protivopozharnaya-dvupolnaya-s-ostekleniem-v-rabochej-stvorke-01.jpg",
+      "sha": "f215102a4b1c66984c4560cc66832edfd1de2942",
+      "size": 10997
     }
   ]
 }
