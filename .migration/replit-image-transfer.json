@@ -205,6 +205,26 @@
       "path": "artifacts/nadyozhny-partner/public/images/products/dss-0203p-19-nerzhavejka-kvadrat-8x140-mm-02.webp",
       "sha": "0529de363388744c76b097dd524b237ee876fe47",
       "size": 21639
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dss-0203p-19-nerzhavejka-kvadrat-8x140-mm-03.webp",
+      "sha": "b46479e7f43bbd32c35b2db2f35ba6f64adfa714",
+      "size": 150963
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dvernye-bloki-polnotelye-s-zamkom-i-petlyami-v-komplekte-01.png",
+      "sha": "47f863432ca356e6934a8c0115852e22f79b495e",
+      "size": 309230
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dvernye-bloki-polnotelye-s-zamkom-i-petlyami-v-komplekte-05.jpg",
+      "sha": "14d6e7b8ea1867e36cc0c511de67af75eae3351d",
+      "size": 19703
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dvernye-bloki-polnotelye-s-zamkom-i-petlyami-v-komplekte-08.jpg",
+      "sha": "9a361cc7748f5159320ea57519df70a8e161a1f8",
+      "size": 82936
     }
   ]
 }
