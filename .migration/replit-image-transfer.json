@@ -305,6 +305,26 @@
       "path": "artifacts/nadyozhny-partner/public/images/products/florenciya-vinorit-01.png",
       "sha": "8f3c67808820f2ad3ac0c257b94a4d2463927ca0",
       "size": 362393
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/garda-metall-metall-01.png",
+      "sha": "f21ebdabf0ec9e350b9df6b5af166f69be4d87d1",
+      "size": 265212
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/garda-mini-metall-metall-01.png",
+      "sha": "c3c1b5b6dfa3e8d914646e6ca8b4d3570dcae5d6",
+      "size": 349990
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/henectus-tincidunt-01.png",
+      "sha": "a3832a21ccd8879e63c1c06a48086d28622e23e4",
+      "size": 143233
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/henectus-tincidunt-02.jpg",
+      "sha": "39c9f070a22fc4fc1a2d7af723e941506b896bb6",
+      "size": 38089
     }
   ]
 }
