@@ -425,6 +425,26 @@
       "path": "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-08.jpg",
       "sha": "344d95ee53e27f9aee20fdf52be0a1d738cb69ca",
       "size": 11468
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-09.jpg",
+      "sha": "8b6d7413186d8f67a72a89d62cfd943360d587ea",
+      "size": 7426
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-10.jpg",
+      "sha": "437727f50c952688a5e7bcfd2143e0c93c70c715",
+      "size": 7345
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ruchka-dvernaya-dh-0433-gr-ne-s-pruzhinoj-dlya-zamka-fl-0432-0433-0434-nejlon-01.webp",
+      "sha": "c00872eab1eac6d995f8c8f999e371b714ab5c1e",
+      "size": 38512
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ruchka-dvernaya-dh-0433-gr-ne-s-pruzhinoj-dlya-zamka-fl-0432-0433-0434-nejlon-02.webp",
+      "sha": "24adb7327b484e822eb029a900a4e73136f3d88e",
+      "size": 34299
     }
   ]
 }
