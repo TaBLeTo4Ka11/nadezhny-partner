@@ -505,6 +505,26 @@
       "path": "artifacts/nadyozhny-partner/public/images/products/strojgost-5-rf-vo-metall-metall-01.png",
       "sha": "0a392a5ddb43df015bf20179f48e762f91d9568d",
       "size": 397546
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/svetoprozrachnye-peregorodki-so-vstroennoj-dverju-01.jpg",
+      "sha": "87a8b53bfb63e5477e809648048a5cb6a6c06006",
+      "size": 33380
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/svetoprozrachnye-peregorodki-so-vstroennoj-dverju-02.jpg",
+      "sha": "4810746ca088bafd70b84cc3610a0b9e9130f8ad",
+      "size": 36991
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/svetoprozrachnye-peregorodki-so-vstroennoj-dverju-03.jpg",
+      "sha": "cb75a2fd1ff4c5f1c263658a8b70ca3fc5660b89",
+      "size": 23416
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/svetoprozrachnye-peregorodki-so-vstroennoj-dverju-04.jpg",
+      "sha": "4b76d8ee290cd71de6dea1d7a49554f3358015ae",
+      "size": 25812
     }
   ]
 }
