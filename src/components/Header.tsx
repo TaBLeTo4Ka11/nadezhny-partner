@@ -3,7 +3,6 @@ import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { EMAIL, PHONES } from "../data/content";
 import { catalog, catalogUrls } from "../data/companyContent";
-import { proxied } from "../lib/img";
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -174,7 +173,16 @@ export default function Header() {
             onClick={(e) => (HOME ? go(e, "#top") : undefined)}
             className="flex min-w-0 items-center gap-3"
           >
-            <img src={proxied(LOGO, 120)} alt="" width={48} height={48} className="h-10 w-10 shrink-0 object-contain lg:h-12 lg:w-12" />
+            <img
+              src={LOGO}
+              alt="Логотип компании «Надёжный партнёр»"
+              width={48}
+              height={48}
+              loading="eager"
+              decoding="async"
+              onError={(event) => { event.currentTarget.style.display = "none"; }}
+              className="h-10 w-10 shrink-0 object-contain lg:h-12 lg:w-12"
+            />
             <span className="truncate text-sm font-extrabold uppercase tracking-wider">Надёжный партнёр</span>
           </a>
 
