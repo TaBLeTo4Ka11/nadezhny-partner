@@ -485,6 +485,26 @@
       "path": "artifacts/nadyozhny-partner/public/images/products/ruchka-povorotnaya-dss-02-bk6-nerzhavejka-02.webp",
       "sha": "184a184f38627e02560a70717841705967e5f521",
       "size": 25913
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/shljuz-mehanicheskij-standartnyj-01.png",
+      "sha": "d3e53143350cd831ced3c36fbfc6b886dd976394",
+      "size": 126620
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/shljuz-mehanicheskij-standartnyj-02.jpg",
+      "sha": "152f3daa4353cb093199a1d20b84d4696f54807b",
+      "size": 8837
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/strojgost-5-rf-metall-metall-01.png",
+      "sha": "0a392a5ddb43df015bf20179f48e762f91d9568d",
+      "size": 397546
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/strojgost-5-rf-vo-metall-metall-01.png",
+      "sha": "0a392a5ddb43df015bf20179f48e762f91d9568d",
+      "size": 397546
     }
   ]
 }
