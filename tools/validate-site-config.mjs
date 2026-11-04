@@ -10,6 +10,7 @@ const pass = (message) => console.log(`OK: ${message}`);
 const vercel = JSON.parse(read("vercel.json"));
 const company = read("src/data/companyContent.ts");
 const categoryPages = JSON.parse(read("seo/catalog-pages.json"));
+const productPages = JSON.parse(read("seo/product-pages.json"));
 const categoryPage = read("src/components/CategoryPage.tsx");
 const app = read("src/App.tsx");
 const infoPage = read("src/components/InfoPage.tsx");
@@ -21,7 +22,7 @@ const slugBlock = categoryPage.match(/const slugs: Record<string, string> = \{([
 const slugEntries = [...slugBlock.matchAll(/"([^"]+)":\s*"([^"]+)"/g)].map(([, name, slug]) => ({ name, slug }));
 const rewriteSources = new Set((vercel.rewrites ?? []).map((route) => route.source));
 const redirects = vercel.redirects ?? [];
-const productPaths = [...company.matchAll(/localPath:\s*"([^"]+)"/g)].map(([, path]) => path);
+const productPaths = productPages.map((page) => `/product/${page.slug}/`);
 const infoRouteBlock = app.match(/const infoRoutes:[\s\S]*?= \{([\s\S]*?)\n\};/)?.[1] ?? "";
 const infoPaths = [...infoRouteBlock.matchAll(/"([^"]+)":\s*"[^"]+"/g)].map(([, path]) => `${path.replace(/\/$/, "")}/`);
 const requiredInfoPaths = [...infoPaths, "/o-kompanii/", "/kontakty/"];

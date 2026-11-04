@@ -16,9 +16,9 @@ const slugs: Record<string, string> = {
   "Банковские лотки": "bankovskie-lotki",
   "Двери 3 класса защиты": "dveri-3-klassa-zashchity",
   "Двери защитные": "dveri-zashchitnye",
-  "Дверные блоки для строителей": "dvernye-bloki-dlya-stroitelej",
+  "Дверные блоки для строителей": "dvernye-bloki-dlya-stroiteley",
   "Полнотелые деревянные двери": "polnotelye-derevyannye-dveri",
-  "Фурнитура для противопожарных дверей": "furnitura-dlya-protivopozharnyh-dverej",
+  "Фурнитура для противопожарных дверей": "furnitura-dlya-protivopozharnyh-dverey",
 };
 
 export default function CategoryPage({ slug }: { slug: string }) {

@@ -30,7 +30,7 @@
       "destination": "/index.html"
     },
     {
-      "source": "/catalog/protivopozharnye-ljuki/",
+      "source": "/catalog/protivopozharnye-lyuki/",
       "destination": "/index.html"
     },
     {
@@ -50,7 +50,7 @@
       "destination": "/index.html"
     },
     {
-      "source": "/catalog/dvernye-bloki-dlya-stroitelej/",
+      "source": "/catalog/dvernye-bloki-dlya-stroiteley/",
       "destination": "/index.html"
     },
     {
@@ -90,7 +90,7 @@
       "destination": "/index.html"
     },
     {
-      "source": "/catalog/furnitura-dlya-protivopozharnyh-dverej/",
+      "source": "/catalog/furnitura-dlya-protivopozharnyh-dverey/",
       "destination": "/index.html"
     },
     {
@@ -260,7 +260,7 @@
     },
     {
       "source": "/product-category/accessories/protivopozharnye-ljuki/",
-      "destination": "/catalog/protivopozharnye-ljuki/",
+      "destination": "/catalog/protivopozharnye-lyuki/",
       "permanent": true
     },
     {
@@ -320,12 +320,12 @@
     },
     {
       "source": "/product-category/furniture/dvernye-bloki-dlya-stroitelej/",
-      "destination": "/catalog/dvernye-bloki-dlya-stroitelej/",
+      "destination": "/catalog/dvernye-bloki-dlya-stroiteley/",
       "permanent": true
     },
     {
       "source": "/product-category/lighting/furnitura-dlya-protivopozharnyh-dverej/",
-      "destination": "/catalog/furnitura-dlya-protivopozharnyh-dverej/",
+      "destination": "/catalog/furnitura-dlya-protivopozharnyh-dverey/",
       "permanent": true
     }
   ]
