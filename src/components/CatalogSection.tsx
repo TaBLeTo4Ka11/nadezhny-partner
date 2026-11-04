@@ -99,7 +99,7 @@ export default function CatalogSection() {
                       loading={index < 4 ? "eager" : "lazy"}
                       decoding="async"
                       onError={(event) => { event.currentTarget.style.display = "none"; }}
-                      className="absolute inset-0 h-full w-full object-contain p-0"
+                      className={`absolute inset-0 h-full w-full p-0 ${item.slug === "protivopozharnye-vorota" ? "object-cover object-[center_42%] scale-110 grayscale contrast-110" : "object-contain"}`}
                     />
                   )}
                   <span className="absolute left-2 top-2 max-w-[calc(100%-1rem)] bg-white px-2 py-1.5 text-[8px] font-extrabold uppercase tracking-[.1em] text-[#c62828] sm:left-4 sm:top-4 sm:px-3 sm:py-2 sm:text-[9px]">
