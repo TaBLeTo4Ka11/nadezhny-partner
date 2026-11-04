@@ -1,203 +1,105 @@
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { IMG } from "../data/content";
+import { PHONES } from "../data/content";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const TITLE = ["Противопожарные", "преграды и", "специальные двери"];
-const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
-
-type DOEWithPermission = typeof DeviceOrientationEvent & {
-  requestPermission?: () => Promise<"granted" | "denied">;
-};
+const HERO_IMAGE = "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/hero/hero-01.jpg";
+const HERO_DETAIL = "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/hero/hero-02.png";
 
 export default function HeroSection() {
   const root = useRef<HTMLElement>(null);
 
   useLayoutEffect(() => {
-    const el = root.current;
-    if (!el) return;
+    const element = root.current;
+    if (!element || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    // Все эффекты только если пользователь не отключил анимации в системе
-    const mm = gsap.matchMedia();
-    mm.add(
-      "(prefers-reduced-motion: no-preference)",
-      () => {
-        const q = gsap.utils.selector(el);
-        const tilt = el.querySelector<HTMLElement>("[data-tilt]")!;
-        const back = el.querySelector<HTMLElement>("[data-back]")!;
-        const img = el.querySelector<HTMLElement>("[data-img]")!;
-        const cap = el.querySelector<HTMLElement>("[data-cap]")!;
+    const context = gsap.context(() => {
+      const image = element.querySelector<HTMLElement>("[data-hero-image]");
+      const copy = element.querySelectorAll<HTMLElement>("[data-hero-copy]");
+      const scene = element.querySelector<HTMLElement>("[data-hero-scene]");
+      if (!image || !scene) return;
 
-        // 1. Появление: заголовок «шторкой» (clip-path), затем остальное
-        gsap.set(img, { scale: 1.12 });
-        gsap
-          .timeline({ defaults: { ease: "power4.out" } })
-          .from(q("[data-label]"), { opacity: 0, y: 14, duration: 0.8 })
-          .fromTo(
-            q("[data-line]"),
-            { clipPath: "inset(0% 0% 100% 0%)", yPercent: 40 },
-            { clipPath: "inset(0% 0% -20% 0%)", yPercent: 0, duration: 1.1, stagger: 0.12 },
-            0.1
-          )
-          .fromTo(
-            q("[data-imgwrap]"),
-            { clipPath: "inset(0% 100% 0% 0%)" },
-            { clipPath: "inset(0% 0% 0% 0%)", duration: 1.3, ease: "power4.inOut" },
-            0.2
-          )
-          .from(q("[data-fade]"), { opacity: 0, y: 24, duration: 0.9, stagger: 0.1 }, 0.7)
-          .from(cap, { opacity: 0, y: 24, duration: 0.9 }, 1.1);
+      gsap.from(copy, { y: 24, opacity: 0, duration: 0.85, stagger: 0.12, ease: "power3.out" });
+      gsap.from(scene, { clipPath: "inset(0 0 100% 0)", duration: 1.2, ease: "power4.inOut", delay: 0.15 });
+      gsap.to(image, {
+        yPercent: 8,
+        ease: "none",
+        scrollTrigger: { trigger: element, start: "top top", end: "bottom top", scrub: true },
+      });
 
-        // 2. Параллакс при прокрутке (фото смещается медленнее страницы)
-        gsap.to(img, {
-          yPercent: 8,
-          ease: "none",
-          scrollTrigger: { trigger: el, start: "top top", end: "bottom top", scrub: true },
-        });
+      const quickX = gsap.quickTo(image, "x", { duration: 0.8, ease: "power3.out" });
+      const quickY = gsap.quickTo(image, "y", { duration: 0.8, ease: "power3.out" });
+      const quickRotate = gsap.quickTo(scene, "rotationY", { duration: 0.8, ease: "power3.out" });
+      const onPointerMove = (event: PointerEvent) => {
+        if (event.pointerType !== "mouse") return;
+        const bounds = element.getBoundingClientRect();
+        const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 2;
+        const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 2;
+        quickX(x * 13);
+        quickY(y * 10);
+        quickRotate(x * 2.2);
+      };
+      const reset = () => { quickX(0); quickY(0); quickRotate(0); };
+      element.addEventListener("pointermove", onPointerMove);
+      element.addEventListener("pointerleave", reset);
 
-        // 3. 3D-параллакс: мышь на компьютере, наклон телефона на мобильных
-        gsap.set(tilt, { transformPerspective: 1100, transformOrigin: "50% 50%" });
-        const opt = { duration: 0.9, ease: "power3.out" };
-        const s = {
-          ry: gsap.quickTo(tilt, "rotationY", opt),
-          rx: gsap.quickTo(tilt, "rotationX", opt),
-          bx: gsap.quickTo(back, "x", opt),
-          by: gsap.quickTo(back, "y", opt),
-          ix: gsap.quickTo(img, "x", opt),
-          iy: gsap.quickTo(img, "y", opt),
-          cx: gsap.quickTo(cap, "x", opt),
-          cy: gsap.quickTo(cap, "y", opt),
-        };
-        const apply = (nx: number, ny: number) => {
-          s.ry(nx * 9);
-          s.rx(-ny * 9);
-          s.bx(-nx * 18);
-          s.by(-ny * 18);
-          s.ix(nx * 12);
-          s.iy(ny * 12);
-          s.cx(nx * 26);
-          s.cy(ny * 26);
-        };
+      return () => {
+        element.removeEventListener("pointermove", onPointerMove);
+        element.removeEventListener("pointerleave", reset);
+      };
+    }, element);
 
-        const onMove = (e: PointerEvent) => {
-          if (e.pointerType !== "mouse") return;
-          const r = el.getBoundingClientRect();
-          apply(((e.clientX - r.left) / r.width - 0.5) * 2, ((e.clientY - r.top) / r.height - 0.5) * 2);
-        };
-        const onLeave = () => apply(0, 0);
-        el.addEventListener("pointermove", onMove);
-        el.addEventListener("pointerleave", onLeave);
-
-        const onOrient = (e: DeviceOrientationEvent) => {
-          if (e.gamma == null || e.beta == null) return;
-          apply(clamp(e.gamma / 25, -1, 1), clamp((e.beta - 45) / 25, -1, 1));
-        };
-        let listening = false;
-        const listen = () => {
-          if (listening) return;
-          listening = true;
-          window.addEventListener("deviceorientation", onOrient);
-        };
-
-        const DOE = window.DeviceOrientationEvent as DOEWithPermission | undefined;
-        const coarse = window.matchMedia("(pointer: coarse)").matches;
-        // iOS требует разрешения по касанию: системный запрос появится при первом касании экрана
-        const onTouch = () => {
-          el.removeEventListener("touchend", onTouch);
-          DOE?.requestPermission?.()
-            .then((state) => state === "granted" && listen())
-            .catch(() => undefined);
-        };
-        if (coarse && DOE) {
-          if (typeof DOE.requestPermission === "function") el.addEventListener("touchend", onTouch, { passive: true });
-          else listen();
-        }
-
-        return () => {
-          el.removeEventListener("pointermove", onMove);
-          el.removeEventListener("pointerleave", onLeave);
-          el.removeEventListener("touchend", onTouch);
-          window.removeEventListener("deviceorientation", onOrient);
-        };
-      },
-      el
-    );
-
-    return () => mm.revert();
+    return () => context.revert();
   }, []);
 
+  const phone = PHONES[0];
+
   return (
-    <section ref={root} id="top" className="overflow-hidden bg-white px-6 pt-24 text-ink lg:px-10 lg:pt-28">
-      <div className="mx-auto grid min-h-[min(780px,calc(100svh-6rem))] max-w-[1400px] grid-cols-1 items-center gap-14 pb-16 md:grid-cols-[1fr_.9fr] lg:gap-16">
-        <div>
-          <p data-label className="mb-6 text-xs font-bold uppercase tracking-[.22em] text-muted">
-            Надёжный партнёр · Иваново
+    <section ref={root} id="top" className="relative isolate overflow-hidden bg-white px-5 pb-20 pt-28 text-ink sm:px-8 lg:min-h-[min(850px,100svh)] lg:px-10 lg:pb-24 lg:pt-32">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[72%] bg-[linear-gradient(115deg,#fff_0%,#fff_55%,#f5f5f3_100%)]" />
+      <div className="mx-auto grid max-w-[1400px] items-center gap-12 lg:grid-cols-[1.02fr_.98fr] lg:gap-16">
+        <div className="relative z-10">
+          <p data-hero-copy className="mb-7 flex items-center gap-3 text-[10px] font-extrabold uppercase tracking-[.24em] text-muted sm:text-xs">
+            <span className="h-[2px] w-8 bg-[#c62828]" /> Иваново · Производство · с 2010 года
           </p>
-
-          <h1
-            aria-label="Противопожарные преграды и специальные двери"
-            className="text-[clamp(1.85rem,4.8vw,4.5rem)] font-extrabold leading-[1.04] tracking-tight"
-          >
-            {TITLE.map((line) => (
-              <span key={line} aria-hidden="true" className="block pb-[.08em]">
-                <span data-line className="block will-change-transform">{line}</span>
-              </span>
-            ))}
+          <h1 data-hero-copy className="max-w-[850px] text-[clamp(3rem,7.3vw,7.2rem)] font-black leading-[.88] tracking-[-.065em]">
+            Надёжный<br /><span className="text-[#c62828]">партнёр</span>
           </h1>
-
-          <p data-fade className="mt-7 max-w-xl text-lg leading-8 text-muted md:text-xl">
-            Производим противопожарные и входные металлические двери, поставляем и монтируем специальные конструкции.
+          <p data-hero-copy className="mt-8 max-w-xl text-base leading-7 text-ink/65 sm:text-lg sm:leading-8">
+            Производство, поставка и монтаж противопожарных преград и специальных дверей для коммерческих, промышленных и общественных объектов.
           </p>
-
-          <div data-fade className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
-            <a href="#kp" className="btn px-8 py-4 text-base">Получить коммерческое предложение</a>
-            <a href="#catalog" className="text-sm font-bold underline decoration-ink decoration-2 underline-offset-8">
-              Смотреть каталог
-            </a>
+          <div data-hero-copy className="mt-9 flex flex-wrap items-center gap-4">
+            <a href="#kp" className="inline-flex min-h-14 items-center justify-center bg-[#c62828] px-7 text-xs font-extrabold uppercase tracking-[.12em] text-white transition-colors hover:bg-[#a91f1f] sm:px-9">Обсудить проект <span className="ml-5 text-lg">↗</span></a>
+            <a href="#catalog" className="inline-flex min-h-14 items-center border-b-2 border-ink px-1 text-xs font-extrabold uppercase tracking-[.12em] transition-colors hover:border-[#c62828] hover:text-[#c62828]">Каталог продукции</a>
           </div>
-
-          <dl data-fade className="mt-14 flex flex-wrap gap-x-10 gap-y-5 border-t border-line pt-6">
-            <div className="flex flex-col-reverse">
-              <dt className="text-xs text-muted">лет опыта</dt>
-              <dd className="text-3xl font-extrabold">15</dd>
-            </div>
-            <div className="flex flex-col-reverse">
-              <dt className="text-xs text-muted">производство</dt>
-              <dd className="text-3xl font-extrabold">Своё</dd>
-            </div>
-            <div className="flex flex-col-reverse">
-              <dt className="text-xs text-muted">монтаж и обслуживание</dt>
-              <dd className="text-3xl font-extrabold">Лицензия МЧС</dd>
-            </div>
-          </dl>
+          <div data-hero-copy className="mt-14 grid max-w-xl grid-cols-3 border-t border-line pt-5">
+            <div><strong className="block text-3xl font-black tracking-tight sm:text-4xl">15<span className="text-[#c62828]">+</span></strong><span className="mt-1 block text-[10px] font-bold uppercase tracking-wider text-muted sm:text-xs">лет опыта</span></div>
+            <div><strong className="block text-3xl font-black tracking-tight sm:text-4xl">100%</strong><span className="mt-1 block text-[10px] font-bold uppercase tracking-wider text-muted sm:text-xs">контроль качества</span></div>
+            <div><strong className="block text-3xl font-black tracking-tight sm:text-4xl">B2B</strong><span className="mt-1 block text-[10px] font-bold uppercase tracking-wider text-muted sm:text-xs">комплексные объекты</span></div>
+          </div>
+          <a href={phone.href} className="mt-7 inline-flex items-center gap-3 text-sm font-extrabold hover:text-[#c62828]"><span className="flex h-9 w-9 items-center justify-center bg-[#c62828] text-white">↗</span>{phone.label}</a>
         </div>
 
-        {/* 3D-сцена */}
-        <div className="relative mx-auto w-full max-w-[560px] pb-8">
-          <div data-tilt className="relative will-change-transform" style={{ transformStyle: "preserve-3d" }}>
-            <div data-back aria-hidden="true" className="absolute left-4 top-4 h-full w-full border border-ink" />
-            <div data-imgwrap className="relative aspect-[4/5] overflow-hidden border border-line bg-soft">
-              <img
-                data-img
-                src={IMG.door1}
-                alt="Противопожарная дверь из каталога компании"
-                width={1100}
-                height={1375}
-                fetchPriority="high"
-                decoding="async"
-                onError={(event) => { event.currentTarget.style.visibility = "hidden"; }}
-                className="absolute inset-0 h-full w-full object-cover object-center will-change-transform"
-              />
-            </div>
-            <div data-cap className="absolute -bottom-6 left-0 w-[78%] border border-line bg-white p-5 sm:-left-6">
-              <p className="text-xs font-semibold uppercase tracking-[.18em] text-muted">Производство и поставка</p>
-              <p className="mt-2 text-base font-bold">Противопожарные дверные конструкции</p>
+        <div data-hero-scene className="relative mx-auto w-full max-w-[720px] [transform-style:preserve-3d]">
+          <div className="absolute -right-3 -top-3 h-full w-full border-2 border-[#c62828] sm:-right-5 sm:-top-5" />
+          <div className="relative aspect-[4/4.7] overflow-hidden bg-[#e9e9e7]">
+            <img data-hero-image src={HERO_IMAGE} alt="Производство противопожарных дверей и металлических конструкций" fetchPriority="high" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/5" />
+            <div className="absolute left-5 top-5 border border-white/70 px-3 py-2 text-[10px] font-bold uppercase tracking-[.18em] text-white sm:left-8 sm:top-8">Надёжность в деталях</div>
+            <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-4 text-white sm:bottom-8 sm:left-8 sm:right-8">
+              <div><p className="text-[10px] font-bold uppercase tracking-[.2em] text-white/70">Производство и монтаж</p><p className="mt-2 max-w-[14ch] text-2xl font-black leading-none sm:text-4xl">Защита, которой доверяют</p></div>
+              <span className="border border-white/70 p-3 text-xl">↗</span>
             </div>
           </div>
+          <div className="absolute -bottom-7 -left-5 hidden w-[34%] border-[6px] border-white shadow-xl sm:block">
+            <img src={HERO_DETAIL} alt="Деталь металлической дверной конструкции" loading="lazy" decoding="async" className="aspect-square w-full object-cover" />
+          </div>
+          <span className="absolute -bottom-10 right-0 text-[9px] font-bold uppercase tracking-[.2em] text-muted">01 / Иваново · Россия</span>
         </div>
       </div>
+      <div className="pointer-events-none absolute bottom-5 left-1/2 hidden -translate-x-1/2 text-[9px] font-bold uppercase tracking-[.25em] text-muted lg:block">Листайте, чтобы узнать больше ↓</div>
     </section>
   );
 }
