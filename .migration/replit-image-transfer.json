@@ -285,6 +285,26 @@
       "path": "artifacts/nadyozhny-partner/public/images/products/dz-v-01.png",
       "sha": "284b755bab0abd776f1b1873e18956c43dbc308c",
       "size": 203598
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dz-v-02.jpg",
+      "sha": "e8e4be9481276ec35c24d50088a93c6021cf0d61",
+      "size": 10858
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/elektromehanicheskij-peredatochnyj-shljuz-standartnyj-shpt-1-em-01.jpg",
+      "sha": "dcb3dea15d2be8785ef0821ff23de141923338d0",
+      "size": 12684
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/elektromehanicheskij-peredatochnyj-shljuz-standartnyj-shpt-1-em-02.jpg",
+      "sha": "8511a3aeb8df3028fba00c0c345c93f1501659ad",
+      "size": 11847
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/florenciya-vinorit-01.png",
+      "sha": "8f3c67808820f2ad3ac0c257b94a4d2463927ca0",
+      "size": 362393
     }
   ]
 }
