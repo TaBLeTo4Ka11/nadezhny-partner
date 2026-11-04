@@ -2,7 +2,6 @@ import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { IMG } from "../data/content";
-import { proxied } from "../lib/img";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -182,11 +181,13 @@ export default function HeroSection() {
             <div data-imgwrap className="relative aspect-[4/5] overflow-hidden border border-line bg-soft">
               <img
                 data-img
-                src={proxied(IMG.door1, 1100)}
+                src={IMG.door1}
                 alt="Противопожарная дверь из каталога компании"
                 width={1100}
                 height={1375}
                 fetchPriority="high"
+                decoding="async"
+                onError={(event) => { event.currentTarget.style.visibility = "hidden"; }}
                 className="absolute inset-0 h-full w-full object-cover object-center will-change-transform"
               />
             </div>
