@@ -345,6 +345,26 @@
       "path": "artifacts/nadyozhny-partner/public/images/products/ljuk-metallicheskij-protivopozharnyj-eis60-01.jpg",
       "sha": "446764551107d64fb7c564f311bf9546cab0b687",
       "size": 12034
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ljuk-metallicheskij-protivopozharnyj-eis60-02.png",
+      "sha": "7c7fc82fdf27420d6c706985e149cc40270f3103",
+      "size": 109199
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ljuk-metallicheskij-protivopozharnyj-eis60-2-01.webp",
+      "sha": "488eb12a805854a54b8ded039219bf62fa845956",
+      "size": 12977
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ljuk-metallicheskij-protivopozharnyj-eis60-2-02.webp",
+      "sha": "db391f15a7be62183323e257aa7e88a9c1b5356e",
+      "size": 22091
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ljuk-metallicheskij-protivopozharnyj-eis60-2-03.webp",
+      "sha": "4a60531d16e4b5c04f44900989bf9080bac9b96e",
+      "size": 50317
     }
   ]
 }
