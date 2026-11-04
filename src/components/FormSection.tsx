@@ -34,7 +34,7 @@ export default function FormSection() {
           _honey: "",
         }),
       });
-      const result = await response.json() as { success?: string; message?: string; errors?: unknown };
+      const result = await response.json() as { success?: boolean | string; message?: string; errors?: unknown };
       if (!response.ok || (result.success !== true && result.success !== "true")) {
         throw new Error(result.message || "Не удалось отправить заявку. Позвоните нам или напишите на email.");
       }
