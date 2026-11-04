@@ -11,7 +11,7 @@ const slugs: Record<string, string> = {
   "Противопожарные двери": "protivopozharnye-dveri",
   "Противопожарные ворота": "protivopozharnye-vorota",
   "Противопожарные шторы": "protivopozharnye-shtory",
-  "Противопожарные люки": "protivopozharnye-ljuki",
+  "Противопожарные люки": "protivopozharnye-lyuki",
   "Светопрозрачные перегородки противопожарные": "svetoprozrachnye-peregorodki",
   "Банковские лотки": "bankovskie-lotki",
   "Двери 3 класса защиты": "dveri-3-klassa-zashchity",

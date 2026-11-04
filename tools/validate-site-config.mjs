@@ -9,18 +9,14 @@ const pass = (message) => console.log(`OK: ${message}`);
 
 const vercel = JSON.parse(read("vercel.json"));
 const company = read("src/data/companyContent.ts");
+const categoryPages = JSON.parse(read("seo/catalog-pages.json"));
 const categoryPage = read("src/components/CategoryPage.tsx");
 const app = read("src/App.tsx");
 const infoPage = read("src/components/InfoPage.tsx");
 const tailwind = read("tailwind.config.js");
 
-const catalogBlock = company.match(/export const catalog = \[([\s\S]*?)\n\];/)?.[1];
-if (!catalogBlock) {
-  fail("catalog array not found");
-  process.exit(1);
-}
-const groups = [...catalogBlock.matchAll(/\{\s*group:\s*"([^"]+)",\s*items:\s*\[([\s\S]*?)\]\s*\}/g)];
-const categoryNames = groups.flatMap(([, , body]) => [...body.matchAll(/"([^"]+)"/g)].map(([, name]) => name));
+const groups = [...new Set(categoryPages.map((page) => page.group))];
+const categoryNames = categoryPages.map((page) => page.title);
 const slugBlock = categoryPage.match(/const slugs: Record<string, string> = \{([\s\S]*?)\n\};/)?.[1] ?? "";
 const slugEntries = [...slugBlock.matchAll(/"([^"]+)":\s*"([^"]+)"/g)].map(([, name, slug]) => ({ name, slug }));
 const rewriteSources = new Set((vercel.rewrites ?? []).map((route) => route.source));
@@ -36,12 +32,12 @@ else pass("5 catalogue groups found");
 if (categoryNames.length !== 17) fail(`expected 17 categories, found ${categoryNames.length}`);
 else pass("17 catalogue categories found");
 
-const missingSlug = categoryNames.filter((name) => !slugEntries.some((entry) => entry.name === name));
-if (missingSlug.length) fail(`categories without slug mappings: ${missingSlug.join(", ")}`);
-else pass("all categories have local slugs");
+const missingSlug = categoryPages.filter((page) => !slugEntries.some((entry) => entry.slug === page.slug));
+if (missingSlug.length) fail(`categories without matching route slugs: ${missingSlug.map((page) => page.slug).join(", ")}`);
+else pass("all 17 category pages have matching local route slugs");
 
-const missingCategoryRewrite = slugEntries.filter((entry) => !rewriteSources.has(`/catalog/${entry.slug}/`));
-if (missingCategoryRewrite.length) fail(`missing category rewrites: ${missingCategoryRewrite.map((entry) => entry.slug).join(", ")}`);
+const missingCategoryRewrite = categoryPages.filter((page) => !rewriteSources.has(`/catalog/${page.slug}/`));
+if (missingCategoryRewrite.length) fail(`missing category rewrites: ${missingCategoryRewrite.map((page) => page.slug).join(", ")}`);
 else pass("all 17 local category routes have rewrites");
 
 if (redirects.length !== 17) fail(`expected 17 legacy category redirects, found ${redirects.length}`);
