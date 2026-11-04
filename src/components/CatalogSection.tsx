@@ -35,7 +35,7 @@ export default function CatalogSection() {
         scrollTrigger: { trigger: "[data-catalog-grid]", start: "top 86%", once: true },
       });
       gsap.from("[data-catalog-image]", {
-        scale: 1.08, duration: 1.1, stagger: 0.06, ease: "power3.out",
+        scale: 1.035, duration: 1.1, stagger: 0.06, ease: "power3.out",
         scrollTrigger: { trigger: "[data-catalog-grid]", start: "top 86%", once: true },
       });
     }, element);
@@ -55,18 +55,18 @@ export default function CatalogSection() {
           <label className="block w-full sm:max-w-sm"><span className="mb-2 block text-[10px] font-extrabold uppercase tracking-[.18em] text-muted">Поиск по каталогу</span><input value={query} onChange={(event) => setQuery(event.target.value)} type="search" placeholder="Например, ворота или люки" className="w-full border-0 border-b border-ink bg-transparent px-0 py-3 text-sm outline-none placeholder:text-muted/70 focus:border-b-2 focus:border-[#c62828]" /></label>
         </div>
 
-        <div data-catalog-grid className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3" aria-live="polite">
+        <div data-catalog-grid className="mt-8 grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-3" aria-live="polite">
           {filtered.map((item, index) => (
-            <a data-catalog-card key={item.title} href="#kp" className="group relative flex min-h-[390px] flex-col overflow-hidden border border-line bg-[#f4f4f2] transition-colors hover:border-[#c62828] sm:min-h-[430px]">
-              <div className="relative min-h-[245px] flex-1 overflow-hidden bg-[#e8e8e5]">
-                <img data-catalog-image src={item.image} alt={item.title} loading={index < 3 ? "eager" : "lazy"} decoding="async" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.045]" />
-                <span className="absolute left-4 top-4 bg-white px-3 py-2 text-[9px] font-extrabold uppercase tracking-[.16em] text-[#c62828]">{item.tag}</span>
-                <span className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center bg-[#c62828] text-xl text-white transition-transform duration-300 group-hover:translate-x-1">↗</span>
+            <a data-catalog-card key={item.title} href="#kp" aria-label={"Запросить предложение: " + item.title} className="group relative flex min-h-[300px] flex-col overflow-hidden border border-line bg-[#f4f4f2] transition-colors hover:border-[#c62828] sm:min-h-[430px]">
+              <div className="relative h-[clamp(150px,32vw,280px)] shrink-0 overflow-hidden bg-[#eeeeec] sm:h-[280px]">
+                <img data-catalog-image src={item.image} alt={item.title} loading={index < 3 ? "eager" : "lazy"} decoding="async" className="absolute inset-0 h-full w-full object-contain p-2.5 transition-transform duration-700 group-hover:scale-[1.025] sm:p-5" />
+                <span className="absolute left-2 top-2 bg-white px-2 py-1.5 text-[8px] font-extrabold uppercase tracking-[.12em] text-[#c62828] sm:left-4 sm:top-4 sm:px-3 sm:py-2 sm:text-[9px]">{item.tag}</span>
+                <span aria-hidden="true" className="absolute bottom-2 right-2 flex h-8 w-8 items-center justify-center bg-[#c62828] text-lg text-white transition-transform duration-300 group-hover:translate-x-1 sm:bottom-4 sm:right-4 sm:h-10 sm:w-10">↗</span>
               </div>
-              <div className="border-t border-line bg-white p-5 sm:p-6">
-                <h3 className="text-lg font-black leading-tight tracking-tight sm:text-xl">{item.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-ink/60">{item.text}</p>
-                <span className="mt-5 inline-flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-[.16em] text-[#c62828]">Запросить предложение <span>→</span></span>
+              <div className="flex flex-1 flex-col border-t border-line bg-white p-3 sm:p-6">
+                <h3 className="text-sm font-black leading-tight tracking-tight sm:text-xl">{item.title}</h3>
+                <p className="mt-2 flex-1 text-xs leading-5 text-ink/60 sm:mt-3 sm:text-sm sm:leading-6">{item.text}</p>
+                <span className="mt-3 inline-flex items-center gap-2 text-[8px] font-extrabold uppercase tracking-[.1em] text-[#c62828] sm:mt-5 sm:text-[10px] sm:tracking-[.16em]">Запросить предложение <span>→</span></span>
               </div>
             </a>
           ))}

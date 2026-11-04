@@ -29,7 +29,7 @@ export default function AboutSection() {
   }, []);
 
   return (
-    <section ref={root} id="about" lang="ru" className="scroll-mt-28 bg-soft px-6 py-24 lg:px-10 lg:py-36">
+    <section ref={root} id="about" lang="ru" className="relative isolate scroll-mt-28 overflow-hidden bg-[#f4f4f2] px-6 py-24 lg:px-10 lg:py-36 before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:opacity-40 before:bg-[linear-gradient(rgba(30,30,30,.045)_1px,transparent_1px),linear-gradient(90deg,rgba(30,30,30,.045)_1px,transparent_1px)] before:bg-[size:32px_32px]">
       <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-x-12">
         <aside className="lg:col-span-4">
           <div className="lg:sticky lg:top-40">
@@ -39,10 +39,15 @@ export default function AboutSection() {
           </div>
         </aside>
         <div className="lg:col-span-8">
-          <div className="border-t-2 border-ink pt-8">
-            <h3 data-p className="mb-6 text-2xl font-extrabold tracking-tight">Общие сведения</h3>
-            {ABOUT_INTRO.map((t, i) => <p key={i} data-p className={body}>{t}</p>)}
-          </div>
+          <details className="group border-t-2 border-ink pt-8">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-5 [&::-webkit-details-marker]:hidden">
+              <span><span className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-muted">Компания</span><span className="block text-2xl font-extrabold tracking-tight">Общие сведения</span></span>
+              <span className="inline-flex min-h-11 shrink-0 items-center gap-3 border border-ink/25 bg-white px-4 text-xs font-extrabold uppercase tracking-[.12em] transition-colors group-hover:border-[#c62828] group-hover:text-[#c62828]"><span className="group-open:hidden">Показать полностью</span><span className="hidden group-open:inline">Свернуть</span><span aria-hidden="true" className="text-lg transition-transform group-open:rotate-45">+</span></span>
+            </summary>
+            <div className="pt-7">
+              {ABOUT_INTRO.map((t, i) => <p key={i} data-p className={body}>{t}</p>)}
+            </div>
+          </details>
           <div className="mt-14 border-t-2 border-ink pt-8">
             <div className="mb-7 flex flex-wrap items-end justify-between gap-3">
               <div><p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted">Если интересно подробнее</p><h3 className="text-2xl font-extrabold tracking-tight">Как создаётся дверь</h3></div>
@@ -54,7 +59,7 @@ export default function AboutSection() {
                   <summary className="flex cursor-pointer list-none items-center gap-4 [&::-webkit-details-marker]:hidden">
                     <span className="text-sm font-semibold tabular-nums text-muted">{String(i + 1).padStart(2, "0")}</span>
                     <span className="min-w-0 flex-1"><span className="block text-lg font-bold tracking-tight">{s.title}</span><span className="mt-1 block text-sm leading-6 text-muted">{stageSummaries[i] ?? "Подробности производственного этапа."}</span></span>
-                    <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line text-xl transition-transform group-open:rotate-45">+</span>
+                    <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center border border-line text-xl transition-transform group-open:rotate-45">+</span>
                   </summary>
                   <div className="pb-2 pl-10 pt-5">
                     {s.paragraphs.map((t, j) => <p key={j} className={body}>{t}</p>)}
