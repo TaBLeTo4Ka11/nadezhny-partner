@@ -4,25 +4,14 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const projectPhotos = [
-  "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/projects/project-001.jpg",
-  "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/projects/project-002.jpg",
-  "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/projects/project-003.jpg",
-  "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/projects/project-004.jpg",
-  "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/projects/project-005.jpg",
-  "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/projects/project-006.jpg",
-  "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/projects/project-007.jpg",
-  "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/projects/project-008.jpg",
-  "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/projects/project-009.jpg",
-  "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/projects/project-010.jpg"
-];
-const productionPhotos = [
-  "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/production/production-01.jpeg",
-  "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/production/production-02.jpeg",
-  "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/production/production-03.jpeg",
-  "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/production/production-04.jpeg",
-  "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/production/production-05.jpeg"
-];
+const projectPhotos = Array.from({ length: 11 }, (_, index) =>
+  "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/projects/project-" +
+  String(index + 1).padStart(3, "0") + ".jpg",
+);
+const productionPhotos = Array.from(
+  { length: 13 },
+  (_, index) => "/images/production/production-" + String(index + 1).padStart(2, "0") + ".jpeg",
+);
 const photos = [
   ...projectPhotos.map((src) => ({ src, label: "Реализованный объект" })),
   ...productionPhotos.map((src) => ({ src, label: "Производство" })),
@@ -38,7 +27,10 @@ export default function GallerySection() {
     if (!element || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const context = gsap.context(() => {
       gsap.from("[data-gallery-slider]", {
-        y: 28, opacity: 0, duration: 0.75, ease: "power3.out",
+        y: 28,
+        opacity: 0,
+        duration: 0.75,
+        ease: "power3.out",
         scrollTrigger: { trigger: element, start: "top 82%", once: true },
       });
     }, element);
@@ -46,42 +38,75 @@ export default function GallerySection() {
   }, []);
 
   const goTo = (index: number) => {
+    const element = track.current;
+    if (!element) return;
     const next = Math.max(0, Math.min(photos.length - 1, index));
-    const slide = track.current?.children[next] as HTMLElement | undefined;
-    slide?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "nearest", inline: "start" });
+    element.scrollTo({
+      left: next * (element.clientWidth + 12),
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+    });
     setActive(next);
   };
 
   const handleScroll = () => {
     const element = track.current;
     if (!element) return;
-    const width = element.clientWidth;
-    if (!width) return;
-    setActive(Math.max(0, Math.min(photos.length - 1, Math.round(element.scrollLeft / (width + 12)))));
+    const step = element.clientWidth + 12;
+    if (!step) return;
+    setActive(Math.max(0, Math.min(photos.length - 1, Math.round(element.scrollLeft / step))));
   };
 
   return (
     <section ref={root} id="gallery" className="scroll-mt-20 bg-[#f5f5f3] px-5 py-24 text-ink sm:px-8 lg:px-10 lg:py-36">
       <div className="mx-auto max-w-[1400px]">
         <div className="flex flex-col justify-between gap-6 border-b-2 border-ink pb-8 md:flex-row md:items-end">
-          <div><p className="mb-4 text-xs font-extrabold uppercase tracking-[.22em] text-[#c62828]">Практика и производство</p><h2 className="text-[clamp(2.4rem,6vw,5.5rem)] font-black leading-[.9] tracking-[-.06em]">Наши работы<span className="text-[#c62828]">.</span></h2></div>
+          <div>
+            <p className="mb-4 text-xs font-extrabold uppercase tracking-[.22em] text-[#c62828]">Практика и производство</p>
+            <h2 className="text-[clamp(2.4rem,6vw,5.5rem)] font-black leading-[.9] tracking-[-.06em]">Наши работы<span className="text-[#c62828]">.</span></h2>
+          </div>
           <p className="max-w-md text-sm leading-7 text-ink/60 md:text-right">Фотографии реализованных объектов и производственных процессов компании.</p>
         </div>
-        <div className="mt-8 flex items-center justify-between gap-4 text-[10px] font-extrabold uppercase tracking-[.18em] text-muted"><span>Объекты и производство</span><span>{photos.length} фотографий</span></div>
+        <div className="mt-8 flex items-center justify-between gap-4 text-[10px] font-extrabold uppercase tracking-[.18em] text-muted">
+          <span>Объекты и производство</span>
+          <span>{photos.length} фотографий</span>
+        </div>
         <div data-gallery-slider className="mt-7">
-          <div ref={track} onScroll={handleScroll} className="relative flex snap-x snap-mandatory gap-3 overflow-x-auto overscroll-x-contain scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" aria-label="Фотогалерея. Проведите пальцем для просмотра фотографий">
+          <div
+            ref={track}
+            onScroll={handleScroll}
+            className="relative flex snap-x snap-mandatory gap-3 overflow-x-auto overscroll-x-contain scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            aria-label="Фотогалерея. Проведите пальцем для просмотра фотографий"
+          >
             {photos.map((photo, index) => (
               <figure key={photo.src} className="relative h-[min(68vw,620px)] w-full shrink-0 snap-start overflow-hidden bg-[#e2e2df] sm:h-[min(55vw,680px)]">
-                <img src={photo.src} alt={photo.label + ", фотография " + (index + 1)} loading={index < 2 ? "eager" : "lazy"} decoding="async" className="absolute inset-0 h-full w-full object-contain sm:object-cover" />
-                <span className="absolute left-3 top-3 bg-[#171717]/80 px-3 py-2 text-xs font-bold tabular-nums tracking-wide text-white sm:left-5 sm:top-5 sm:text-sm">{index + 1} / {photos.length}</span>
-                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 to-transparent px-4 pb-4 pt-14 text-xs font-bold uppercase tracking-[.14em] text-white sm:px-6 sm:pb-6">{photo.label}</figcaption>
+                <img
+                  src={photo.src}
+                  alt={photo.label + ", фотография " + (index + 1)}
+                  loading={index < 2 ? "eager" : "lazy"}
+                  decoding="async"
+                  onError={(event) => { event.currentTarget.style.visibility = "hidden"; }}
+                  className="absolute inset-0 h-full w-full object-contain sm:object-cover"
+                />
+                <span className="absolute left-3 top-3 bg-[#171717]/80 px-3 py-2 text-xs font-bold tabular-nums tracking-wide text-white sm:left-5 sm:top-5 sm:text-sm">
+                  {index + 1} / {photos.length}
+                </span>
+                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 to-transparent px-4 pb-4 pt-14 text-xs font-bold uppercase tracking-[.14em] text-white sm:px-6 sm:pb-6">
+                  {photo.label}
+                </figcaption>
               </figure>
             ))}
           </div>
-          <div className="mt-5 flex items-center justify-between gap-4">
-            <div className="flex min-w-0 flex-1 items-center justify-center gap-1.5" aria-label="Выбор фотографии">
+          <div className="mt-5 flex items-center justify-between gap-3">
+            <div className="flex min-w-0 flex-1 flex-wrap items-center justify-center gap-1.5" aria-label="Выбор фотографии">
               {photos.map((photo, index) => (
-                <button key={photo.src} type="button" onClick={() => goTo(index)} aria-label={"Показать фотографию " + (index + 1)} aria-current={active === index ? "true" : undefined} className={"h-2 transition-all duration-300 " + (active === index ? "w-7 bg-[#c62828]" : "w-2 bg-[#b9b9b5] hover:bg-[#777]")} />
+                <button
+                  key={photo.src}
+                  type="button"
+                  onClick={() => goTo(index)}
+                  aria-label={"Показать фотографию " + (index + 1)}
+                  aria-current={active === index ? "true" : undefined}
+                  className={"h-2 transition-all duration-300 " + (active === index ? "w-5 bg-[#c62828]" : "w-1.5 bg-[#b9b9b5] hover:bg-[#777]")}
+                />
               ))}
             </div>
             <div className="flex shrink-0 gap-2">
