@@ -325,6 +325,26 @@
       "path": "artifacts/nadyozhny-partner/public/images/products/henectus-tincidunt-02.jpg",
       "sha": "39c9f070a22fc4fc1a2d7af723e941506b896bb6",
       "size": 38089
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/kamelot-vinorit-01.png",
+      "sha": "78cc194ec27256840f7250c1acc4d554d3d652d8",
+      "size": 404069
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/kamelot-vinorit-02.png",
+      "sha": "d6bb054ef900c2ccd81a6bfd24abeabffe207b13",
+      "size": 831630
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/komplekt-dvernyh-ruchek-s-nakladkami-pod-cilindr-dh-0219-ne-nejlon-kvadrat-8x140-mm-01.webp",
+      "sha": "ed73e8245fa3f1a2badd57397fddd70a90fafbfc",
+      "size": 37479
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ljuk-metallicheskij-protivopozharnyj-eis60-01.jpg",
+      "sha": "446764551107d64fb7c564f311bf9546cab0b687",
+      "size": 12034
     }
   ]
 }
