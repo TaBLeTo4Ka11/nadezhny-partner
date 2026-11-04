@@ -365,6 +365,26 @@
       "path": "artifacts/nadyozhny-partner/public/images/products/ljuk-metallicheskij-protivopozharnyj-eis60-2-03.webp",
       "sha": "4a60531d16e4b5c04f44900989bf9080bac9b96e",
       "size": 50317
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/lt-00-shhelevoj-01.png",
+      "sha": "f4d9d2ed310e3fe4f7844d57e3b251251ff1846a",
+      "size": 55022
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/nakladka-pod-cilindr-dss-02-et-nerzhavejka-01.webp",
+      "sha": "78017696e8358078d51b42de36413cd60539a370",
+      "size": 8784
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/nakladka-pod-cilindr-dss-02-et-nerzhavejka-02.webp",
+      "sha": "45d229cbe03f355d5b9c8b53a55949703f64cd8d",
+      "size": 36287
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/nakladka-pod-cilindr-dss-02-et-nerzhavejka-03.webp",
+      "sha": "6b9d1ef88dde5f63cbcc2dcb2d9373ee9a9b673a",
+      "size": 23233
     }
   ]
 }
