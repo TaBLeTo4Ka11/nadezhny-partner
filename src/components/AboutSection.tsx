@@ -29,7 +29,7 @@ export default function AboutSection() {
   }, []);
 
   return (
-    <section ref={root} id="about" lang="ru" className="relative isolate scroll-mt-28 overflow-hidden bg-[#f4f4f2] px-6 py-24 lg:px-10 lg:py-36 before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:opacity-40 before:bg-[linear-gradient(rgba(30,30,30,.045)_1px,transparent_1px),linear-gradient(90deg,rgba(30,30,30,.045)_1px,transparent_1px)] before:bg-[size:32px_32px]">
+    <section ref={root} id="about" lang="ru" className="relative isolate scroll-mt-28 overflow-hidden bg-[#f4f4f2] px-6 py-24 lg:px-10 lg:py-36 before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:opacity-40 before:bg-[linear-gradient(rgba(30,30,30,.045)_1px,transparent_1px),linear-gradient(90deg,rgba(30,30,30,.045)_1px,transparent_1px)] before:[background-size:32px_32px]">
       <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-x-12">
         <aside className="lg:col-span-4">
           <div className="lg:sticky lg:top-40">
