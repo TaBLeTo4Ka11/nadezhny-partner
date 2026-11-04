@@ -24,7 +24,7 @@ const categories = [
   { title: "Двери 3 класса защиты", group: "Бронированные двери", slug: "dveri-3-klassa-zashchity", image: "dr-i-01.png" },
   { title: "Двери защитные", group: "Бронированные двери", slug: "dveri-zashchitnye", image: "dz-ii-3-2-01.png" },
   { title: "Полнотелые деревянные двери", group: "Деревянные двери", slug: "polnotelye-derevyannye-dveri", image: "dvernye-bloki-polnotelye-s-zamkom-i-petlyami-v-komplekte-01.png" },
-  { title: "Дверные блоки для строителей", group: "Деревянные двери", slug: "dvernye-bloki-dlya-stroiteley", image: null },
+  { title: "Дверные блоки для строителей", group: "Деревянные двери", slug: "dvernye-bloki-dlya-stroiteley", image: "dvernye-bloki-polnotelye-s-zamkom-i-petlyami-v-komplekte-02.jpg" },
   { title: "Фурнитура для противопожарных дверей", group: "Антипаника", slug: "furnitura-dlya-protivopozharnyh-dverej", image: "apeks-pb-1300a-panic-bs-shtanga-nazhimnaya-01.webp" },
 ];
 
@@ -86,9 +86,11 @@ export default function CatalogSection() {
             <article data-catalog-card key={item.slug} className="group relative flex min-w-0 flex-col overflow-hidden border border-line bg-white transition-colors hover:border-[#c62828]">
               <a href={"/catalog/" + item.slug + "/"} aria-label={"Открыть категорию: " + item.title} className="flex flex-1 flex-col">
                 <div className="relative aspect-[3/4] w-full shrink-0 overflow-hidden bg-white">
-                  <div className="absolute inset-0 flex items-center justify-center bg-white text-4xl font-black tracking-[-.08em] text-[#c62828]/35" aria-hidden="true">
-                    НП
-                  </div>
+                  {!item.image && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-white text-4xl font-black tracking-[-.08em] text-[#c62828]/35" aria-hidden="true">
+                      НП
+                    </div>
+                  )}
                   {item.image && (
                     <img
                       data-catalog-image
