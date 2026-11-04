@@ -185,6 +185,26 @@
       "path": "artifacts/nadyozhny-partner/public/images/products/dmpo-2-eis60-dver-metallicheskaya-protivopozharnaya-dvupolnaya-s-ostekleniem-v-rabochej-stvorke-01.jpg",
       "sha": "f215102a4b1c66984c4560cc66832edfd1de2942",
       "size": 10997
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dss-0201-19-nerzhavejka-kvadrat-8x110-mm-03.webp",
+      "sha": "525763b4026cc02685b07d4c6e870eebf9c723e5",
+      "size": 22176
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dss-0203-19-nerzhavejka-kvadrat-8x110-mm-01.webp",
+      "sha": "17cb005f8d08d1ad2d54aa6e8505558d0837405d",
+      "size": 25059
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dss-0203-19-nerzhavejka-kvadrat-8x110-mm-02.webp",
+      "sha": "a627acd6b7d379b10d282ab0651f47f5fec97476",
+      "size": 32566
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dss-0203p-19-nerzhavejka-kvadrat-8x140-mm-02.webp",
+      "sha": "0529de363388744c76b097dd524b237ee876fe47",
+      "size": 21639
     }
   ]
 }
