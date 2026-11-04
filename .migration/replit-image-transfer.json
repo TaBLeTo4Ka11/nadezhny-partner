@@ -405,6 +405,26 @@
       "path": "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-04.jpg",
       "sha": "95d68b8a59756ba3bca8b8a9491b1efa3cbe785b",
       "size": 5409
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-05.jpg",
+      "sha": "1ef83186901dea09309125cbc0c6ac7874a0c80a",
+      "size": 8000
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-06.jpg",
+      "sha": "22c6effee6a1ed22506dc0cedf5b5d17927e39f1",
+      "size": 7878
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-07.jpg",
+      "sha": "6d705fadd789abfa8b76662cc8e4112bdf0623d0",
+      "size": 9525
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-08.jpg",
+      "sha": "344d95ee53e27f9aee20fdf52be0a1d738cb69ca",
+      "size": 11468
     }
   ]
 }
