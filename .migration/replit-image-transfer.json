@@ -465,6 +465,26 @@
       "path": "artifacts/nadyozhny-partner/public/images/products/ruchka-dvernaya-dh-0433-ss-s-pruzhinoj-nerzhavejka-kvadrat-9x140-mm-02.webp",
       "sha": "24adb7327b484e822eb029a900a4e73136f3d88e",
       "size": 34299
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ruchka-dvernaya-dh-043p-knob-ne-nejlon-kvadrat-9x90-mm-01.webp",
+      "sha": "721ee62cca16894f824dd195cdabe45dd1a9b305",
+      "size": 55486
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ruchka-dvernaya-dh-043p-knob-ne-nejlon-kvadrat-9x90-mm-02.webp",
+      "sha": "24adb7327b484e822eb029a900a4e73136f3d88e",
+      "size": 34299
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ruchka-povorotnaya-dss-02-bk6-nerzhavejka-01.webp",
+      "sha": "f77835f58dd6473c27b538f7f02d8b9b3b84958b",
+      "size": 12375
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ruchka-povorotnaya-dss-02-bk6-nerzhavejka-02.webp",
+      "sha": "184a184f38627e02560a70717841705967e5f521",
+      "size": 25913
     }
   ]
 }
