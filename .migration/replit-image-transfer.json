@@ -525,6 +525,26 @@
       "path": "artifacts/nadyozhny-partner/public/images/products/svetoprozrachnye-peregorodki-so-vstroennoj-dverju-04.jpg",
       "sha": "4b76d8ee290cd71de6dea1d7a49554f3358015ae",
       "size": 25812
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ustrojstvo-peredatochnoe-podvizhnoe-lt-21-01.jpg",
+      "sha": "f7eb691d06fe930cce5b024a03e194ffa53cd2b9",
+      "size": 6690
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ustrojstvo-peredatochnoe-podvizhnoe-lt-22-01.jpg",
+      "sha": "f7eb691d06fe930cce5b024a03e194ffa53cd2b9",
+      "size": 6690
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/veneciya-belyj-yasen-01.png",
+      "sha": "ddc34f4b9de77967815921d5b2988c4c32c831ca",
+      "size": 413877
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/veneciya-venge-01.png",
+      "sha": "5910462c840a6e046ee2f0fec174a5d244b41084",
+      "size": 467000
     }
   ]
 }
