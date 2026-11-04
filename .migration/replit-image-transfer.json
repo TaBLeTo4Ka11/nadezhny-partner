@@ -265,6 +265,26 @@
       "path": "artifacts/nadyozhny-partner/public/images/products/dz-ii-3-2-01.png",
       "sha": "43d1f4de930029fd14591b60f787842c8be78bce",
       "size": 114953
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dz-ii-3-2-02.jpg",
+      "sha": "dbcef90db3f7825a6fe671195f5733e459b53e63",
+      "size": 5913
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dz-iii-01.png",
+      "sha": "c61b0ef8953da2afcbe3ab3a5081043bac3a3d45",
+      "size": 105652
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dz-iii-02.jpg",
+      "sha": "e13066036de0406239122fc18bcb8613e717fc5a",
+      "size": 11948
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dz-v-01.png",
+      "sha": "284b755bab0abd776f1b1873e18956c43dbc308c",
+      "size": 203598
     }
   ]
 }
