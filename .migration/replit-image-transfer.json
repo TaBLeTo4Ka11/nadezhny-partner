@@ -545,6 +545,26 @@
       "path": "artifacts/nadyozhny-partner/public/images/products/veneciya-venge-01.png",
       "sha": "5910462c840a6e046ee2f0fec174a5d244b41084",
       "size": 467000
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/vikont-greckij-oreh-01.png",
+      "sha": "b651e54a074cc2a7ec6582b44dc60085135c0356",
+      "size": 537321
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/vorota-protivopozharnye-metallicheskie-dvupolnye-01.png",
+      "sha": "573f3d556f36dfdf19297b7a0ee24946e9b0bf3f",
+      "size": 309632
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/vorota-protivopozharnye-metallicheskie-dvupolnye-02.jpg",
+      "sha": "392338c4888172bf7c84f07e7e305364757dac54",
+      "size": 170695
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/zamok-dlya-protivopozharnyh-dverej-fl-0433-anti-panic-s-razdelnym-kvadratom-01.webp",
+      "sha": "337c91a22a99a6fb7b662d8b35ef5a610dcac859",
+      "size": 41724
     }
   ]
 }
