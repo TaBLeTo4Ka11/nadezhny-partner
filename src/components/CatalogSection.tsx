@@ -83,10 +83,10 @@ export default function CatalogSection() {
 
         <div data-catalog-grid className="mt-8 grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-3" aria-live="polite">
           {filtered.map((item, index) => (
-            <article data-catalog-card key={item.slug} className="group relative flex min-h-[285px] flex-col overflow-hidden border border-line bg-white transition-colors hover:border-[#c62828] sm:min-h-[430px]">
+            <article data-catalog-card key={item.slug} className="group relative flex min-w-0 flex-col overflow-hidden border border-line bg-white transition-colors hover:border-[#c62828]">
               <a href={"/catalog/" + item.slug + "/"} aria-label={"Открыть категорию: " + item.title} className="flex flex-1 flex-col">
-                <div className="relative h-[clamp(140px,31vw,280px)] shrink-0 overflow-hidden bg-[#eeeeec] sm:h-[280px]">
-                  <div className="absolute inset-0 flex items-center justify-center bg-[#eeeeec] text-4xl font-black tracking-[-.08em] text-[#c62828]/35" aria-hidden="true">
+                <div className="relative aspect-[3/4] w-full shrink-0 overflow-hidden bg-white">
+                  <div className="absolute inset-0 flex items-center justify-center bg-white text-4xl font-black tracking-[-.08em] text-[#c62828]/35" aria-hidden="true">
                     НП
                   </div>
                   {item.image && (
@@ -97,7 +97,7 @@ export default function CatalogSection() {
                       loading={index < 4 ? "eager" : "lazy"}
                       decoding="async"
                       onError={(event) => { event.currentTarget.style.display = "none"; }}
-                      className="absolute inset-0 h-full w-full object-contain p-2.5 transition-transform duration-700 group-hover:scale-[1.025] sm:p-5"
+                      className="absolute inset-0 h-full w-full object-contain p-0"
                     />
                   )}
                   <span className="absolute left-2 top-2 max-w-[calc(100%-1rem)] bg-white px-2 py-1.5 text-[8px] font-extrabold uppercase tracking-[.1em] text-[#c62828] sm:left-4 sm:top-4 sm:px-3 sm:py-2 sm:text-[9px]">
