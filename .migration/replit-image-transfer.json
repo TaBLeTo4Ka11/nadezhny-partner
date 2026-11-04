@@ -385,6 +385,26 @@
       "path": "artifacts/nadyozhny-partner/public/images/products/nakladka-pod-cilindr-dss-02-et-nerzhavejka-03.webp",
       "sha": "6b9d1ef88dde5f63cbcc2dcb2d9373ee9a9b673a",
       "size": 23233
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-01.png",
+      "sha": "3f71dfe49b4ab058dc14651ddcdd3957ba5e2f87",
+      "size": 431327
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-02.jpg",
+      "sha": "fc5e677c1eb39616dbe3b762da6793838f6a1dcc",
+      "size": 7467
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-03.jpg",
+      "sha": "f5940117a64141f26bfb6f2f755eab18aad453f2",
+      "size": 6865
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-04.jpg",
+      "sha": "95d68b8a59756ba3bca8b8a9491b1efa3cbe785b",
+      "size": 5409
     }
   ]
 }
