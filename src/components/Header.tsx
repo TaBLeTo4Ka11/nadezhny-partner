@@ -1,45 +1,61 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type MouseEvent } from "react";
+import gsap from "gsap";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { EMAIL, PHONES } from "../data/content";
 import { catalog, catalogUrls } from "../data/companyContent";
+import { proxied } from "../lib/img";
+
+gsap.registerPlugin(ScrollToPlugin);
 
 const LOGO = "https://iv-partner.ru/wp-content/uploads/2021/08/dveri-300x301.png";
 
-const TOP = [
-  { label: "Политика конфиденциальности", href: "/privacy-policy/" },
-  { label: "Согласие на cookie", href: "/kuki/" },
-  { label: "Наши заказы", href: "#gallery" },
-  { label: "Наши отзывы", href: "#reviews" },
+const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// На главной ссылки-якоря работают напрямую, на внутренних страницах ведут на «/#раздел»
+const HOME = window.location.pathname.replace(/\/+$/, "") === "";
+const hashHref = (id: string) => (HOME ? "#" : "/#") + id;
+
+type NavItem = { label: string; hash?: string; href?: string };
+
+const NAV: NavItem[] = [
+  { label: "Каталог", hash: "catalog" },
+  { label: "О компании", hash: "about" },
+  { label: "Производство", hash: "production" },
+  { label: "Склад", href: "/sklad/" },
+  { label: "Доставка и установка", href: "/dostavka-i-ustanovka/" },
+  { label: "Контакты", hash: "contacts" },
+];
+
+const EXTRA: NavItem[] = [
+  { label: "Наши работы", hash: "gallery" },
+  { label: "Отзывы", hash: "reviews" },
   { label: "Вакансии", href: "/vakansii/" },
   { label: "Полезное", href: "/poleznoe/" },
   { label: "Выбрать цвет", href: "/color-palette/ral-classic/" },
+  { label: "Политика конфиденциальности", href: "/privacy-policy/" },
+  { label: "Согласие на cookie", href: "/kuki/" },
 ];
 
-const CATALOG = catalog.flatMap((group) =>
-  group.items.map((label) => ({ label, href: catalogUrls[label] ?? "#catalog" }))
-);
-
-// Информационные страницы пока содержат заглушки до переноса проверенных оригинальных текстов.
-const NAV = [
-  { label: "О компании", href: "#about", id: "about" },
-  { label: "Производство", href: "#production", id: "production" },
-  { label: "Склад", href: "/sklad/", id: "" },
-  { label: "Доставка и установка", href: "/dostavka-i-ustanovka/", id: "" },
-  { label: "Контакты", href: "#contacts", id: "contacts" },
-];
-
-const field =
-  "w-full border-0 border-b border-[#c9ccd1] bg-transparent py-4 text-lg text-ink outline-none transition-colors placeholder:text-muted focus:border-ink";
+const resolve = (n: NavItem) => (n.hash ? hashHref(n.hash) : n.href ?? "#");
 
 export default function Header() {
-  const [menu, setMenu] = useState(false);
-  const [call, setCall] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("");
-  const callDialogRef = useRef<HTMLDivElement>(null);
-  const menuToggleRef = useRef<HTMLButtonElement>(null);
+  const panel = useRef<HTMLDivElement>(null);
+  const toggle = useRef<HTMLButtonElement>(null);
 
-  // Подсветка активного раздела
+  // Фиксированная шапка: появляется граница после начала прокрутки
   useEffect(() => {
-    const ids = ["catalog", "about", "contacts"];
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Подсветка активного раздела (красным)
+  useEffect(() => {
+    const ids = ["catalog", "about", "production", "contacts"];
     const io = new IntersectionObserver(
       (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
       { rootMargin: "-40% 0px -55% 0px" }
@@ -51,245 +67,224 @@ export default function Header() {
     return () => io.disconnect();
   }, []);
 
+  // Блокировка прокрутки страницы при открытом меню
   useEffect(() => {
-    document.body.style.overflow = menu || call ? "hidden" : "";
+    document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [menu, call]);
+  }, [menuOpen]);
 
+  // Анимация-шторка при открытии меню
+  useLayoutEffect(() => {
+    if (!menuOpen || !panel.current) return;
+    const p = panel.current;
+    if (reduced()) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        p,
+        { clipPath: "inset(0% 0% 100% 0%)" },
+        { clipPath: "inset(0% 0% 0% 0%)", duration: 0.7, ease: "power4.inOut", clearProps: "clipPath" }
+      );
+      gsap.from("[data-menu-item]", { y: 36, opacity: 0, duration: 0.7, ease: "power3.out", stagger: 0.045, delay: 0.25 });
+    }, p);
+    return () => ctx.revert();
+  }, [menuOpen]);
+
+  const closeMenu = (after?: () => void) => {
+    const p = panel.current;
+    const done = () => {
+      setMenuOpen(false);
+      toggle.current?.focus({ preventScroll: true });
+      after?.();
+    };
+    if (!p || reduced()) return done();
+    gsap.to(p, { clipPath: "inset(0% 0% 100% 0%)", duration: 0.5, ease: "power4.inOut", onComplete: done });
+  };
+
+  // Фокус внутри меню и закрытие по Esc
   useEffect(() => {
+    if (!menuOpen) return;
+    const p = panel.current;
+    const sel = 'a[href], button:not([disabled])';
+    const items = (): HTMLElement[] => Array.from(p?.querySelectorAll<HTMLElement>(sel) ?? []);
+    items()[0]?.focus({ preventScroll: true });
+
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        if (menu) menuToggleRef.current?.focus();
-        setMenu(false);
-        setCall(false);
-      }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [menu, call]);
-
-  useEffect(() => {
-    if (!menu) return;
-    const menuElement = document.getElementById("mobile-navigation");
-    const selector = 'a[href], button:not([disabled])';
-    const getFocusable = () => Array.from(menuElement?.querySelectorAll<HTMLElement>(selector) ?? [])
-      .filter((element) => element.getClientRects().length > 0);
-    getFocusable()[0]?.focus();
-
-    const trapFocus = (event: KeyboardEvent) => {
-      if (event.key !== "Tab") return;
-      const items = getFocusable();
-      if (items.length === 0) return;
-      const first = items[0];
-      const last = items[items.length - 1];
-      const focusIsOutside = !menuElement?.contains(document.activeElement);
-      if (event.shiftKey && (document.activeElement === first || focusIsOutside)) {
-        event.preventDefault();
+      if (e.key === "Escape") return closeMenu();
+      if (e.key !== "Tab") return;
+      const list: HTMLElement[] = [toggle.current, ...items()].filter((x): x is HTMLElement => !!x);
+      const first = list[0];
+      const last = list[list.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
         last.focus();
-      } else if (!event.shiftKey && (document.activeElement === last || focusIsOutside)) {
-        event.preventDefault();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
         first.focus();
       }
     };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [menuOpen]);
 
-    document.addEventListener("keydown", trapFocus);
-    return () => document.removeEventListener("keydown", trapFocus);
-  }, [menu]);
-
-  useEffect(() => {
-    if (!call) return;
-    const dialog = callDialogRef.current;
-    const previous = document.activeElement instanceof HTMLElement && document.activeElement !== document.body ? document.activeElement : null;
-    const selector = 'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled])';
-    const getFocusable = () => Array.from(dialog?.querySelectorAll<HTMLElement>(selector) ?? []);
-    getFocusable()[0]?.focus();
-
-    const trapFocus = (event: KeyboardEvent) => {
-      if (event.key !== "Tab") return;
-      const items = getFocusable();
-      if (items.length === 0) return;
-      const first = items[0];
-      const last = items[items.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
+  // Плавный скролл к якорям через GSAP ScrollToPlugin
+  const scrollToId = (id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const root = document.documentElement;
+    const prev = root.style.scrollBehavior;
+    root.style.scrollBehavior = "auto"; // CSS smooth конфликтует с GSAP
+    window.history.pushState(null, "", "#" + id);
+    const restore = () => {
+      root.style.scrollBehavior = prev;
     };
+    gsap.to(window, {
+      duration: reduced() ? 0 : 1.1,
+      ease: "power3.inOut",
+      scrollTo: { y: el, offsetY: 76, autoKill: true },
+      onComplete: restore,
+      onInterrupt: restore,
+    });
+  };
 
-    document.addEventListener("keydown", trapFocus);
-    return () => {
-      document.removeEventListener("keydown", trapFocus);
-      if (previous?.isConnected && previous.getClientRects().length > 0) previous.focus();
-      else menuToggleRef.current?.focus();
-    };
-  }, [call]);
+  const go = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
+    const m = href.match(/^#(.+)$/); // только якоря текущей страницы
+    if (!m || !document.getElementById(m[1])) return;
+    e.preventDefault();
+    if (menuOpen) closeMenu(() => scrollToId(m[1]));
+    else scrollToId(m[1]);
+  };
 
-  const cls = (id: string) =>
-    "text-sm font-semibold transition-colors hover:underline underline-offset-8 " +
-    (id && active === id ? "text-brand" : "text-ink");
+  const phone = PHONES[0];
+  const line = "absolute left-3 h-0.5 w-6 bg-ink transition-all duration-300";
 
   return (
     <>
-      <header className="safe-area-top sticky top-0 z-50 border-b border-line bg-white">
-        {/* Тонкая верхняя полоса */}
-        <div className="hidden border-b border-line bg-soft md:block">
-          <div className="mx-auto flex h-9 max-w-[1400px] items-center justify-end gap-8 px-6 lg:px-10">
-            {TOP.map((t) => (
-              <a key={t.label} href={t.href} className="text-xs text-muted transition-colors hover:text-ink">
-                {t.label}
-              </a>
-            ))}
-          </div>
-        </div>
-
-        <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between gap-6 px-6 lg:h-20 lg:px-10">
-          <a href="#top" className="flex shrink-0 items-center gap-3">
-            <img src={LOGO} alt="Надёжный партнёр" className="h-10 w-10 object-contain lg:h-12 lg:w-12" />
-            <span className="hidden text-sm font-extrabold uppercase tracking-wider sm:block">Надёжный партнёр</span>
+      <header
+        className={
+          "safe-area-top fixed inset-x-0 top-0 z-50 border-b bg-white transition-colors duration-300 " +
+          (scrolled || menuOpen ? "border-line" : "border-transparent")
+        }
+      >
+        <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between gap-4 px-4 sm:px-6 lg:h-20 lg:px-10">
+          <a
+            href={HOME ? "#top" : "/"}
+            onClick={(e) => (HOME ? go(e, "#top") : undefined)}
+            className="flex min-w-0 items-center gap-3"
+          >
+            <img src={proxied(LOGO, 120)} alt="" width={48} height={48} className="h-10 w-10 shrink-0 object-contain lg:h-12 lg:w-12" />
+            <span className="truncate text-sm font-extrabold uppercase tracking-wider">Надёжный партнёр</span>
           </a>
 
-          <nav className="hidden items-center gap-7 xl:flex" aria-label="Основная навигация">
-            <div className="group relative">
-              <a href="#catalog" className={cls("catalog")}>
-                Каталог ▾
-              </a>
-              <div className="invisible absolute left-0 top-full z-10 pt-5 opacity-0 transition-opacity group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
-                <ul className="max-h-[calc(100svh-7rem)] min-w-[300px] overflow-y-auto border border-line bg-white py-2">
-                  {CATALOG.map((item) => (
-                    <li key={item.label}>
-                      <a href={item.href} target={item.href.startsWith("https://") ? "_blank" : undefined} rel={item.href.startsWith("https://") ? "noreferrer" : undefined} className="block px-5 py-3 text-sm transition-colors hover:bg-soft">
-                        {item.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            {NAV.map((n) => (
-              <a key={n.label} href={n.href} className={cls(n.id)}>
-                {n.label}
-              </a>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-4">
-            <a href={PHONES[0].href} className="hidden whitespace-nowrap text-sm font-bold lg:block">
-              {PHONES[0].label}
-            </a>
-            <button type="button" onClick={() => setCall(true)} aria-haspopup="dialog" className="btn hidden md:block">
-              Заказать звонок
-            </button>
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
             <a
-              href="#kp"
-              className="hidden border border-ink px-6 py-3 text-sm font-semibold transition-colors hover:bg-ink hover:text-white md:block"
+              href={phone.href}
+              aria-label={"Позвонить: " + phone.label}
+              className="btn whitespace-nowrap px-4 py-3 text-sm sm:px-6"
             >
-              Выслать КП
+              <span className="md:hidden">Позвонить</span>
+              <span className="hidden md:inline">{phone.label}</span>
             </a>
+
             <button
+              ref={toggle}
               type="button"
-              className="text-sm font-semibold xl:hidden"
-              aria-expanded={menu}
-              aria-controls="mobile-navigation"
-              ref={menuToggleRef}
-              onClick={() => setMenu((v) => !v)}
+              aria-expanded={menuOpen}
+              aria-controls="site-menu"
+              aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
+              onClick={() => (menuOpen ? closeMenu() : setMenuOpen(true))}
+              className="relative h-12 w-12 shrink-0"
             >
-              {menu ? "Закрыть" : "Меню"}
+              <span className={line + (menuOpen ? " top-[23px] rotate-45" : " top-[18px]")} />
+              <span className={line + (menuOpen ? " top-[23px] -rotate-45" : " top-[28px]")} />
             </button>
           </div>
         </div>
       </header>
 
-      {/* Мобильное меню */}
-      <div id="mobile-navigation" hidden={!menu} role="dialog" aria-modal="true" aria-label="Мобильное меню" className="fixed inset-0 z-40 overflow-y-auto bg-white px-6 pb-10 pt-28 xl:hidden">
-          <nav className="flex flex-col gap-5" aria-label="Мобильная навигация">
-            <a href="#catalog" onClick={() => setMenu(false)} className="text-3xl font-extrabold tracking-tight">
-              Каталог
-            </a>
-            <ul className="-mt-2 mb-2 space-y-3 border-l border-line pl-4">
-              {CATALOG.map((item) => (
-                <li key={item.label}>
-                  <a href={item.href} target={item.href.startsWith("https://") ? "_blank" : undefined} rel={item.href.startsWith("https://") ? "noreferrer" : undefined} onClick={() => setMenu(false)} className="text-base text-muted">
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-            {NAV.map((n) => (
+      {menuOpen && (
+        <div
+          id="site-menu"
+          ref={panel}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Меню сайта"
+          className="fixed inset-0 z-40 overflow-y-auto bg-white px-6 pb-12 pt-24 lg:px-10 lg:pt-32"
+        >
+          <div className="mx-auto grid max-w-[1400px] gap-14 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
+            <nav aria-label="Основная навигация">
+              <ul>
+                {NAV.map((n) => {
+                  const id = n.hash ?? "";
+                  return (
+                    <li key={n.label} data-menu-item>
+                      <a
+                        href={resolve(n)}
+                        onClick={(e) => go(e, resolve(n))}
+                        className={
+                          "block py-2 text-[clamp(2rem,6vw,3.75rem)] font-extrabold leading-tight tracking-tight decoration-2 underline-offset-8 hover:underline " +
+                          (id && active === id ? "text-brand" : "text-ink")
+                        }
+                      >
+                        {n.label}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
               <a
-                key={n.label}
-                href={n.href}
-                onClick={() => setMenu(false)}
-                className="text-3xl font-extrabold tracking-tight"
+                data-menu-item
+                href={hashHref("kp")}
+                onClick={(e) => go(e, hashHref("kp"))}
+                className="btn mt-8 inline-block px-8 py-4 text-base"
               >
-                {n.label}
+                Выслать КП
               </a>
-            ))}
-          </nav>
-          <div className="mt-10 flex flex-col items-start gap-4">
-            <a href={PHONES[0].href} className="text-lg font-bold">
-              {PHONES[0].label}
-            </a>
-            <button
-              type="button"
-              onClick={() => {
-                setMenu(false);
-                setCall(true);
-              }}
-              aria-haspopup="dialog"
-              className="btn"
-            >
-              Заказать звонок
-            </button>
-            <a
-              href="#kp"
-              onClick={() => setMenu(false)}
-              className="border border-ink px-6 py-3 text-sm font-semibold"
-            >
-              Выслать КП
-            </a>
-          </div>
-          <ul className="mt-10 space-y-2 border-t border-line pt-6">
-            {TOP.map((t) => (
-              <li key={t.label}>
-                <a href={t.href} onClick={() => setMenu(false)} className="text-sm text-muted">
-                  {t.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-      </div>
+            </nav>
 
-      {/* Окно «Заказать звонок» */}
-      {call && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 p-6" onClick={() => setCall(false)}>
-          <div
-            ref={callDialogRef}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="call-dialog-title"
-            className="w-full max-w-md border border-line bg-white p-8"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="mb-8 flex items-start justify-between gap-6">
-              <h2 id="call-dialog-title" className="text-3xl font-extrabold tracking-tight">Заказать звонок</h2>
-              <button type="button" onClick={() => setCall(false)} className="text-sm text-muted hover:text-ink">
-                Закрыть
-              </button>
-            </div>
-            <div className="space-y-5">
-              <p className="text-sm leading-6 text-muted">
-                Форма заказа звонка временно отключена до проверки политики обработки персональных данных. Позвоните или напишите компании напрямую.
+            <div>
+              <p data-menu-item className="mb-6 text-xs font-semibold uppercase tracking-[.2em] text-muted">
+                Каталог
               </p>
-              <div className="space-y-3">
-                {PHONES.map((phone) => (
-                  <a key={phone.href} href={phone.href} className="block text-lg font-bold hover:underline">{phone.label}</a>
+              <div className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
+                {catalog.map((g) => (
+                  <div key={g.group} data-menu-item>
+                    <p className="border-b-2 border-ink pb-2 text-sm font-extrabold">{g.group}</p>
+                    <ul className="mt-3 space-y-2">
+                      {g.items.map((item) => (
+                        <li key={item}>
+                          <a href={catalogUrls[item] ?? hashHref("catalog")} className="text-sm text-ink/80 hover:text-ink hover:underline underline-offset-4">
+                            {item}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 ))}
-                <a href={`mailto:${EMAIL}?subject=${encodeURIComponent("Заказ звонка")}`} className="inline-block underline underline-offset-4">{EMAIL}</a>
+              </div>
+
+              <div data-menu-item className="mt-12 border-t border-line pt-6">
+                <ul className="flex flex-wrap gap-x-6 gap-y-2">
+                  {EXTRA.map((n) => (
+                    <li key={n.label}>
+                      <a href={resolve(n)} onClick={(e) => go(e, resolve(n))} className="text-xs text-muted hover:text-ink">
+                        {n.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-6 space-y-1 text-sm">
+                  {PHONES.map((p) => (
+                    <a key={p.href} href={p.href} className="block font-bold hover:underline">
+                      {p.label}
+                    </a>
+                  ))}
+                  <a href={"mailto:" + EMAIL} className="block text-muted hover:text-ink">
+                    {EMAIL}
+                  </a>
+                </div>
               </div>
             </div>
           </div>
