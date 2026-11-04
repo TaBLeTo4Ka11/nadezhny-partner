@@ -145,5 +145,26 @@
     "artifacts/nadyozhny-partner/public/images/reviews/review-maria.png",
     "artifacts/nadyozhny-partner/public/images/reviews/review-olga.png"
   ],
-  "uploaded": []
+  "uploaded": [
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/13-sm-vitra-vinorit-patina-01.png",
+      "sha": "ee89cd98af58b295bb8de37147cb2a1dec98d5df",
+      "size": 569366
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/9-5-sm-evropa-01.png",
+      "sha": "6c2d788385f189f90fc5b8fc4a01a2f22f0cf500",
+      "size": 306993
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/9-5-sm-vena-vinorit-patina-mdf-mdf-belyj-matovyj-01.png",
+      "sha": "ea491ba31e5f549d8db1b2979bbee174aa0a7f10",
+      "size": 381869
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/9-5-sm-vena-vinorit-patina-mdf-mdf-greckij-oreh-01.png",
+      "sha": "30ce5bb4b1d6b809e3a565af015ae7af65fc593d",
+      "size": 524800
+    }
+  ]
 }
