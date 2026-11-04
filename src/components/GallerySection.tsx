@@ -21,7 +21,7 @@ const productionPhotos = [
   "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/production/production-02.jpeg",
   "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/production/production-03.jpeg",
   "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/production/production-04.jpeg",
-  "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhny-partner/main/artifacts/nadyozhny-partner/public/images/production/production-05.jpeg"
+  "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/production/production-05.jpeg"
 ];
 const photos = [
   ...projectPhotos.map((src) => ({ src, label: "Реализованный объект" })),
@@ -57,7 +57,7 @@ export default function GallerySection() {
     if (!element) return;
     const width = element.clientWidth;
     if (!width) return;
-    setActive(Math.max(0, Math.min(photos.length - 1, Math.round(element.scrollLeft / width))));
+    setActive(Math.max(0, Math.min(photos.length - 1, Math.round(element.scrollLeft / (width + 12)))));
   };
 
   return (
