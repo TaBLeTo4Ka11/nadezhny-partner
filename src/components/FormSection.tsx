@@ -26,6 +26,8 @@ export default function FormSection() {
           phone: data.get("phone"),
           email: data.get("email"),
           message: data.get("message"),
+          consent: "Согласие на обработку персональных данных предоставлено",
+          consent_version: "2026-11-04",
           _subject: "Заявка на коммерческое предложение — iv-partner.ru",
           _replyto: data.get("email") || EMAIL,
           _template: "table",
