@@ -16,14 +16,12 @@ export function sendMail(subject: string, fields: Record<string, string>) {
     "mailto:" + EMAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
 }
 
-const BASE = "https://iv-partner.ru/wp-content/uploads/2022/03/";
-
 export const IMG = {
-  door1: BASE + "DMP-1-EIS60-e1647434608692.jpg",
-  door2: BASE + "DMP-2-EIS60-e1647434559868.jpg",
-  door3: BASE + "DMP-01-EIS60-e1647434479532.jpg",
-  gates: BASE + "vorota-protivopojarnie.jpg",
-  curtains: BASE + "protivopojarniye-shtori.jpg",
+  door1: "/images/products/dmp-2-eis60-dver-metallicheskaya-protivopozharnaya-dvupolnaya-01.png",
+  door2: "/images/products/dmpo-1-eis60-dver-metallicheskaya-protivopozharnaya-odnopolnaya-osteklennaya-01.png",
+  door3: "/images/products/dmpo-2-eis60-dver-metallicheskaya-protivopozharnaya-dvupolnaya-s-antipanikoj-i-ostekleniem-v-rabochej-stvorke-01.jpg",
+  gates: "",
+  curtains: "",
 };
 
 /* Текст «О компании» — дословно */
