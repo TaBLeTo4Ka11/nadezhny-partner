@@ -156,6 +156,7 @@ export default async function handler(req: any, res: any) {
     }
 
     const conversation: any[] = [{ role: "system", content: systemPrompt }, ...messages];
+    const totalUsage = { prompt_tokens: 0, completion_tokens: 0, total_tokens: 0 };
     for (let round = 0; round < MAX_TOOL_ROUNDS; round += 1) {
       const response = await fetch("https://api.deepseek.com/chat/completions", {
         method: "POST",
@@ -179,6 +180,11 @@ export default async function handler(req: any, res: any) {
       }
 
       const data = await response.json() as any;
+      if (data.usage) {
+        totalUsage.prompt_tokens += Number(data.usage.prompt_tokens ?? 0);
+        totalUsage.completion_tokens += Number(data.usage.completion_tokens ?? 0);
+        totalUsage.total_tokens += Number(data.usage.total_tokens ?? 0);
+      }
       const message = data.choices?.[0]?.message;
       if (!message) return send(res, 502, { error: "DeepSeek вернул пустой ответ." });
       conversation.push(message);
@@ -188,7 +194,7 @@ export default async function handler(req: any, res: any) {
         return send(res, 200, {
           reply: message.content ?? "Модель вернула пустой текстовый ответ.",
           model: data.model ?? MODEL,
-          usage: data.usage ?? null,
+          usage: data.usage ? totalUsage : null,
         });
       }
 
