@@ -1,6 +1,6 @@
 # Надёжный партнёр — AI-разработчик (первый этап)
 
-Отдельная мобильная панель разработчика. Она не встраивается в публичный сайт и не меняет его интерфейс. Есть выбор DeepSeek V4.1 Flash и Claude Haiku 5.5 / Sonnet 5.5. Обе модели используют один и тот же набор read-only инструментов проекта; write-доступа нет. Запись в репозиторий, merge и деплой намеренно отсутствуют.
+Отдельная мобильная панель разработчика. Она не встраивается в публичный сайт и не меняет его интерфейс. Есть выбор DeepSeek V4.1 Flash, Claude Haiku 5.5 / Sonnet 5.5 и бесплатной модели Recursive Flint через OpenRouter. Обе модели используют один и тот же набор read-only инструментов проекта; write-доступа нет. Запись в репозиторий, merge и деплой намеренно отсутствуют.
 
 ## Модель и стоимость
 
@@ -17,7 +17,8 @@
 Задать в настройках отдельного Vercel-проекта, корневая папка которого — `agent`:
 
 - `DEEPSEEK_API_KEY` — ключ DeepSeek API (нужен для режима DeepSeek).
-- `CLAUDE_API_KEY` — необязательный официальный ключ Anthropic Console (нужен только для режима Claude; без него DeepSeek продолжает работать).
+- `CLAUDE_API_KEY` — необязательный официальный ключ Anthropic Console (нужен только для режима Claude; без него другие модели продолжают работать).
+- `OPENROUTER_API_KEY` — необязательный ключ OpenRouter для бесплатной модели Flint.
 - `AGENT_ACCESS_KEY` — длинный случайный пароль доступа к панели.
 - `GITHUB_TOKEN` — fine-grained GitHub token только для репозитория `TaBLeTo4Ka11/nadezhny-partner`, разрешения Contents: Read-only и Pull requests: Read-only.
 
@@ -27,7 +28,7 @@
 
 1. Создать отдельный Vercel Project из этого репозитория.
 2. Установить Root Directory = `agent`; не подключать его к production-проекту сайта.
-3. Добавить `AGENT_ACCESS_KEY`, `GITHUB_TOKEN`, `DEEPSEEK_API_KEY` и при необходимости `CLAUDE_API_KEY` для Preview/Production.
+3. Добавить `AGENT_ACCESS_KEY`, `GITHUB_TOKEN`, `DEEPSEEK_API_KEY` и по желанию `CLAUDE_API_KEY`, `OPENROUTER_API_KEY` для Preview/Production.
 4. Развернуть только после проверки переменных и доступа.
 5. Открыть выданный Preview URL на телефоне.
 
@@ -48,15 +49,16 @@
 
 ## Выбор модели и стоимость
 
-- DeepSeek V4.1 Flash остаётся режимом по умолчанию: он самый экономичный из подключённых и имеет GitHub/npm/Hugging Face/OSV/Stack Exchange инструменты.
-- Claude Haiku 5.5 — быстрый и недорогой второй взгляд; Claude Sonnet 5.5 — более сильный режим для сложного анализа. Claude использует тот же безопасный набор read-only tools, что и DeepSeek, через нативный Anthropic tool-use loop.
+- DeepSeek V4.1 Flash остаётся режимом по умолчанию: он очень экономичный и имеет GitHub/npm/Hugging Face/OSV/Stack Exchange инструменты.
+- Recursive Flint через OpenRouter — бесплатная coding-модель с tool calling и контекстом 262K; доступность и скорость зависят от бесплатного провайдера. Free-модели ограничены квотами, поэтому это экспериментальный fallback, не production SLA.
+- Claude Haiku 5.5 — быстрый и недорогой второй взгляд; Claude Sonnet 5.5 — более сильный режим для сложного анализа. Claude использует тот же безопасный набор read-only tools, что и DeepSeek, через нативный Anthropic tool-use loop. Flint использует OpenAI-совместимый tool-call loop.
 - Claude подключается напрямую через официальный Anthropic Messages API. Ключ необязателен для запуска DeepSeek, хранится только в server env и не передаётся браузеру.
 - Официальные цены Anthropic: Haiku 5.5 — $0.10/M input и $0.50/M output (до 100K prompt); Sonnet 5.5 — $2/M input и $10/M output. Claude заметно дороже DeepSeek Flash, поэтому для экономии оставляй DeepSeek основным.
-- Модельные ID задаются сервером, а не принимаются произвольной строкой от клиента.
+- Модельные ID задаются сервером, а не принимаются произвольной строкой от клиента. Для OpenRouter используется только фиксированный бесплатный ID `recursive/flint-v1.0:free`.
 
 ## Бесплатные источники и инструменты агента
 
-Дополнительные функции не требуют отдельной платной подписки или новых API-ключей:
+Дополнительные функции не требуют отдельной платной подписки; OpenRouter требует собственный бесплатный API key:
 - GitHub REST API — поиск публичных репозиториев и просмотр PR фиксированного проекта (используется уже настроенный GitHub token).
 - npm Registry — поиск публичных npm-пакетов без ключа.
 - OSV.dev — бесплатная проверка конкретной версии npm/PyPI/Go/Maven/NuGet/crates.io пакета на известные уязвимости.
