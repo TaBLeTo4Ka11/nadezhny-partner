@@ -126,8 +126,22 @@ export default function CategoryPage({ slug }: { slug: string }) {
               {products.map(product => <li key={product.sourceUrl} className="py-4 font-semibold">{product.localPath ? <a href={product.localPath} className="underline decoration-transparent underline-offset-4 hover:text-brand hover:decoration-brand">{product.title}</a> : product.title}</li>)}
             </ul>
           </details>
-        </section> : <section className="mt-12 border-y border-line py-8">
-          <p className="max-w-2xl text-base leading-7 text-muted">Карточки и характеристики этого раздела пока не перенесены: мы не будем подменять их автоматически сгенерированными описаниями. Уточните актуальную информацию напрямую у компании. Полные карточки и характеристики будут добавлены после повторной проверки первоисточника.</p>
+        </section> : <section className="mt-12">
+          <h2 className="mb-6 text-2xl font-extrabold">Ассортимент раздела</h2>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <article className="flex h-full flex-col overflow-hidden border border-line bg-white">
+              <div className="bg-[#f3f3f1]">
+                <img src={imageFallback} alt="Изображение уточняется" className="aspect-[4/3] w-full object-contain" />
+              </div>
+              <div className="flex flex-1 flex-col p-5">
+                <h3 className="text-lg font-bold leading-snug">{item.name}</h3>
+                <p className="mt-3 text-sm leading-6 text-muted">Уточняйте у менеджера</p>
+                <p className="mt-4 text-sm text-muted">Характеристики и доступные варианты — по запросу</p>
+                <a href="/#kp" className="mt-auto inline-flex min-h-11 items-center justify-center border border-ink px-4 py-3 text-sm font-semibold transition-colors hover:bg-ink hover:text-white">Запросить цену</a>
+              </div>
+            </article>
+          </div>
+          <p className="mt-6 max-w-2xl text-sm leading-6 text-muted">Карточка показывает структуру раздела. Реальные модели, изображения и характеристики будут добавлены после проверки исходных данных компании.</p>
         </section>}
         <div className="mt-10 flex flex-wrap gap-5">
           <a href="/#kp" className="border border-ink px-6 py-3 text-sm font-semibold">Связаться с компанией</a>
