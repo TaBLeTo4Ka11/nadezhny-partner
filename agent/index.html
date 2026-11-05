@@ -28,14 +28,14 @@
     <header>
       <h1>AI-разработчик</h1>
       <div class="sub">Надёжный партнёр · DeepSeek Flash</div>
-      <div class="status"><span class="dot"></span><span>Режим первого этапа: чтение GitHub без права записи</span></div>
+      <div class="status"><span class="dot"></span><span>GitHub + npm + официальная документация · только чтение</span></div>
     </header>
     <section class="auth" aria-label="Авторизация">
       <input id="access" type="password" autocomplete="current-password" placeholder="Ключ доступа к панели" aria-label="Ключ доступа">
       <button id="save" type="button">Войти</button>
     </section>
     <section id="messages" aria-live="polite">
-      <div class="welcome">Могу изучать файлы проекта, проверять открытые PR, разбирать ошибки и составлять конкретный план исправлений. Изменять репозиторий и запускать деплой пока не могу — это специально отключено.</div>
+      <div class="welcome">Могу изучать файлы и PR проекта, искать публичные GitHub-проекты и npm-пакеты, читать официальную документацию, разбирать ошибки и готовить план исправлений. Запись в репозиторий и деплой пока отключены.</div>
     </section>
     <form id="chat">
       <textarea id="prompt" placeholder="Напиши задачу…" rows="1" required></textarea>
@@ -82,7 +82,7 @@
         const response = await fetch("/api/chat", {
           method:"POST",
           headers:{"Content-Type":"application/json","Authorization":"Bearer " + accessKey},
-          body:JSON.stringify({messages:history.slice(-12)})
+          body:JSON.stringify({messages:history.slice(-8)})
         });
         const data = await response.json();
         if (!response.ok) throw new Error(data.error || "Ошибка запроса");
