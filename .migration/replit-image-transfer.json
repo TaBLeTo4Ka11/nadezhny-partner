@@ -1,0 +1,570 @@
+{
+  "source": "TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait",
+  "target": "TaBLeTo4Ka11/nadezhny-partner",
+  "files": [
+    "artifacts/nadyozhny-partner/public/images/products/13-sm-vitra-vinorit-patina-01.png",
+    "artifacts/nadyozhny-partner/public/images/products/9-5-sm-evropa-01.png",
+    "artifacts/nadyozhny-partner/public/images/products/9-5-sm-vena-vinorit-patina-mdf-mdf-belyj-matovyj-01.png",
+    "artifacts/nadyozhny-partner/public/images/products/9-5-sm-vena-vinorit-patina-mdf-mdf-greckij-oreh-01.png",
+    "artifacts/nadyozhny-partner/public/images/products/apeks-pb-1700a-panic-bl-red-dlya-vreznogo-zamka-01.webp",
+    "artifacts/nadyozhny-partner/public/images/products/dlya-protivopozharnyh-dverej-v0190-inox-nerzhavejushhaya-stal-01.webp",
+    "artifacts/nadyozhny-partner/public/images/products/dmpo-1-eis60-dver-metallicheskaya-protivopozharnaya-odnopolnaya-osteklennaya-02.png",
+    "artifacts/nadyozhny-partner/public/images/products/dmpo-2-eis60-dver-metallicheskaya-protivopozharnaya-dvupolnaya-s-ostekleniem-v-rabochej-stvorke-01.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/dss-0201-19-nerzhavejka-kvadrat-8x110-mm-03.webp",
+    "artifacts/nadyozhny-partner/public/images/products/dss-0203-19-nerzhavejka-kvadrat-8x110-mm-01.webp",
+    "artifacts/nadyozhny-partner/public/images/products/dss-0203-19-nerzhavejka-kvadrat-8x110-mm-02.webp",
+    "artifacts/nadyozhny-partner/public/images/products/dss-0203p-19-nerzhavejka-kvadrat-8x140-mm-02.webp",
+    "artifacts/nadyozhny-partner/public/images/products/dss-0203p-19-nerzhavejka-kvadrat-8x140-mm-03.webp",
+    "artifacts/nadyozhny-partner/public/images/products/dvernye-bloki-polnotelye-s-zamkom-i-petlyami-v-komplekte-01.png",
+    "artifacts/nadyozhny-partner/public/images/products/dvernye-bloki-polnotelye-s-zamkom-i-petlyami-v-komplekte-05.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/dvernye-bloki-polnotelye-s-zamkom-i-petlyami-v-komplekte-08.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/dvernye-bloki-polnotelye-s-zamkom-i-petlyami-v-komplekte-09.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/dvernye-bloki-polnotelye-s-zamkom-i-petlyami-v-komplekte-17.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/dvernye-bloki-polnotelye-s-zamkom-i-petlyami-v-komplekte-18.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/dz-i-3-01.png",
+    "artifacts/nadyozhny-partner/public/images/products/dz-i-3-02.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/dz-ii-3-01.png",
+    "artifacts/nadyozhny-partner/public/images/products/dz-ii-3-02.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/dz-ii-3-2-01.png",
+    "artifacts/nadyozhny-partner/public/images/products/dz-ii-3-2-02.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/dz-iii-01.png",
+    "artifacts/nadyozhny-partner/public/images/products/dz-iii-02.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/dz-v-01.png",
+    "artifacts/nadyozhny-partner/public/images/products/dz-v-02.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/elektromehanicheskij-peredatochnyj-shljuz-standartnyj-shpt-1-em-01.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/elektromehanicheskij-peredatochnyj-shljuz-standartnyj-shpt-1-em-02.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/florenciya-vinorit-01.png",
+    "artifacts/nadyozhny-partner/public/images/products/garda-metall-metall-01.png",
+    "artifacts/nadyozhny-partner/public/images/products/garda-mini-metall-metall-01.png",
+    "artifacts/nadyozhny-partner/public/images/products/henectus-tincidunt-01.png",
+    "artifacts/nadyozhny-partner/public/images/products/henectus-tincidunt-02.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/kamelot-vinorit-01.png",
+    "artifacts/nadyozhny-partner/public/images/products/kamelot-vinorit-02.png",
+    "artifacts/nadyozhny-partner/public/images/products/komplekt-dvernyh-ruchek-s-nakladkami-pod-cilindr-dh-0219-ne-nejlon-kvadrat-8x140-mm-01.webp",
+    "artifacts/nadyozhny-partner/public/images/products/ljuk-metallicheskij-protivopozharnyj-eis60-01.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/ljuk-metallicheskij-protivopozharnyj-eis60-02.png",
+    "artifacts/nadyozhny-partner/public/images/products/ljuk-metallicheskij-protivopozharnyj-eis60-2-01.webp",
+    "artifacts/nadyozhny-partner/public/images/products/ljuk-metallicheskij-protivopozharnyj-eis60-2-02.webp",
+    "artifacts/nadyozhny-partner/public/images/products/ljuk-metallicheskij-protivopozharnyj-eis60-2-03.webp",
+    "artifacts/nadyozhny-partner/public/images/products/lt-00-shhelevoj-01.png",
+    "artifacts/nadyozhny-partner/public/images/products/nakladka-pod-cilindr-dss-02-et-nerzhavejka-01.webp",
+    "artifacts/nadyozhny-partner/public/images/products/nakladka-pod-cilindr-dss-02-et-nerzhavejka-02.webp",
+    "artifacts/nadyozhny-partner/public/images/products/nakladka-pod-cilindr-dss-02-et-nerzhavejka-03.webp",
+    "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-01.png",
+    "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-02.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-03.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-04.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-05.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-06.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-07.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-08.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-09.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-10.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/ruchka-dvernaya-dh-0433-gr-ne-s-pruzhinoj-dlya-zamka-fl-0432-0433-0434-nejlon-01.webp",
+    "artifacts/nadyozhny-partner/public/images/products/ruchka-dvernaya-dh-0433-gr-ne-s-pruzhinoj-dlya-zamka-fl-0432-0433-0434-nejlon-02.webp",
+    "artifacts/nadyozhny-partner/public/images/products/ruchka-dvernaya-dh-0433-ne-s-pruzhinoj-dlya-zamka-fl-0432-0433-0434-nejlon-01.webp",
+    "artifacts/nadyozhny-partner/public/images/products/ruchka-dvernaya-dh-0433-ne-s-pruzhinoj-dlya-zamka-fl-0432-0433-0434-nejlon-02.webp",
+    "artifacts/nadyozhny-partner/public/images/products/ruchka-dvernaya-dh-0433-ss-s-pruzhinoj-nerzhavejka-kvadrat-9x140-mm-01.webp",
+    "artifacts/nadyozhny-partner/public/images/products/ruchka-dvernaya-dh-0433-ss-s-pruzhinoj-nerzhavejka-kvadrat-9x140-mm-02.webp",
+    "artifacts/nadyozhny-partner/public/images/products/ruchka-dvernaya-dh-043p-knob-ne-nejlon-kvadrat-9x90-mm-01.webp",
+    "artifacts/nadyozhny-partner/public/images/products/ruchka-dvernaya-dh-043p-knob-ne-nejlon-kvadrat-9x90-mm-02.webp",
+    "artifacts/nadyozhny-partner/public/images/products/ruchka-povorotnaya-dss-02-bk6-nerzhavejka-01.webp",
+    "artifacts/nadyozhny-partner/public/images/products/ruchka-povorotnaya-dss-02-bk6-nerzhavejka-02.webp",
+    "artifacts/nadyozhny-partner/public/images/products/shljuz-mehanicheskij-standartnyj-01.png",
+    "artifacts/nadyozhny-partner/public/images/products/shljuz-mehanicheskij-standartnyj-02.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/strojgost-5-rf-metall-metall-01.png",
+    "artifacts/nadyozhny-partner/public/images/products/strojgost-5-rf-vo-metall-metall-01.png",
+    "artifacts/nadyozhny-partner/public/images/products/svetoprozrachnye-peregorodki-so-vstroennoj-dverju-01.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/svetoprozrachnye-peregorodki-so-vstroennoj-dverju-02.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/svetoprozrachnye-peregorodki-so-vstroennoj-dverju-03.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/svetoprozrachnye-peregorodki-so-vstroennoj-dverju-04.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/ustrojstvo-peredatochnoe-podvizhnoe-lt-21-01.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/ustrojstvo-peredatochnoe-podvizhnoe-lt-22-01.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/veneciya-belyj-yasen-01.png",
+    "artifacts/nadyozhny-partner/public/images/products/veneciya-venge-01.png",
+    "artifacts/nadyozhny-partner/public/images/products/vikont-greckij-oreh-01.png",
+    "artifacts/nadyozhny-partner/public/images/products/vorota-protivopozharnye-metallicheskie-dvupolnye-01.png",
+    "artifacts/nadyozhny-partner/public/images/products/vorota-protivopozharnye-metallicheskie-dvupolnye-02.jpg",
+    "artifacts/nadyozhny-partner/public/images/products/zamok-dlya-protivopozharnyh-dverej-fl-0433-anti-panic-s-razdelnym-kvadratom-01.webp",
+    "artifacts/nadyozhny-partner/public/images/products/zamok-dlya-protivopozharnyh-dverej-fl-0434-01.webp",
+    "artifacts/nadyozhny-partner/public/images/products/zamok-dlya-protivopozharnyh-dverej-fl-0434-02.webp",
+    "artifacts/nadyozhny-partner/public/images/projects/project-001.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-002.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-003.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-004.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-005.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-006.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-007.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-008.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-009.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-010.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-011.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-012.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-013.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-014.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-015.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-016.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-017.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-018.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-019.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-020.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-021.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-022.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-023.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-024.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-025.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-026.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-027.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-028.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-029.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-030.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-031.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-032.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-033.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-034.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-035.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-036.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-037.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-038.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-039.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-040.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-041.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-042.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-043.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-044.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-045.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-046.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-047.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-048.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-049.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-050.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-051.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-052.jpg",
+    "artifacts/nadyozhny-partner/public/images/projects/project-053.jpg",
+    "artifacts/nadyozhny-partner/public/images/reviews/review-aliya.jpg",
+    "artifacts/nadyozhny-partner/public/images/reviews/review-maria.png",
+    "artifacts/nadyozhny-partner/public/images/reviews/review-olga.png"
+  ],
+  "uploaded": [
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/13-sm-vitra-vinorit-patina-01.png",
+      "sha": "ee89cd98af58b295bb8de37147cb2a1dec98d5df",
+      "size": 569366
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/9-5-sm-evropa-01.png",
+      "sha": "6c2d788385f189f90fc5b8fc4a01a2f22f0cf500",
+      "size": 306993
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/9-5-sm-vena-vinorit-patina-mdf-mdf-belyj-matovyj-01.png",
+      "sha": "ea491ba31e5f549d8db1b2979bbee174aa0a7f10",
+      "size": 381869
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/9-5-sm-vena-vinorit-patina-mdf-mdf-greckij-oreh-01.png",
+      "sha": "30ce5bb4b1d6b809e3a565af015ae7af65fc593d",
+      "size": 524800
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/apeks-pb-1700a-panic-bl-red-dlya-vreznogo-zamka-01.webp",
+      "sha": "86fbb05b4bdf4efc7a3832c47bb1a4863e1e8415",
+      "size": 19293
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dlya-protivopozharnyh-dverej-v0190-inox-nerzhavejushhaya-stal-01.webp",
+      "sha": "f05ab0cb58016d5acd16cdcf2798eb04eff27d70",
+      "size": 3815
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dmpo-1-eis60-dver-metallicheskaya-protivopozharnaya-odnopolnaya-osteklennaya-02.png",
+      "sha": "b40133148ef8a8f3c0ef8077ac907f5e9d65a9ee",
+      "size": 195347
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dmpo-2-eis60-dver-metallicheskaya-protivopozharnaya-dvupolnaya-s-ostekleniem-v-rabochej-stvorke-01.jpg",
+      "sha": "f215102a4b1c66984c4560cc66832edfd1de2942",
+      "size": 10997
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dss-0201-19-nerzhavejka-kvadrat-8x110-mm-03.webp",
+      "sha": "525763b4026cc02685b07d4c6e870eebf9c723e5",
+      "size": 22176
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dss-0203-19-nerzhavejka-kvadrat-8x110-mm-01.webp",
+      "sha": "17cb005f8d08d1ad2d54aa6e8505558d0837405d",
+      "size": 25059
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dss-0203-19-nerzhavejka-kvadrat-8x110-mm-02.webp",
+      "sha": "a627acd6b7d379b10d282ab0651f47f5fec97476",
+      "size": 32566
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dss-0203p-19-nerzhavejka-kvadrat-8x140-mm-02.webp",
+      "sha": "0529de363388744c76b097dd524b237ee876fe47",
+      "size": 21639
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dss-0203p-19-nerzhavejka-kvadrat-8x140-mm-03.webp",
+      "sha": "b46479e7f43bbd32c35b2db2f35ba6f64adfa714",
+      "size": 150963
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dvernye-bloki-polnotelye-s-zamkom-i-petlyami-v-komplekte-01.png",
+      "sha": "47f863432ca356e6934a8c0115852e22f79b495e",
+      "size": 309230
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dvernye-bloki-polnotelye-s-zamkom-i-petlyami-v-komplekte-05.jpg",
+      "sha": "14d6e7b8ea1867e36cc0c511de67af75eae3351d",
+      "size": 19703
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dvernye-bloki-polnotelye-s-zamkom-i-petlyami-v-komplekte-08.jpg",
+      "sha": "9a361cc7748f5159320ea57519df70a8e161a1f8",
+      "size": 82936
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dvernye-bloki-polnotelye-s-zamkom-i-petlyami-v-komplekte-09.jpg",
+      "sha": "e8b331d5cf98f46dd762e1b2029a822363335761",
+      "size": 61517
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dvernye-bloki-polnotelye-s-zamkom-i-petlyami-v-komplekte-17.jpg",
+      "sha": "9acd4e54c07026f40551836e248ce6b7d30945e2",
+      "size": 1130676
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dvernye-bloki-polnotelye-s-zamkom-i-petlyami-v-komplekte-18.jpg",
+      "sha": "16514d2916f8cd9e1f13f24c515fa85b37b8a17a",
+      "size": 231776
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dz-i-3-01.png",
+      "sha": "a22bf622412bb159d9d8d066e0c84aa3c9738e10",
+      "size": 124546
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dz-i-3-02.jpg",
+      "sha": "1d6db924c43d8213f794926dc66863cb93eeb266",
+      "size": 6385
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dz-ii-3-01.png",
+      "sha": "34d1fec924ce71b6635bc44721ff015396a9cfc7",
+      "size": 111098
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dz-ii-3-02.jpg",
+      "sha": "dbcef90db3f7825a6fe671195f5733e459b53e63",
+      "size": 5913
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dz-ii-3-2-01.png",
+      "sha": "43d1f4de930029fd14591b60f787842c8be78bce",
+      "size": 114953
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dz-ii-3-2-02.jpg",
+      "sha": "dbcef90db3f7825a6fe671195f5733e459b53e63",
+      "size": 5913
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dz-iii-01.png",
+      "sha": "c61b0ef8953da2afcbe3ab3a5081043bac3a3d45",
+      "size": 105652
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dz-iii-02.jpg",
+      "sha": "e13066036de0406239122fc18bcb8613e717fc5a",
+      "size": 11948
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dz-v-01.png",
+      "sha": "284b755bab0abd776f1b1873e18956c43dbc308c",
+      "size": 203598
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/dz-v-02.jpg",
+      "sha": "e8e4be9481276ec35c24d50088a93c6021cf0d61",
+      "size": 10858
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/elektromehanicheskij-peredatochnyj-shljuz-standartnyj-shpt-1-em-01.jpg",
+      "sha": "dcb3dea15d2be8785ef0821ff23de141923338d0",
+      "size": 12684
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/elektromehanicheskij-peredatochnyj-shljuz-standartnyj-shpt-1-em-02.jpg",
+      "sha": "8511a3aeb8df3028fba00c0c345c93f1501659ad",
+      "size": 11847
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/florenciya-vinorit-01.png",
+      "sha": "8f3c67808820f2ad3ac0c257b94a4d2463927ca0",
+      "size": 362393
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/garda-metall-metall-01.png",
+      "sha": "f21ebdabf0ec9e350b9df6b5af166f69be4d87d1",
+      "size": 265212
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/garda-mini-metall-metall-01.png",
+      "sha": "c3c1b5b6dfa3e8d914646e6ca8b4d3570dcae5d6",
+      "size": 349990
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/henectus-tincidunt-01.png",
+      "sha": "a3832a21ccd8879e63c1c06a48086d28622e23e4",
+      "size": 143233
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/henectus-tincidunt-02.jpg",
+      "sha": "39c9f070a22fc4fc1a2d7af723e941506b896bb6",
+      "size": 38089
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/kamelot-vinorit-01.png",
+      "sha": "78cc194ec27256840f7250c1acc4d554d3d652d8",
+      "size": 404069
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/kamelot-vinorit-02.png",
+      "sha": "d6bb054ef900c2ccd81a6bfd24abeabffe207b13",
+      "size": 831630
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/komplekt-dvernyh-ruchek-s-nakladkami-pod-cilindr-dh-0219-ne-nejlon-kvadrat-8x140-mm-01.webp",
+      "sha": "ed73e8245fa3f1a2badd57397fddd70a90fafbfc",
+      "size": 37479
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ljuk-metallicheskij-protivopozharnyj-eis60-01.jpg",
+      "sha": "446764551107d64fb7c564f311bf9546cab0b687",
+      "size": 12034
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ljuk-metallicheskij-protivopozharnyj-eis60-02.png",
+      "sha": "7c7fc82fdf27420d6c706985e149cc40270f3103",
+      "size": 109199
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ljuk-metallicheskij-protivopozharnyj-eis60-2-01.webp",
+      "sha": "488eb12a805854a54b8ded039219bf62fa845956",
+      "size": 12977
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ljuk-metallicheskij-protivopozharnyj-eis60-2-02.webp",
+      "sha": "db391f15a7be62183323e257aa7e88a9c1b5356e",
+      "size": 22091
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ljuk-metallicheskij-protivopozharnyj-eis60-2-03.webp",
+      "sha": "4a60531d16e4b5c04f44900989bf9080bac9b96e",
+      "size": 50317
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/lt-00-shhelevoj-01.png",
+      "sha": "f4d9d2ed310e3fe4f7844d57e3b251251ff1846a",
+      "size": 55022
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/nakladka-pod-cilindr-dss-02-et-nerzhavejka-01.webp",
+      "sha": "78017696e8358078d51b42de36413cd60539a370",
+      "size": 8784
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/nakladka-pod-cilindr-dss-02-et-nerzhavejka-02.webp",
+      "sha": "45d229cbe03f355d5b9c8b53a55949703f64cd8d",
+      "size": 36287
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/nakladka-pod-cilindr-dss-02-et-nerzhavejka-03.webp",
+      "sha": "6b9d1ef88dde5f63cbcc2dcb2d9373ee9a9b673a",
+      "size": 23233
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-01.png",
+      "sha": "3f71dfe49b4ab058dc14651ddcdd3957ba5e2f87",
+      "size": 431327
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-02.jpg",
+      "sha": "fc5e677c1eb39616dbe3b762da6793838f6a1dcc",
+      "size": 7467
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-03.jpg",
+      "sha": "f5940117a64141f26bfb6f2f755eab18aad453f2",
+      "size": 6865
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-04.jpg",
+      "sha": "95d68b8a59756ba3bca8b8a9491b1efa3cbe785b",
+      "size": 5409
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-05.jpg",
+      "sha": "1ef83186901dea09309125cbc0c6ac7874a0c80a",
+      "size": 8000
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-06.jpg",
+      "sha": "22c6effee6a1ed22506dc0cedf5b5d17927e39f1",
+      "size": 7878
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-07.jpg",
+      "sha": "6d705fadd789abfa8b76662cc8e4112bdf0623d0",
+      "size": 9525
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-08.jpg",
+      "sha": "344d95ee53e27f9aee20fdf52be0a1d738cb69ca",
+      "size": 11468
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-09.jpg",
+      "sha": "8b6d7413186d8f67a72a89d62cfd943360d587ea",
+      "size": 7426
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/protivopozharnye-shtory-10.jpg",
+      "sha": "437727f50c952688a5e7bcfd2143e0c93c70c715",
+      "size": 7345
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ruchka-dvernaya-dh-0433-gr-ne-s-pruzhinoj-dlya-zamka-fl-0432-0433-0434-nejlon-01.webp",
+      "sha": "c00872eab1eac6d995f8c8f999e371b714ab5c1e",
+      "size": 38512
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ruchka-dvernaya-dh-0433-gr-ne-s-pruzhinoj-dlya-zamka-fl-0432-0433-0434-nejlon-02.webp",
+      "sha": "24adb7327b484e822eb029a900a4e73136f3d88e",
+      "size": 34299
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ruchka-dvernaya-dh-0433-ne-s-pruzhinoj-dlya-zamka-fl-0432-0433-0434-nejlon-01.webp",
+      "sha": "1789e866f00116537a8c527bbf7bf33a12ae8217",
+      "size": 37670
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ruchka-dvernaya-dh-0433-ne-s-pruzhinoj-dlya-zamka-fl-0432-0433-0434-nejlon-02.webp",
+      "sha": "24adb7327b484e822eb029a900a4e73136f3d88e",
+      "size": 34299
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ruchka-dvernaya-dh-0433-ss-s-pruzhinoj-nerzhavejka-kvadrat-9x140-mm-01.webp",
+      "sha": "202aaf621a1b455d688ce759da20e45a540ef055",
+      "size": 38573
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ruchka-dvernaya-dh-0433-ss-s-pruzhinoj-nerzhavejka-kvadrat-9x140-mm-02.webp",
+      "sha": "24adb7327b484e822eb029a900a4e73136f3d88e",
+      "size": 34299
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ruchka-dvernaya-dh-043p-knob-ne-nejlon-kvadrat-9x90-mm-01.webp",
+      "sha": "721ee62cca16894f824dd195cdabe45dd1a9b305",
+      "size": 55486
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ruchka-dvernaya-dh-043p-knob-ne-nejlon-kvadrat-9x90-mm-02.webp",
+      "sha": "24adb7327b484e822eb029a900a4e73136f3d88e",
+      "size": 34299
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ruchka-povorotnaya-dss-02-bk6-nerzhavejka-01.webp",
+      "sha": "f77835f58dd6473c27b538f7f02d8b9b3b84958b",
+      "size": 12375
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ruchka-povorotnaya-dss-02-bk6-nerzhavejka-02.webp",
+      "sha": "184a184f38627e02560a70717841705967e5f521",
+      "size": 25913
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/shljuz-mehanicheskij-standartnyj-01.png",
+      "sha": "d3e53143350cd831ced3c36fbfc6b886dd976394",
+      "size": 126620
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/shljuz-mehanicheskij-standartnyj-02.jpg",
+      "sha": "152f3daa4353cb093199a1d20b84d4696f54807b",
+      "size": 8837
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/strojgost-5-rf-metall-metall-01.png",
+      "sha": "0a392a5ddb43df015bf20179f48e762f91d9568d",
+      "size": 397546
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/strojgost-5-rf-vo-metall-metall-01.png",
+      "sha": "0a392a5ddb43df015bf20179f48e762f91d9568d",
+      "size": 397546
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/svetoprozrachnye-peregorodki-so-vstroennoj-dverju-01.jpg",
+      "sha": "87a8b53bfb63e5477e809648048a5cb6a6c06006",
+      "size": 33380
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/svetoprozrachnye-peregorodki-so-vstroennoj-dverju-02.jpg",
+      "sha": "4810746ca088bafd70b84cc3610a0b9e9130f8ad",
+      "size": 36991
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/svetoprozrachnye-peregorodki-so-vstroennoj-dverju-03.jpg",
+      "sha": "cb75a2fd1ff4c5f1c263658a8b70ca3fc5660b89",
+      "size": 23416
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/svetoprozrachnye-peregorodki-so-vstroennoj-dverju-04.jpg",
+      "sha": "4b76d8ee290cd71de6dea1d7a49554f3358015ae",
+      "size": 25812
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ustrojstvo-peredatochnoe-podvizhnoe-lt-21-01.jpg",
+      "sha": "f7eb691d06fe930cce5b024a03e194ffa53cd2b9",
+      "size": 6690
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/ustrojstvo-peredatochnoe-podvizhnoe-lt-22-01.jpg",
+      "sha": "f7eb691d06fe930cce5b024a03e194ffa53cd2b9",
+      "size": 6690
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/veneciya-belyj-yasen-01.png",
+      "sha": "ddc34f4b9de77967815921d5b2988c4c32c831ca",
+      "size": 413877
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/veneciya-venge-01.png",
+      "sha": "5910462c840a6e046ee2f0fec174a5d244b41084",
+      "size": 467000
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/vikont-greckij-oreh-01.png",
+      "sha": "b651e54a074cc2a7ec6582b44dc60085135c0356",
+      "size": 537321
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/vorota-protivopozharnye-metallicheskie-dvupolnye-01.png",
+      "sha": "573f3d556f36dfdf19297b7a0ee24946e9b0bf3f",
+      "size": 309632
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/vorota-protivopozharnye-metallicheskie-dvupolnye-02.jpg",
+      "sha": "392338c4888172bf7c84f07e7e305364757dac54",
+      "size": 170695
+    },
+    {
+      "path": "artifacts/nadyozhny-partner/public/images/products/zamok-dlya-protivopozharnyh-dverej-fl-0433-anti-panic-s-razdelnym-kvadratom-01.webp",
+      "sha": "337c91a22a99a6fb7b662d8b35ef5a610dcac859",
+      "size": 41724
+    }
+  ]
+}

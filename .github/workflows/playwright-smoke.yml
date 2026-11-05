@@ -1,0 +1,56 @@
+name: Playwright browser smoke tests
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [agent/deepseek-dev-assistant]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install locked project dependencies
+        run: npm ci
+      - name: Install ephemeral Playwright runner
+        run: npm install --no-save --package-lock=false playwright
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Build production site
+        run: npm run build
+      - name: Start local preview
+        run: |
+          npm run preview -- --host 127.0.0.1 > /tmp/vite-preview.log 2>&1 &
+          echo $! > /tmp/vite-preview.pid
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4173/ > /dev/null; then
+              exit 0
+            fi
+            sleep 2
+          done
+          cat /tmp/vite-preview.log
+          exit 1
+      - name: Test desktop and mobile homepage
+        run: node tests/browser-smoke.mjs
+      - name: Upload browser screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-browser-smoke
+          path: playwright-*.png
+          if-no-files-found: ignore
+          retention-days: 7

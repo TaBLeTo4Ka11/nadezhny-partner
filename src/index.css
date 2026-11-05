@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    background: #ffffff;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+  }
+  *,
+  *::before,
+  *::after {
+    border-radius: 0;
+  }
+  input:not([type="checkbox"]):not([type="radio"]),
+  textarea,
+  button,
+  select {
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0;
+  }
+  ::selection {
+    background: #1a1a1a;
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid #1a1a1a;
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-block bg-brand px-6 py-3 text-sm font-semibold text-white transition-colors duration-300 hover:bg-[#a52020];
+  }
+}
