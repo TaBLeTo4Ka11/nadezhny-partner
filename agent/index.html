@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111318">
+  <title>AI-разработчик — Надёжный партнёр</title>
+  <style>
+    :root{color-scheme:dark;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#111318;color:#f4f5f7}
+    *{box-sizing:border-box}body{margin:0;min-height:100dvh;background:radial-gradient(ellipse at 50% -20%,#30343d 0,transparent 55%),#111318}
+    .shell{width:min(920px,100%);margin:auto;min-height:100dvh;display:flex;flex-direction:column;padding:20px 16px calc(16px + env(safe-area-inset-bottom))}
+    header{padding:18px 4px 22px;border-bottom:1px solid #30343d}h1{font-size:22px;margin:0 0 7px;letter-spacing:-.5px}.sub{color:#9da4b1;font-size:13px}
+    .status{display:inline-flex;align-items:center;gap:7px;margin-top:13px;color:#b8c0cc;font-size:12px}.dot{width:7px;height:7px;border-radius:50%;background:#d6a84f}
+    .auth{display:flex;gap:8px;margin:18px 0}.auth input{flex:1;min-width:0}
+    input,textarea,button{font:inherit;border:1px solid #3a404c;border-radius:12px;background:#1b1f27;color:#f4f5f7;padding:13px}
+    button{background:#e5e7eb;color:#111318;font-weight:650;border:0;cursor:pointer}.auth button{white-space:nowrap}
+    #messages{flex:1;display:flex;flex-direction:column;gap:12px;padding:18px 0;min-height:240px}
+    .msg{max-width:88%;padding:13px 15px;border-radius:16px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px}
+    .user{align-self:flex-end;background:#343b49}.assistant{align-self:flex-start;background:#20242d;border:1px solid #303641}
+    .welcome{color:#b9c0cb;font-size:14px;line-height:1.6;padding:10px 2px}
+    form{display:flex;gap:8px;padding-top:12px;border-top:1px solid #30343d}textarea{flex:1;resize:vertical;min-height:52px;max-height:180px;line-height:1.4}form button{align-self:flex-end;min-height:52px}
+    .foot{font-size:11px;color:#818997;line-height:1.5;padding:12px 2px 0}
+    @media(max-width:520px){.shell{padding:12px 12px calc(12px + env(safe-area-inset-bottom))}.msg{max-width:94%}h1{font-size:20px}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <h1>AI-разработчик</h1>
+      <div class="sub">Надёжный партнёр · DeepSeek V4.1 Flash</div>
+      <div class="status"><span class="dot"></span><span>Режим первого этапа: чтение GitHub без права записи</span></div>
+    </header>
+    <section class="auth" aria-label="Авторизация">
+      <input id="access" type="password" autocomplete="current-password" placeholder="Ключ доступа к панели" aria-label="Ключ доступа">
+      <button id="save" type="button">Войти</button>
+    </section>
+    <section id="messages" aria-live="polite">
+      <div class="welcome">Могу изучать файлы проекта, проверять открытые PR, разбирать ошибки и составлять конкретный план исправлений. Изменять репозиторий и запускать деплой пока не могу — это специально отключено.</div>
+    </section>
+    <form id="chat">
+      <textarea id="prompt" placeholder="Напиши задачу…" rows="1" required></textarea>
+      <button id="send" type="submit">Отправить</button>
+    </form>
+    <div class="foot">Ключ хранится только в памяти вкладки. API-ключи DeepSeek и GitHub остаются на сервере. Запросы к DeepSeek платные по токенам.</div>
+  </main>
+  <script>
+    const access = document.querySelector("#access");
+    const save = document.querySelector("#save");
+    const form = document.querySelector("#chat");
+    const prompt = document.querySelector("#prompt");
+    const messagesEl = document.querySelector("#messages");
+    const send = document.querySelector("#send");
+    let accessKey = "";
+    const history = [];
+
+    save.addEventListener("click", () => {
+      accessKey = access.value.trim();
+      save.textContent = accessKey ? "Ключ принят" : "Войти";
+    });
+
+    function addMessage(role, content) {
+      const el = document.createElement("div");
+      el.className = "msg " + role;
+      el.textContent = content;
+      messagesEl.appendChild(el);
+      el.scrollIntoView({behavior:"smooth",block:"end"});
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const content = prompt.value.trim();
+      if (!content || !accessKey) {
+        if (!accessKey) addMessage("assistant", "Сначала введи ключ доступа и нажми «Войти».");
+        return;
+      }
+      history.push({role:"user",content});
+      addMessage("user",content);
+      prompt.value = "";
+      send.disabled = true;
+      send.textContent = "…";
+      try {
+        const response = await fetch("/api/chat", {
+          method:"POST",
+          headers:{"Content-Type":"application/json","Authorization":"Bearer " + accessKey},
+          body:JSON.stringify({messages:history.slice(-12)})
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || "Ошибка запроса");
+        history.push({role:"assistant",content:data.reply});
+        addMessage("assistant",data.reply);
+      } catch (error) {
+        addMessage("assistant",error instanceof Error ? error.message : "Не удалось выполнить запрос.");
+        history.pop();
+      } finally {
+        send.disabled = false;
+        send.textContent = "Отправить";
+        prompt.focus();
+      }
+    });
+  </script>
+</body>
+</html>
