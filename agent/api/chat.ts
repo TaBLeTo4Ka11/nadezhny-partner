@@ -2,7 +2,7 @@ const REPO = "TaBLeTo4Ka11/nadezhny-partner";
 const MODEL = "deepseek-flash";
 const MAX_BODY_CHARS = 12_000;
 const MAX_MESSAGES = 8;
-const MAX_TOOL_ROUNDS = 2;
+const MAX_TOOL_ROUNDS = 5;
 const WINDOW_MS = 60_000;
 const MAX_REQUESTS_PER_WINDOW = 12;
 
@@ -343,7 +343,7 @@ export default async function handler(req: any, res: any) {
 
     const conversation: any[] = [{ role: "system", content: systemPrompt }, ...messages];
     const totalUsage = { prompt_tokens: 0, completion_tokens: 0, total_tokens: 0 };
-    for (let round = 0; round < MAX_TOOL_ROUNDS; round += 1) {
+    for (let round = 0; round <= MAX_TOOL_ROUNDS; round += 1) {
       const response = await fetch("https://api.deepseek.com/chat/completions", {
         method: "POST",
         headers: {
@@ -355,8 +355,9 @@ export default async function handler(req: any, res: any) {
           messages: conversation,
           tools,
           tool_choice: "auto",
-          thinking: { type: "disabled" },
-          max_tokens: 1_200,
+          thinking: { type: "enabled" },
+          reasoning_effort: "high",
+          max_tokens: 4_096,
           stream: false,
         }),
       });
