@@ -1,23 +1,75 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
-function makeBrushed() {
-  const c = document.createElement("canvas");
-  c.width = 512; c.height = 512;
-  const g = c.getContext("2d")!;
-  g.fillStyle = "#808080";
-  g.fillRect(0, 0, 512, 512);
-  for (let i = 0; i < 1800; i++) {
-    const v = (100 + Math.random() * 80) | 0;
-    g.fillStyle = `rgba(${v},${v},${v},${0.15 + Math.random() * 0.25})`;
-    g.fillRect(0, Math.random() * 512, 512 * (0.3 + Math.random() * 0.7), 1);
+function makeBrushedTexture() {
+  const canvas = document.createElement("canvas");
+  canvas.width = 512;
+  canvas.height = 512;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return new THREE.Texture();
+  ctx.fillStyle = "#85898d";
+  ctx.fillRect(0, 0, 512, 512);
+  for (let i = 0; i < 2600; i += 1) {
+    const shade = 105 + Math.random() * 75;
+    ctx.fillStyle = `rgba(${shade},${shade},${shade},${0.08 + Math.random() * 0.18})`;
+    ctx.fillRect(0, Math.random() * 512, 512, 1);
   }
-  const tex = new THREE.CanvasTexture(c);
-  tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
-  tex.repeat.set(1, 2);
-  tex.anisotropy = 4;
-  return tex;
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat.set(1, 2);
+  texture.anisotropy = 8;
+  return texture;
+}
+
+function roundedPanel(width: number, height: number, depth: number, radius = 0.045) {
+  const shape = new THREE.Shape();
+  const x = -width / 2;
+  const y = -height / 2;
+  shape.moveTo(x + radius, y);
+  shape.lineTo(x + width - radius, y);
+  shape.quadraticCurveTo(x + width, y, x + width, y + radius);
+  shape.lineTo(x + width, y + height - radius);
+  shape.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+  shape.lineTo(x + radius, y + height);
+  shape.quadraticCurveTo(x, y + height, x, y + height - radius);
+  shape.lineTo(x, y + radius);
+  shape.quadraticCurveTo(x, y, x + radius, y);
+  const geometry = new THREE.ExtrudeGeometry(shape, {
+    depth,
+    bevelEnabled: true,
+    bevelSegments: 3,
+    steps: 1,
+    bevelSize: 0.012,
+    bevelThickness: 0.012,
+    curveSegments: 8,
+  });
+  geometry.translate(0, 0, -depth / 2);
+  geometry.computeVertexNormals();
+  return geometry;
+}
+
+function makeLabel(text: string) {
+  const canvas = document.createElement("canvas");
+  canvas.width = 512;
+  canvas.height = 128;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return null;
+  ctx.fillStyle = "rgba(18, 22, 27, .88)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "600 34px Arial, sans-serif";
+  ctx.textBaseline = "middle";
+  ctx.fillText(text, 24, 64);
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  const material = new THREE.SpriteMaterial({ map: texture, transparent: true, opacity: 0, depthTest: false });
+  const sprite = new THREE.Sprite(material);
+  sprite.scale.set(1.9, 0.48, 1);
+  sprite.renderOrder = 20;
+  return { sprite, texture, material };
 }
 
 export default function DoorScene() {
@@ -26,143 +78,380 @@ export default function DoorScene() {
   useEffect(() => {
     const el = host.current;
     if (!el) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const mobile = window.matchMedia("(pointer: coarse)").matches;
 
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
     let renderer: THREE.WebGLRenderer;
     try {
-      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+      renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+        powerPreference: "high-performance",
+        stencil: false,
+      });
     } catch {
-      return; // нет WebGL — остаётся фото-фон
+      return;
     }
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.05;
+    renderer.toneMappingExposure = 1.12;
     const canvas = renderer.domElement;
-    canvas.style.cssText = "display:block;width:100%;height:100%";
+    canvas.style.cssText = "display:block;width:100%;height:100%;touch-action:pan-y;outline:none";
+    canvas.setAttribute("aria-label", "Интерактивная трёхмерная модель металлической противопожарной двери. Коснитесь, чтобы показать устройство.");
     el.appendChild(canvas);
 
     const scene = new THREE.Scene();
     const pmrem = new THREE.PMREMGenerator(renderer);
-    const envTex = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-    scene.environment = envTex;
+    const environment = pmrem.fromScene(new RoomEnvironment(), 0.035).texture;
+    scene.environment = environment;
+    scene.environmentIntensity = 1.15;
 
-    const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 50);
-    camera.position.set(0, 0.2, 9.5);
-    camera.lookAt(0, 0, 0);
+    const camera = new THREE.PerspectiveCamera(31, 1, 0.1, 60);
+    camera.position.set(0.15, 0.1, 8.4);
 
-    // Свет + тени
-    const key = new THREE.DirectionalLight(0xffffff, 2.2);
-    key.position.set(3, 5, 4);
-    key.castShadow = true;
-    key.shadow.mapSize.set(mobile ? 1024 : 2048, mobile ? 1024 : 2048);
-    key.shadow.camera.left = -4; key.shadow.camera.right = 4;
-    key.shadow.camera.top = 5; key.shadow.camera.bottom = -4;
-    key.shadow.bias = -0.0004;
-    scene.add(key);
-    const rim = new THREE.PointLight(0xffd9d0, 25, 0, 2);
-    rim.position.set(-3.5, 1.5, -2.5);
-    scene.add(rim);
+    const keyLight = new THREE.DirectionalLight(0xfff4e8, 3.1);
+    keyLight.position.set(-3.5, 5.5, 5);
+    keyLight.castShadow = true;
+    keyLight.shadow.mapSize.set(coarsePointer ? 1536 : 2048, coarsePointer ? 1536 : 2048);
+    keyLight.shadow.camera.left = -3.8;
+    keyLight.shadow.camera.right = 3.8;
+    keyLight.shadow.camera.top = 4.8;
+    keyLight.shadow.camera.bottom = -4.8;
+    keyLight.shadow.bias = -0.00025;
+    keyLight.shadow.normalBias = 0.025;
+    scene.add(keyLight);
 
-    const ground = new THREE.Mesh(new THREE.PlaneGeometry(14, 14), new THREE.ShadowMaterial({ opacity: 0.2 }));
-    ground.rotation.x = -Math.PI / 2;
-    ground.position.y = -2;
-    ground.receiveShadow = true;
-    scene.add(ground);
+    const fillLight = new THREE.DirectionalLight(0xcbdcff, 1.65);
+    fillLight.position.set(4, 1.5, 3);
+    scene.add(fillLight);
 
-    // PBR-материалы
-    const brushed = makeBrushed();
-    const leafMat = new THREE.MeshStandardMaterial({ color: 0xb9bec4, metalness: 1, roughness: 0.7, roughnessMap: brushed, bumpMap: brushed, bumpScale: 0.5 });
-    const frameMat = new THREE.MeshStandardMaterial({ color: 0x2b2d31, metalness: 0.9, roughness: 0.4 });
-    const panelMat = new THREE.MeshStandardMaterial({ color: 0xa3a8ae, metalness: 1, roughness: 0.55, roughnessMap: brushed });
-    const redMat = new THREE.MeshStandardMaterial({ color: 0xc62828, metalness: 0.5, roughness: 0.35 });
-    const chrome = new THREE.MeshStandardMaterial({ color: 0xeeeeee, metalness: 1, roughness: 0.12 });
+    const rimLight = new THREE.PointLight(0xffd0bd, 42, 12, 2);
+    rimLight.position.set(-3.2, 1.2, -2.8);
+    scene.add(rimLight);
 
-    const door = new THREE.Group();
-    scene.add(door);
-    const add = (geo: THREE.BufferGeometry, mat: THREE.Material, x: number, y: number, z: number) => {
-      const m = new THREE.Mesh(geo, mat);
-      m.position.set(x, y, z);
-      m.castShadow = true;
-      m.receiveShadow = true;
-      door.add(m);
-      return m;
+    const floor = new THREE.Mesh(
+      new THREE.PlaneGeometry(14, 14),
+      new THREE.ShadowMaterial({ opacity: 0.22 }),
+    );
+    floor.rotation.x = -Math.PI / 2;
+    floor.position.y = -2.05;
+    floor.receiveShadow = true;
+    scene.add(floor);
+
+    const brushed = makeBrushedTexture();
+    const steel = new THREE.MeshStandardMaterial({
+      color: 0xb9bec4,
+      metalness: 0.92,
+      roughness: 0.34,
+      roughnessMap: brushed,
+      bumpMap: brushed,
+      bumpScale: 0.018,
+      envMapIntensity: 1.35,
+    });
+    const frameSteel = new THREE.MeshStandardMaterial({
+      color: 0x34383d,
+      metalness: 0.88,
+      roughness: 0.39,
+      envMapIntensity: 1.2,
+    });
+    const insulation = new THREE.MeshStandardMaterial({
+      color: 0xc6bca7,
+      metalness: 0,
+      roughness: 0.94,
+    });
+    const edgeSteel = new THREE.MeshStandardMaterial({
+      color: 0x858b92,
+      metalness: 0.94,
+      roughness: 0.27,
+      envMapIntensity: 1.4,
+    });
+    const darkHardware = new THREE.MeshStandardMaterial({
+      color: 0x24282c,
+      metalness: 0.78,
+      roughness: 0.3,
+    });
+    const chrome = new THREE.MeshStandardMaterial({
+      color: 0xd8dde1,
+      metalness: 1,
+      roughness: 0.19,
+      envMapIntensity: 1.65,
+    });
+    const sealMaterial = new THREE.MeshStandardMaterial({
+      color: 0x202326,
+      metalness: 0,
+      roughness: 0.86,
+    });
+
+    const assembly = new THREE.Group();
+    scene.add(assembly);
+    const frameGroup = new THREE.Group();
+    const leafGroup = new THREE.Group();
+    const coreGroup = new THREE.Group();
+    const hardwareGroup = new THREE.Group();
+    assembly.add(frameGroup, leafGroup, coreGroup, hardwareGroup);
+
+    const addBox = (
+      parent: THREE.Group,
+      width: number,
+      height: number,
+      depth: number,
+      material: THREE.Material,
+      position: [number, number, number],
+      bevel = false,
+    ) => {
+      const geometry = bevel
+        ? roundedPanel(width, height, depth)
+        : new THREE.BoxGeometry(width, height, depth);
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.position.set(...position);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      parent.add(mesh);
+      return mesh;
     };
 
-    // Коробка (4 бруса) + полотно
-    add(new THREE.BoxGeometry(0.2, 3.8, 0.32), frameMat, -1.1, 0, 0);
-    add(new THREE.BoxGeometry(0.2, 3.8, 0.32), frameMat, 1.1, 0, 0);
-    add(new THREE.BoxGeometry(2.4, 0.2, 0.32), frameMat, 0, 1.8, 0);
-    add(new THREE.BoxGeometry(2.4, 0.2, 0.32), frameMat, 0, -1.8, 0);
-    add(new THREE.BoxGeometry(1.94, 3.36, 0.12), leafMat, 0, 0, 0);
+    // Глубокая стальная коробка: лицевая полка, возвратный профиль и притвор.
+    const frameDepth = 0.48;
+    addBox(frameGroup, 0.16, 3.82, frameDepth, frameSteel, [-1.08, 0, -0.02], true);
+    addBox(frameGroup, 0.16, 3.82, frameDepth, frameSteel, [1.08, 0, -0.02], true);
+    addBox(frameGroup, 2.32, 0.16, frameDepth, frameSteel, [0, 1.83, -0.02], true);
+    addBox(frameGroup, 2.32, 0.12, frameDepth, frameSteel, [0, -1.85, -0.02], true);
+    addBox(frameGroup, 0.07, 3.52, 0.18, edgeSteel, [-0.94, 0, -0.28]);
+    addBox(frameGroup, 0.07, 3.52, 0.18, edgeSteel, [0.94, 0, -0.28]);
+    addBox(frameGroup, 1.88, 0.07, 0.18, edgeSteel, [0, 1.72, -0.28]);
 
-    // Штампованные панели с двух сторон
-    for (const z of [0.075, -0.075]) {
-      add(new THREE.BoxGeometry(1.5, 1.15, 0.03), panelMat, 0, 0.8, z);
-      add(new THREE.BoxGeometry(1.5, 1.15, 0.03), panelMat, 0, -0.75, z);
+    // Уплотнение по внутреннему периметру коробки.
+    addBox(frameGroup, 0.025, 3.38, 0.035, sealMaterial, [-0.965, 0, 0.19]);
+    addBox(frameGroup, 0.025, 3.38, 0.035, sealMaterial, [0.965, 0, 0.19]);
+    addBox(frameGroup, 1.92, 0.025, 0.035, sealMaterial, [0, 1.68, 0.19]);
+
+    // Полотно и отдельные наружные стальные обкладки.
+    addBox(leafGroup, 1.91, 3.48, 0.115, edgeSteel, [0, -0.02, 0], true);
+    addBox(leafGroup, 1.86, 3.43, 0.022, steel, [0, -0.02, 0.073], true);
+    addBox(leafGroup, 1.86, 3.43, 0.022, steel, [0, -0.02, -0.073], true);
+
+    // Минеральная вата показана отдельным внутренним слоем для режима разборки.
+    addBox(coreGroup, 1.76, 3.30, 0.11, insulation, [0, -0.02, -0.02], true);
+    for (const y of [1.53, -1.56]) {
+      addBox(coreGroup, 1.72, 0.035, 0.13, edgeSteel, [0, y, -0.02]);
     }
-    // Красная табличка
-    add(new THREE.BoxGeometry(0.62, 0.2, 0.02), redMat, 0, 1.42, 0.085);
-
-    // Заклёпки (InstancedMesh)
-    const rivets = new THREE.InstancedMesh(new THREE.SphereGeometry(0.028, 12, 8), chrome, 30);
-    const m4 = new THREE.Matrix4();
-    let ri = 0;
     for (const x of [-0.84, 0.84]) {
-      for (let k = 0; k < 15; k++) {
-        m4.setPosition(x, -1.5 + k * (3 / 14), 0.07);
-        rivets.setMatrixAt(ri++, m4);
+      addBox(coreGroup, 0.035, 3.15, 0.13, edgeSteel, [x, -0.02, -0.02]);
+    }
+
+    // Профилированные рёбра на полотне дают читаемую глубину металла.
+    for (const x of [-0.72, 0.72]) {
+      addBox(leafGroup, 0.025, 3.12, 0.018, edgeSteel, [x, -0.02, 0.09]);
+    }
+    addBox(leafGroup, 1.42, 0.025, 0.018, edgeSteel, [0, 1.43, 0.09]);
+    addBox(leafGroup, 1.42, 0.025, 0.018, edgeSteel, [0, -1.47, 0.09]);
+
+    // Петли с картами, цилиндрическими бочонками и крепёжными элементами.
+    for (const y of [1.18, 0, -1.18]) {
+      addBox(hardwareGroup, 0.105, 0.36, 0.025, darkHardware, [-0.99, y, 0.13], true);
+      addBox(hardwareGroup, 0.105, 0.36, 0.025, chrome, [-0.91, y, 0.16], true);
+      const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.045, 0.34, 32), chrome);
+      barrel.position.set(-0.95, y, 0.2);
+      barrel.castShadow = true;
+      hardwareGroup.add(barrel);
+      for (const offset of [-0.12, 0.12]) {
+        const screw = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.012, 16), chrome);
+        screw.rotation.x = Math.PI / 2;
+        screw.position.set(-0.99, y + offset, 0.151);
+        hardwareGroup.add(screw);
       }
     }
-    rivets.castShadow = true;
-    door.add(rivets);
 
-    // Ручка «антипаника»
-    const bar = add(new THREE.CylinderGeometry(0.035, 0.035, 1.3, 20), chrome, 0, -0.05, 0.2);
-    bar.rotation.z = Math.PI / 2;
-    add(new THREE.BoxGeometry(0.08, 0.1, 0.12), chrome, -0.6, -0.05, 0.13);
-    add(new THREE.BoxGeometry(0.08, 0.1, 0.12), chrome, 0.6, -0.05, 0.13);
-    add(new THREE.BoxGeometry(0.3, 0.5, 0.03), chrome, 0.7, -0.6, 0.085);
+    // Корпус замка, цилиндр, накладки и ручка.
+    addBox(hardwareGroup, 0.28, 0.46, 0.11, darkHardware, [0.72, -0.04, 0.17], true);
+    addBox(hardwareGroup, 0.11, 0.32, 0.025, chrome, [0.72, -0.04, 0.24], true);
+    const cylinder = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.045, 0.045, 32), chrome);
+    cylinder.rotation.x = Math.PI / 2;
+    cylinder.position.set(0.72, -0.18, 0.27);
+    hardwareGroup.add(cylinder);
+    const handle = new THREE.Mesh(new THREE.TorusGeometry(0.105, 0.022, 12, 32, Math.PI), chrome);
+    handle.rotation.z = Math.PI;
+    handle.position.set(0.72, 0.08, 0.29);
+    hardwareGroup.add(handle);
+    addBox(hardwareGroup, 0.08, 0.32, 0.12, darkHardware, [0.72, -0.04, -0.12], true);
 
-    // Петли
-    for (const y of [1.2, 0, -1.2]) {
-      add(new THREE.CylinderGeometry(0.07, 0.07, 0.3, 20), chrome, -0.98, y, 0.17);
+    // Аккуратные крепёжные головки вдоль кромок.
+    const rivetGeometry = new THREE.SphereGeometry(0.018, 16, 12);
+    for (const x of [-0.86, 0.86]) {
+      for (let i = 0; i < 13; i += 1) {
+        const rivet = new THREE.Mesh(rivetGeometry, chrome);
+        rivet.position.set(x, -1.48 + i * 0.243, 0.09);
+        rivet.scale.set(1, 1, 0.38);
+        leafGroup.add(rivet);
+      }
     }
 
-    // Размер / видимость / рендер-цикл
+    // Выносимые подписи проявляются только после расхождения деталей.
+    const labels = [
+      { text: "Стальной лист", position: [-1.55, 1.35, 0.72] as [number, number, number] },
+      { text: "Минеральная вата", position: [1.42, 0.72, 0.72] as [number, number, number] },
+      { text: "Противопожарный замок", position: [1.55, -0.65, 0.72] as [number, number, number] },
+      { text: "Стальная коробка", position: [-1.5, -1.35, -0.55] as [number, number, number] },
+    ].map(({ text, position }) => {
+      const label = makeLabel(text);
+      if (!label) return null;
+      label.sprite.position.set(...position);
+      assembly.add(label.sprite);
+      return label;
+    }).filter((label): label is NonNullable<typeof label> => label !== null);
+
+    const controls = new OrbitControls(camera, canvas);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.055;
+    controls.enablePan = false;
+    controls.minDistance = 6.2;
+    controls.maxDistance = 11;
+    controls.minPolarAngle = Math.PI * 0.28;
+    controls.maxPolarAngle = Math.PI * 0.72;
+    controls.target.set(0, -0.02, 0);
+    controls.enabled = !coarsePointer;
+    controls.update();
+
+    let gyroEnabled = false;
+    let permissionRequested = false;
+    let exploded = false;
+    let explodeProgress = 0;
+    let raf = 0;
+    let last = 0;
+    let elapsed = 0;
+    let inView = false;
+    let running = false;
+    const targetRotation = new THREE.Vector2(0, 0);
+    const currentRotation = new THREE.Vector2(0, 0);
+    const defaultRotation = new THREE.Euler(0, 0, 0);
+
+    const onOrientation = (event: DeviceOrientationEvent) => {
+      if (!gyroEnabled || event.gamma == null || event.beta == null) return;
+      targetRotation.x = THREE.MathUtils.clamp((event.beta - 45) / 38, -0.48, 0.48);
+      targetRotation.y = THREE.MathUtils.clamp(event.gamma / 34, -0.62, 0.62);
+    };
+
+    const enableMouseControls = () => {
+      gyroEnabled = false;
+      controls.enabled = true;
+      controls.update();
+      invalidate();
+    };
+
+    const requestGyroscope = () => {
+      if (!coarsePointer || permissionRequested) return;
+      permissionRequested = true;
+      const orientationApi = DeviceOrientationEvent as typeof DeviceOrientationEvent & {
+        requestPermission?: () => Promise<"granted" | "denied">;
+      };
+      if (typeof orientationApi.requestPermission === "function") {
+        orientationApi.requestPermission()
+          .then((permission) => {
+            if (permission === "granted") {
+              gyroEnabled = true;
+              controls.enabled = false;
+              window.addEventListener("deviceorientation", onOrientation, { passive: true });
+            } else {
+              enableMouseControls();
+            }
+            invalidate();
+          })
+          .catch(enableMouseControls);
+      } else if ("DeviceOrientationEvent" in window) {
+        window.addEventListener("deviceorientation", onOrientation, { passive: true });
+        gyroEnabled = true;
+        controls.enabled = false;
+        invalidate();
+      } else {
+        enableMouseControls();
+      }
+    };
+
+    const onFirstGesture = () => {
+      requestGyroscope();
+      if (!exploded) {
+        exploded = true;
+        invalidate();
+      }
+    };
+    canvas.addEventListener("pointerdown", onFirstGesture, { once: true });
+    controls.addEventListener("change", invalidate);
+
     const resize = () => {
-      const w = el.clientWidth, h = el.clientHeight;
-      if (!w || !h) return;
-      renderer.setSize(w, h, false);
-      camera.aspect = w / h;
+      const width = el.clientWidth;
+      const height = el.clientHeight;
+      if (!width || !height) return;
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
       camera.updateProjectionMatrix();
-      if (!running) renderer.render(scene, camera);
+      invalidate();
     };
 
-    const tgt = { x: 0, y: 0 };
-    const cur = { x: 0, y: 0 };
-    let t = 0, last = 0, raf = 0, running = false, inView = false;
-
-    const update = (dt: number) => {
-      const k = 1 - Math.exp(-dt * 4);
-      cur.x += (tgt.x - cur.x) * k;
-      cur.y += (tgt.y - cur.y) * k;
-      door.rotation.y = Math.sin(t * 0.35) * 0.75 + cur.x * 0.45;
-      door.rotation.x = cur.y * 0.16;
-      door.position.y = Math.sin(t * 0.9) * 0.05;
+    const updateExploded = (dt: number) => {
+      const target = exploded ? 1 : 0;
+      const stiffness = 8.5;
+      const damping = 5.8;
+      const velocity = (target - explodeProgress) * stiffness;
+      explodeProgress = THREE.MathUtils.clamp(explodeProgress + velocity * dt * (1 - Math.min(damping * dt, 0.75)), 0, 1);
+      const p = THREE.MathUtils.smoothstep(explodeProgress, 0.02, 0.98);
+      frameGroup.position.z = -0.48 * p;
+      leafGroup.position.z = 0.72 * p;
+      coreGroup.position.z = 0.18 + 0.42 * p;
+      hardwareGroup.position.x = 0.58 * p;
+      hardwareGroup.position.z = 0.28 * p;
+      labels.forEach(({ material }) => {
+        material.opacity = THREE.MathUtils.smoothstep(explodeProgress, 0.58, 0.9);
+      });
+      return Math.abs(target - explodeProgress) > 0.002;
     };
+
+    function invalidate() {
+      if (!running && inView && !document.hidden) {
+        running = true;
+        last = performance.now();
+        raf = requestAnimationFrame(tick);
+      }
+    }
+
     const tick = (now: number) => {
+      if (!running) return;
       raf = requestAnimationFrame(tick);
-      const dt = Math.min((now - last) / 1000, 0.05);
+      const dt = Math.min((now - last) / 1000, 0.04);
       last = now;
-      t += dt;
-      update(dt);
+      elapsed += dt;
+
+      if (!gyroEnabled && !controls.enabled && !reducedMotion) controls.enabled = true;
+      if (gyroEnabled) {
+        currentRotation.x += (targetRotation.x - currentRotation.x) * (1 - Math.exp(-dt * 3.2));
+        currentRotation.y += (targetRotation.y - currentRotation.y) * (1 - Math.exp(-dt * 3.2));
+        assembly.rotation.x = currentRotation.x;
+        assembly.rotation.y = currentRotation.y;
+      } else if (!controls.enabled) {
+        assembly.rotation.copy(defaultRotation);
+      }
+
+      if (!reducedMotion && !gyroEnabled && !controls.enabled) {
+        assembly.rotation.y = Math.sin(elapsed * 0.28) * 0.035;
+      }
+      const animating = updateExploded(dt);
+      controls.update();
       renderer.render(scene, camera);
+
+      if (!inView || document.hidden) {
+        running = false;
+        cancelAnimationFrame(raf);
+      } else if (!animating && !controls.enableDamping && !gyroEnabled) {
+        running = false;
+        cancelAnimationFrame(raf);
+      }
     };
+
     const start = () => {
-      if (running || !inView || document.hidden || reduce) return;
+      if (running || !inView || document.hidden) return;
       running = true;
       last = performance.now();
       raf = requestAnimationFrame(tick);
@@ -172,59 +461,51 @@ export default function DoorScene() {
       cancelAnimationFrame(raf);
     };
 
-    const io = new IntersectionObserver(([entry]) => {
+    const observer = new IntersectionObserver(([entry]) => {
       inView = entry.isIntersecting;
-      if (inView) start(); else stop();
-    }, { threshold: 0.01 });
-    io.observe(el);
-    const onVisibility = () => (document.hidden ? stop() : start());
+      if (inView) start();
+      else stop();
+    }, { threshold: 0.02 });
+    observer.observe(el);
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(el);
+    const onVisibility = () => {
+      if (document.hidden) stop();
+      else start();
+    };
     document.addEventListener("visibilitychange", onVisibility);
-
-    const ro = new ResizeObserver(resize);
-    ro.observe(el);
     resize();
-    if (reduce) { door.rotation.y = -0.4; renderer.render(scene, camera); }
 
-    // Мышь
-    const onMove = (e: PointerEvent) => {
-      if (e.pointerType !== "mouse") return;
-      tgt.x = (e.clientX / window.innerWidth - 0.5) * 2;
-      tgt.y = (e.clientY / window.innerHeight - 0.5) * 2;
-    };
-    window.addEventListener("pointermove", onMove, { passive: true });
-
-    // Наклон телефона (iOS требует разрешение по жесту)
-    const onTilt = (e: DeviceOrientationEvent) => {
-      if (e.gamma == null || e.beta == null) return;
-      tgt.x = Math.max(-1, Math.min(1, e.gamma / 30));
-      tgt.y = Math.max(-1, Math.min(1, (e.beta - 60) / 30));
-    };
-    const DOE = DeviceOrientationEvent as unknown as { requestPermission?: () => Promise<string> };
-    const askTilt = () => {
-      if (typeof DOE.requestPermission === "function") {
-        DOE.requestPermission().then((s) => { if (s === "granted") window.addEventListener("deviceorientation", onTilt); }).catch(() => undefined);
-      }
-    };
-    if (mobile) {
-      if (typeof DOE.requestPermission === "function") window.addEventListener("pointerdown", askTilt, { once: true });
-      else window.addEventListener("deviceorientation", onTilt);
+    // После разрешения гироскоп остаётся главным источником управления;
+    // до первого жеста на сенсорном экране доступно вращение через OrbitControls.
+    if (!coarsePointer) controls.enabled = true;
+    if (reducedMotion) {
+      assembly.rotation.y = -0.12;
+      renderer.render(scene, camera);
+    } else {
+      invalidate();
     }
 
     return () => {
       stop();
-      io.disconnect();
-      ro.disconnect();
+      observer.disconnect();
+      resizeObserver.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
-      window.removeEventListener("pointermove", onMove);
-      window.removeEventListener("pointerdown", askTilt);
-      window.removeEventListener("deviceorientation", onTilt);
-      scene.traverse((o) => {
-        const mesh = o as THREE.Mesh;
+      canvas.removeEventListener("pointerdown", onFirstGesture);
+      window.removeEventListener("deviceorientation", onOrientation);
+      controls.removeEventListener("change", invalidate);
+      controls.dispose();
+      scene.traverse((object) => {
+        const mesh = object as THREE.Mesh;
         if (mesh.geometry) mesh.geometry.dispose();
       });
-      [leafMat, frameMat, panelMat, redMat, chrome].forEach((m) => m.dispose());
+      labels.forEach(({ texture, material }) => {
+        texture.dispose();
+        material.dispose();
+      });
+      [steel, frameSteel, insulation, edgeSteel, darkHardware, chrome, sealMaterial].forEach((material) => material.dispose());
       brushed.dispose();
-      envTex.dispose();
+      environment.dispose();
       pmrem.dispose();
       renderer.dispose();
       renderer.forceContextLoss();
@@ -232,5 +513,12 @@ export default function DoorScene() {
     };
   }, []);
 
-  return <div ref={host} role="img" aria-label="Трёхмерная модель противопожарной двери" className="pointer-events-none absolute inset-0" />;
+  return (
+    <div
+      ref={host}
+      role="img"
+      aria-label="Интерактивная 3D-модель металлической противопожарной двери"
+      className="pointer-events-auto absolute inset-0 cursor-grab active:cursor-grabbing"
+    />
+  );
 }
