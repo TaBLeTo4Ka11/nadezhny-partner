@@ -66,6 +66,23 @@ const tools = [
   {
     type: "function",
     function: {
+      name: "check_package_vulnerabilities",
+      description: "Check a specific package version against the free OSV.dev vulnerability database. Requires ecosystem, exact package name, and version.",
+      parameters: {
+        type: "object",
+        properties: {
+          ecosystem: { type: "string", enum: ["npm", "PyPI", "Go", "Maven", "NuGet", "crates.io"] },
+          package: { type: "string", minLength: 1, maxLength: 160 },
+          version: { type: "string", minLength: 1, maxLength: 80 },
+        },
+        required: ["ecosystem", "package", "version"],
+        additionalProperties: false,
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
       name: "fetch_public_documentation",
       description: "Read a public documentation page from a small allowlist of trusted developer documentation domains. Use only HTTPS URLs on allowed domains.",
       parameters: {
@@ -195,6 +212,40 @@ async function runTool(name: string, rawArgs: string, githubToken: string): Prom
       updated: entry.package?.date,
       url: entry.package?.links?.npm,
     })));
+  }
+
+  if (name === "check_package_vulnerabilities") {
+    const ecosystem = String(args.ecosystem ?? "");
+    const allowedEcosystems = new Set(["npm", "PyPI", "Go", "Maven", "NuGet", "crates.io"]);
+    const packageName = String(args.package ?? "").trim();
+    const version = String(args.version ?? "").trim();
+    if (!allowedEcosystems.has(ecosystem) || !packageName || packageName.length > 160 || !version || version.length > 80) {
+      throw new Error("Укажи поддерживаемую экосистему, точное имя пакета и версию.");
+    }
+    const response = await fetch("https://api.osv.dev/v1/query", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({ package: { ecosystem, name: packageName }, version }),
+    });
+    if (!response.ok) throw new Error(`OSV.dev вернул HTTP ${response.status}`);
+    const data = await response.json() as any;
+    const vulnerabilities = (data.vulns ?? []).slice(0, 12).map((item: any) => ({
+      id: item.id,
+      summary: item.summary,
+      modified: item.modified,
+      aliases: item.aliases,
+      references: (item.references ?? []).slice(0, 5).map((reference: any) => reference.url),
+      severity: item.severity,
+    }));
+    return JSON.stringify({
+      ecosystem,
+      package: packageName,
+      version,
+      vulnerable: vulnerabilities.length > 0,
+      count: data.vulns?.length ?? 0,
+      vulnerabilities,
+      source: "https://osv.dev/",
+    });
   }
 
   if (name === "fetch_public_documentation") {
