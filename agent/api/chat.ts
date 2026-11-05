@@ -458,7 +458,7 @@ export default async function handler(req: any, res: any) {
     const conversation: any[] = [{ role: "system", content: systemPrompt }, ...messages];
     const totalUsage = { prompt_tokens: 0, completion_tokens: 0, total_tokens: 0 };
 
-    if (provider !== "deepseek") {
+    if (provider === "claude-haiku" || provider === "claude-sonnet") {
       if (!claudeKey) {
         return send(res, 503, { error: "Claude не настроен: добавь CLAUDE_API_KEY в переменные окружения Vercel-проекта агента. DeepSeek остаётся доступен без него." });
       }

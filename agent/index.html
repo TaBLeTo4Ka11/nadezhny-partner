@@ -38,8 +38,7 @@
     </section>
     <label class="modelbar" for="model">Модель
       <select id="model" aria-label="Выбор модели">
-        <option value="deepseek">DeepSeek V4.1 Flash · инструменты</option>
-        <option value="openrouter-free">Flint Free · бесплатный кодинг</option>
+        <option value="deepseek">DeepSeek V4.1 Flash · инструменты GitHub</option>
         <option value="claude-haiku">Claude Haiku 5.5 · быстрый режим + инструменты</option>
         <option value="claude-sonnet">Claude Sonnet 5.5 · сложный анализ + инструменты</option>
       </select>
@@ -51,7 +50,7 @@
       <textarea id="prompt" placeholder="Напиши задачу…" rows="1" required></textarea>
       <button id="send" type="submit">Отправить</button>
     </form>
-    <div class="foot">Ключ хранится только в памяти вкладки. API-ключи провайдеров и GitHub остаются на сервере. DeepSeek API работает без ежемесячной подписки: оплачиваются только фактически использованные токены. Лимиты запроса включены; после ответа показывается расход токенов.</div>
+    <div class="foot">Ключ хранится только в памяти вкладки. API-ключи DeepSeek и GitHub остаются на сервере. DeepSeek API работает без ежемесячной подписки: оплачиваются только фактически использованные токены. Лимиты запроса включены; после ответа показывается расход токенов.</div>
   </main>
   <script>
     const access = document.querySelector("#access");
