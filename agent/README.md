@@ -87,3 +87,19 @@
 - Официальная цена на момент подготовки: $0.10 за 1 млн входных и $0.50 за 1 млн выходных токенов (обычный стандартный тариф). Проверяй актуальную цену перед использованием: https://developers.openai.com/api/docs/pricing
 - OpenAI API оплачивается отдельно от подписки ChatGPT. Не добавляй баланс и не включай автоплатёж без отдельного решения.
 - Документация модели: https://developers.openai.com/api/docs/models/gpt-6-luna
+
+
+## Project memory, skills and token efficiency
+
+- agent/PROJECT_MEMORY.md — compact version-controlled project facts and safety constraints. Update it when architecture or rules change; it is not automatic model memory.
+- agent/skills/ — focused playbooks for architecture, debugging, code review, security and token efficiency.
+- Added read-only code search inside the fixed repository and exact PyPI metadata inspection to avoid blind repository dumps and unnecessary package installs.
+
+## Graphify knowledge graph (optional, zero LLM credits for code)
+
+Graphify is an Apache-2.0 open-source code knowledge-graph tool. Code-only extraction uses local tree-sitter parsing and requires no LLM key. The manual GitHub Actions workflow .github/workflows/graphify.yml builds graph.json, GRAPH_REPORT.md and graph.html and uploads them as a short-lived artifact. It does not commit generated output, change main, or send code to Graphify Cloud. The graph is an index, not an authority; always verify against current source files.
+
+- Official repository: https://github.com/Graphify-Labs/graphify
+- Documentation: https://docs.graphify.com/reference/overview
+- Package: https://pypi.org/project/graphifyy/
+- Cloud features/trials are intentionally not enabled.
