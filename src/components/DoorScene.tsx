@@ -192,6 +192,7 @@ export default function DoorScene() {
     const leafGroup = new THREE.Group();
     const coreGroup = new THREE.Group();
     const hardwareGroup = new THREE.Group();
+    coreGroup.position.z = -0.18;
     assembly.add(frameGroup, leafGroup, coreGroup, hardwareGroup);
 
     const addBox = (
@@ -373,12 +374,14 @@ export default function DoorScene() {
 
     const onFirstGesture = () => {
       requestGyroscope();
-      if (!exploded) {
-        exploded = true;
-        invalidate();
-      }
+    };
+    const onTap = (event: MouseEvent) => {
+      event.preventDefault();
+      exploded = !exploded;
+      invalidate();
     };
     canvas.addEventListener("pointerdown", onFirstGesture, { once: true });
+    canvas.addEventListener("click", onTap);
     controls.addEventListener("change", invalidate);
 
     const resize = () => {
@@ -400,7 +403,7 @@ export default function DoorScene() {
       const p = THREE.MathUtils.smoothstep(explodeProgress, 0.02, 0.98);
       frameGroup.position.z = -0.48 * p;
       leafGroup.position.z = 0.72 * p;
-      coreGroup.position.z = 0.18 + 0.42 * p;
+      coreGroup.position.z = THREE.MathUtils.lerp(-0.18, 0.25, p);
       hardwareGroup.position.x = 0.58 * p;
       hardwareGroup.position.z = 0.28 * p;
       labels.forEach(({ material }) => {
@@ -424,7 +427,6 @@ export default function DoorScene() {
       last = now;
       elapsed += dt;
 
-      if (!gyroEnabled && !controls.enabled && !reducedMotion) controls.enabled = true;
       if (gyroEnabled) {
         currentRotation.x += (targetRotation.x - currentRotation.x) * (1 - Math.exp(-dt * 3.2));
         currentRotation.y += (targetRotation.y - currentRotation.y) * (1 - Math.exp(-dt * 3.2));
@@ -434,17 +436,15 @@ export default function DoorScene() {
         assembly.rotation.copy(defaultRotation);
       }
 
-      if (!reducedMotion && !gyroEnabled && !controls.enabled) {
-        assembly.rotation.y = Math.sin(elapsed * 0.28) * 0.035;
-      }
       const animating = updateExploded(dt);
       controls.update();
+      if (!reducedMotion) {
+        keyLight.position.x = -3.5 + Math.sin(elapsed * 0.22) * 0.65;
+        rimLight.position.y = 1.2 + Math.sin(elapsed * 0.31) * 0.22;
+      }
       renderer.render(scene, camera);
 
       if (!inView || document.hidden) {
-        running = false;
-        cancelAnimationFrame(raf);
-      } else if (!animating && !controls.enableDamping && !gyroEnabled) {
         running = false;
         cancelAnimationFrame(raf);
       }
@@ -492,6 +492,7 @@ export default function DoorScene() {
       resizeObserver.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
       canvas.removeEventListener("pointerdown", onFirstGesture);
+      canvas.removeEventListener("click", onTap);
       window.removeEventListener("deviceorientation", onOrientation);
       controls.removeEventListener("change", invalidate);
       controls.dispose();
