@@ -437,7 +437,7 @@ export default async function handler(req: any, res: any) {
       "claude-haiku": "claude-haiku-5-5",
       "claude-sonnet": "claude-sonnet-5-5",
     };
-    if (!["deepseek", "openrouter-free", ...Object.keys(claudeModels)].includes(provider)) {
+    if (!["deepseek", "openrouter-free", "openrouter-xing-free", ...Object.keys(claudeModels)].includes(provider)) {
       return send(res, 400, { error: "Неизвестная модель. Выбери DeepSeek или Claude из списка." });
     }
     const messages = body.messages.map((item: any) => {
@@ -534,12 +534,12 @@ export default async function handler(req: any, res: any) {
         usage: totalUsage,
       });
     }
-    const isOpenRouter = provider === "openrouter-free";
+    const isOpenRouter = provider === "openrouter-free" || provider === "openrouter-xing-free";
     const providerKey = isOpenRouter ? openrouterKey : deepseekKey;
     const providerUrl = isOpenRouter
       ? "https://openrouter.ai/api/v1/chat/completions"
       : "https://api.deepseek.com/chat/completions";
-    const modelId = isOpenRouter ? "recursive/flint-v1.0:free" : MODEL;
+    const modelId = provider === "openrouter-free" ? "recursive/flint-v1.0:free" : provider === "openrouter-xing-free" ? "xingchen-agi/xing4.0-29b-a4b:free" : MODEL;
     if (!providerKey) {
       return send(res, 503, { error: isOpenRouter
         ? "Бесплатный OpenRouter-режим не настроен: добавь OPENROUTER_API_KEY. DeepSeek и Claude работают независимо."
@@ -566,7 +566,7 @@ export default async function handler(req: any, res: any) {
       });
       if (!response.ok) {
         const detail = await response.text();
-        return send(res, 502, { error: `Ошибка DeepSeek API: HTTP ${response.status}`, detail: detail.slice(0, 500) });
+        return send(res, 502, { error: `Ошибка ${isOpenRouter ? "OpenRouter" : "DeepSeek"} API: HTTP ${response.status}`, detail: detail.slice(0, 500) });
       }
 
       const data = await response.json() as any;
