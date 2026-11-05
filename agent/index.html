@@ -12,6 +12,8 @@
     header{padding:18px 4px 22px;border-bottom:1px solid #30343d}h1{font-size:22px;margin:0 0 7px;letter-spacing:-.5px}.sub{color:#9da4b1;font-size:13px}
     .status{display:inline-flex;align-items:center;gap:7px;margin-top:13px;color:#b8c0cc;font-size:12px}.dot{width:7px;height:7px;border-radius:50%;background:#d6a84f}
     .auth{display:flex;gap:8px;margin:18px 0}.auth input{flex:1;min-width:0}
+    .modelbar{display:flex;align-items:center;gap:9px;margin:0 0 8px;color:#aeb6c3;font-size:12px}
+    .modelbar select{flex:1;min-width:0;border:1px solid #3a404c;border-radius:10px;background:#1b1f27;color:#f4f5f7;padding:10px;font:inherit}
     input,textarea,button{font:inherit;border:1px solid #3a404c;border-radius:12px;background:#1b1f27;color:#f4f5f7;padding:13px}
     button{background:#e5e7eb;color:#111318;font-weight:650;border:0;cursor:pointer}.auth button{white-space:nowrap}
     #messages{flex:1;display:flex;flex-direction:column;gap:12px;padding:18px 0;min-height:240px}
@@ -27,13 +29,20 @@
   <main class="shell">
     <header>
       <h1>AI-разработчик</h1>
-      <div class="sub">Надёжный партнёр · DeepSeek Flash</div>
+      <div class="sub">Надёжный партнёр · DeepSeek + Claude</div>
       <div class="status"><span class="dot"></span><span>GitHub + npm + официальная документация · только чтение</span></div>
     </header>
     <section class="auth" aria-label="Авторизация">
       <input id="access" type="password" autocomplete="current-password" placeholder="Ключ доступа к панели" aria-label="Ключ доступа">
       <button id="save" type="button">Войти</button>
     </section>
+    <label class="modelbar" for="model">Модель
+      <select id="model" aria-label="Выбор модели">
+        <option value="deepseek">DeepSeek V4.1 Flash · инструменты GitHub</option>
+        <option value="claude-haiku">Claude Haiku 5.5 · быстрый режим</option>
+        <option value="claude-sonnet">Claude Sonnet 5.5 · сложный анализ</option>
+      </select>
+    </label>
     <section id="messages" aria-live="polite">
       <div class="welcome">Могу изучать файлы и PR проекта, искать публичные GitHub-проекты и npm-пакеты, читать официальную документацию, разбирать ошибки и готовить план исправлений. Запись в репозиторий и деплой пока отключены.</div>
     </section>
@@ -50,6 +59,7 @@
     const prompt = document.querySelector("#prompt");
     const messagesEl = document.querySelector("#messages");
     const send = document.querySelector("#send");
+    const model = document.querySelector("#model");
     let accessKey = "";
     const history = [];
 
@@ -82,7 +92,7 @@
         const response = await fetch("/api/chat", {
           method:"POST",
           headers:{"Content-Type":"application/json","Authorization":"Bearer " + accessKey},
-          body:JSON.stringify({messages:history.slice(-8)})
+          body:JSON.stringify({messages:history.slice(-8),provider:model.value})
         });
         const data = await response.json();
         if (!response.ok) throw new Error(data.error || "Ошибка запроса");

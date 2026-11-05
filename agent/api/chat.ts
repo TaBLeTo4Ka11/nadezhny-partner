@@ -414,9 +414,10 @@ export default async function handler(req: any, res: any) {
   const env = (globalThis as typeof globalThis & { process?: { env?: Record<string, string | undefined> } }).process?.env ?? {};
   const accessKey = env.AGENT_ACCESS_KEY;
   const deepseekKey = env.DEEPSEEK_API_KEY;
+  const claudeKey = env.CLAUDE_API_KEY;
   const githubToken = env.GITHUB_TOKEN;
-  if (!accessKey || !deepseekKey || !githubToken) {
-    return send(res, 503, { error: "Сервер не настроен: добавьте необходимые переменные окружения." });
+  if (!accessKey || !githubToken) {
+    return send(res, 503, { error: "Сервер не настроен: добавьте AGENT_ACCESS_KEY и GITHUB_TOKEN." });
   }
 
   const authorization = String(req.headers?.authorization ?? "");
@@ -429,6 +430,14 @@ export default async function handler(req: any, res: any) {
     const body = typeof req.body === "string" ? JSON.parse(req.body) : (req.body ?? {});
     if (!Array.isArray(body.messages) || body.messages.length < 1 || body.messages.length > MAX_MESSAGES) {
       return send(res, 400, { error: `Передай от 1 до ${MAX_MESSAGES} сообщений.` });
+    }
+    const provider = String(body.provider ?? "deepseek");
+    const claudeModels: Record<string, string> = {
+      "claude-haiku": "claude-haiku-5-5",
+      "claude-sonnet": "claude-sonnet-5-5",
+    };
+    if (!["deepseek", ...Object.keys(claudeModels)].includes(provider)) {
+      return send(res, 400, { error: "Неизвестная модель. Выбери DeepSeek или Claude из списка." });
     }
     const messages = body.messages.map((item: any) => {
       if (!item || !["user", "assistant"].includes(item.role) || typeof item.content !== "string" || item.content.length > 8_000) {
@@ -447,6 +456,47 @@ export default async function handler(req: any, res: any) {
     const reasoningEffort = needsMaximumReasoning ? "max" : "high";
     const conversation: any[] = [{ role: "system", content: systemPrompt }, ...messages];
     const totalUsage = { prompt_tokens: 0, completion_tokens: 0, total_tokens: 0 };
+
+    if (provider !== "deepseek") {
+      if (!claudeKey) {
+        return send(res, 503, { error: "Claude не настроен: добавь CLAUDE_API_KEY в переменные окружения Vercel-проекта агента. DeepSeek остаётся доступен без него." });
+      }
+      const claudeResponse = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: {
+          "x-api-key": claudeKey,
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          model: claudeModels[provider],
+          max_tokens: 4_096,
+          system: systemPrompt + "\n\nВ этом режиме инструменты GitHub отключены: анализируй только переданную переписку и явно отмечай, какие файлы или факты не были проверены.",
+          messages,
+        }),
+      });
+      if (!claudeResponse.ok) {
+        const detail = await claudeResponse.text();
+        return send(res, 502, { error: `Ошибка Claude API: HTTP ${claudeResponse.status}`, detail: detail.slice(0, 500) });
+      }
+      const claudeData = await claudeResponse.json() as any;
+      const reply = (claudeData.content ?? [])
+        .filter((part: any) => part.type === "text")
+        .map((part: any) => part.text ?? "")
+        .join("\n")
+        .trim();
+      if (!reply) return send(res, 502, { error: "Claude вернул пустой ответ." });
+      const usage = claudeData.usage ? {
+        prompt_tokens: Number(claudeData.usage.input_tokens ?? 0),
+        completion_tokens: Number(claudeData.usage.output_tokens ?? 0),
+        total_tokens: Number(claudeData.usage.input_tokens ?? 0) + Number(claudeData.usage.output_tokens ?? 0),
+      } : null;
+      return send(res, 200, { reply, model: claudeData.model ?? claudeModels[provider], provider: "claude", usage });
+    }
+    if (!deepseekKey) {
+      return send(res, 503, { error: "DeepSeek не настроен: добавь DEEPSEEK_API_KEY в переменные окружения." });
+    }
+
     for (let round = 0; round <= MAX_TOOL_ROUNDS; round += 1) {
       const response = await fetch("https://api.deepseek.com/chat/completions", {
         method: "POST",
