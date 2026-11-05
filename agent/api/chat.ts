@@ -1,8 +1,8 @@
 const REPO = "TaBLeTo4Ka11/nadezhny-partner";
 const MODEL = "deepseek-flash";
-const MAX_BODY_CHARS = 48_000;
-const MAX_MESSAGES = 12;
-const MAX_TOOL_ROUNDS = 4;
+const MAX_BODY_CHARS = 12_000;
+const MAX_MESSAGES = 8;
+const MAX_TOOL_ROUNDS = 2;
 const WINDOW_MS = 60_000;
 const MAX_REQUESTS_PER_WINDOW = 12;
 
@@ -117,7 +117,7 @@ async function runTool(name: string, rawArgs: string, githubToken: string): Prom
       throw new Error("Это не обычный текстовый файл.");
     }
     const content = Buffer.from(data.content.replace(/\n/g, ""), "base64").toString("utf8");
-    if (content.length > 28_000) return content.slice(0, 28_000) + "\n[Файл обрезан: превышен лимит вывода.]";
+    if (content.length > 12_000) return content.slice(0, 12_000) + "\n[Файл обрезан: превышен лимит вывода.]";
     return content;
   }
 
@@ -169,7 +169,7 @@ export default async function handler(req: any, res: any) {
           tools,
           tool_choice: "auto",
           thinking: { type: "disabled" },
-          max_tokens: 4_000,
+          max_tokens: 1_200,
           stream: false,
         }),
       });
@@ -203,7 +203,7 @@ export default async function handler(req: any, res: any) {
         conversation.push({
           role: "tool",
           tool_call_id: call.id,
-          content: result.slice(0, 30_000),
+          content: result.slice(0, 14_000),
         });
       }
     }
