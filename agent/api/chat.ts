@@ -570,7 +570,7 @@ export default async function handler(req: any, res: any) {
           tools,
           tool_choice: "auto",
           ...(isOpenRouter ? {} : isOpenAI ? { reasoning_effort: "none" } : { thinking: { type: "enabled" }, reasoning_effort: reasoningEffort }),
-          max_tokens: 4_096,
+          ...(isOpenAI ? { max_completion_tokens: 4_096 } : { max_tokens: 4_096 }),
           stream: false,
         }),
       });
@@ -586,7 +586,7 @@ export default async function handler(req: any, res: any) {
         totalUsage.total_tokens += Number(data.usage.total_tokens ?? 0);
       }
       const message = data.choices?.[0]?.message;
-      if (!message) return send(res, 502, { error: "DeepSeek вернул пустой ответ." });
+      if (!message) return send(res, 502, { error: `${isOpenAI ? "OpenAI" : isOpenRouter ? "OpenRouter" : "DeepSeek"} вернул пустой ответ.` });
       conversation.push(message);
 
       const calls = message.tool_calls ?? [];
