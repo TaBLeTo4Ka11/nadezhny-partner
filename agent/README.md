@@ -18,7 +18,7 @@
 
 - `DEEPSEEK_API_KEY` — ключ DeepSeek API (нужен для режима DeepSeek).
 - `CLAUDE_API_KEY` — необязательный официальный ключ Anthropic Console (нужен только для режима Claude; без него другие модели продолжают работать).
-- `OPENROUTER_API_KEY` — необязательный ключ OpenRouter для бесплатной модели Flint.
+- `OPENROUTER_API_KEY` — необязательный ключ OpenRouter для бесплатной модели Flint; бесплатный endpoint ограничен квотами провайдера.
 - `AGENT_ACCESS_KEY` — длинный случайный пароль доступа к панели.
 - `GITHUB_TOKEN` — fine-grained GitHub token только для репозитория `TaBLeTo4Ka11/nadezhny-partner`, разрешения Contents: Read-only и Pull requests: Read-only.
 
@@ -37,7 +37,7 @@
 ## Защитные ограничения первого этапа
 
 - Жёстко закреплён репозиторий `TaBLeTo4Ka11/nadezhny-partner`.
-- Только два инструмента модели: просмотр открытых PR и чтение файлов.
+- Модели используют общий список read-only инструментов: PR/файлы, GitHub search, npm, Hugging Face, Stack Overflow, OSV и документация.
 - Нельзя создавать/изменять/удалять файлы, ветки и PR, делать merge, менять настройки GitHub или запускать деплой.
 - Проверяется имя инструмента и JSON-аргументы; путь к файлу не может содержать `..`.
 - Запросы к DeepSeek и GitHub выполняются только сервером.
@@ -50,8 +50,8 @@
 ## Выбор модели и стоимость
 
 - DeepSeek V4.1 Flash остаётся режимом по умолчанию: он очень экономичный и имеет GitHub/npm/Hugging Face/OSV/Stack Exchange инструменты.
-- Recursive Flint через OpenRouter — бесплатная coding-модель с tool calling и контекстом 262K; доступность и скорость зависят от бесплатного провайдера. Free-модели ограничены квотами, поэтому это экспериментальный fallback, не production SLA.
-- Claude Haiku 5.5 — быстрый и недорогой второй взгляд; Claude Sonnet 5.5 — более сильный режим для сложного анализа. Claude использует тот же безопасный набор read-only tools, что и DeepSeek, через нативный Anthropic tool-use loop. Flint использует OpenAI-совместимый tool-call loop.
+- Recursive Flint через OpenRouter — отдельный полностью бесплатный coding-модельный endpoint с поддержкой tool calling и контекстом 262K; доступность и скорость зависят от бесплатного провайдера. Бесплатные варианты OpenRouter ограничены квотами, поэтому не считай его гарантированным production SLA.
+- Claude Haiku 5.5 — быстрый и недорогой второй взгляд; Claude Sonnet 5.5 — более сильный режим для сложного анализа. Claude использует тот же безопасный набор read-only tools, что и DeepSeek, через нативный Anthropic tool-use loop. Flint использует OpenAI-совместимый tool-call loop. Flint использует совместимый с OpenAI tool-call loop.
 - Claude подключается напрямую через официальный Anthropic Messages API. Ключ необязателен для запуска DeepSeek, хранится только в server env и не передаётся браузеру.
 - Официальные цены Anthropic: Haiku 5.5 — $0.10/M input и $0.50/M output (до 100K prompt); Sonnet 5.5 — $2/M input и $10/M output. Claude заметно дороже DeepSeek Flash, поэтому для экономии оставляй DeepSeek основным.
 - Модельные ID задаются сервером, а не принимаются произвольной строкой от клиента. Для OpenRouter используется только фиксированный бесплатный ID `recursive/flint-v1.0:free`.
