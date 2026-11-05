@@ -166,6 +166,87 @@ async function runTool(name: string, rawArgs: string, githubToken: string): Prom
     return content;
   }
 
+  if (name === "search_github_repositories") {
+    const query = String(args.query ?? "").trim();
+    if (query.length < 2 || query.length > 160) throw new Error("Некорректный поисковый запрос.");
+    const data = await github(`/search/repositories?q=${encodeURIComponent(query)}&sort=stars&order=desc&per_page=8`, githubToken) as any;
+    return JSON.stringify((data.items ?? []).map((item: any) => ({
+      full_name: item.full_name,
+      description: item.description,
+      stars: item.stargazers_count,
+      language: item.language,
+      updated_at: item.updated_at,
+      url: item.html_url,
+    })));
+  }
+
+  if (name === "search_npm_packages") {
+    const query = String(args.query ?? "").trim();
+    if (query.length < 2 || query.length > 120) throw new Error("Некорректный поисковый запрос.");
+    const response = await fetch(`https://registry.npmjs.org/-/v1/search?text=${encodeURIComponent(query)}&size=8`, {
+      headers: { Accept: "application/json" },
+    });
+    if (!response.ok) throw new Error(`npm Registry вернул HTTP ${response.status}`);
+    const data = await response.json() as any;
+    return JSON.stringify((data.objects ?? []).map((entry: any) => ({
+      name: entry.package?.name,
+      version: entry.package?.version,
+      description: entry.package?.description,
+      updated: entry.package?.date,
+      url: entry.package?.links?.npm,
+    })));
+  }
+
+  if (name === "fetch_public_documentation") {
+    const rawUrl = String(args.url ?? "");
+    let parsed: URL;
+    try { parsed = new URL(rawUrl); } catch { throw new Error("Некорректный URL."); }
+    const allowedHosts = new Set([
+      "docs.github.com",
+      "developer.mozilla.org",
+      "docs.python.org",
+      "nodejs.org",
+      "vercel.com",
+      "docs.vercel.com",
+      "api-docs.deepseek.com",
+    ]);
+    if (parsed.protocol !== "https:" || parsed.username || parsed.password || !allowedHosts.has(parsed.hostname)) {
+      throw new Error("Разрешено читать только HTTPS-документацию из списка доверенных доменов.");
+    }
+    const response = await fetch(parsed.toString(), {
+      headers: { Accept: "text/html,text/plain,application/json" },
+      redirect: "manual",
+    });
+    if (!response.ok) throw new Error(`Страница документации вернула HTTP ${response.status}; перенаправления запрещены.`);
+    const type = response.headers.get("content-type") ?? "";
+    if (!/(text\/html|text\/plain|application\/json)/i.test(type)) throw new Error("Поддерживаются только HTML, текст и JSON.");
+    const reader = response.body?.getReader();
+    if (!reader) throw new Error("Не удалось прочитать страницу.");
+    const chunks: Uint8Array[] = [];
+    let total = 0;
+    while (total < 120_000) {
+      const part = await reader.read();
+      if (part.done) break;
+      const chunk = part.value;
+      const remaining = 120_000 - total;
+      chunks.push(chunk.length > remaining ? chunk.slice(0, remaining) : chunk);
+      total += Math.min(chunk.length, remaining);
+      if (chunk.length > remaining) break;
+    }
+    await reader.cancel().catch(() => undefined);
+    let content = new TextDecoder().decode(Buffer.concat(chunks.map((chunk) => Buffer.from(chunk))));
+    if (type.includes("text/html")) {
+      content = content
+        .replace(/<(script|style|noscript)[\\s\\S]*?<\\/\\1>/gi, " ")
+        .replace(/<(br|\\/p|\\/h[1-6]|\\/li|\\/div)>/gi, "\\n")
+        .replace(/<[^>]+>/g, " ")
+        .replace(/&nbsp;/g, " ").replace(/&amp;/g, "&")
+        .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'").replace(/[ \\t]+/g, " ").replace(/\\n\\s+/g, "\\n");
+    }
+    return content.slice(0, 12_000) + (total >= 120_000 ? "\\n[Документация обрезана по лимиту размера.]" : "");
+  }
+
   throw new Error("Инструмент не входит в разрешённый список.");
 }
 
