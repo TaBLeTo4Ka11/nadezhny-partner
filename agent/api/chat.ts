@@ -82,6 +82,22 @@ const tools = [
   {
     type: "function",
     function: {
+      name: "search_stackoverflow",
+      description: "Search public Stack Overflow questions for developer errors and implementation guidance. Community answers are not authoritative; cross-check important claims against official documentation.",
+      parameters: {
+        type: "object",
+        properties: {
+          query: { type: "string", minLength: 2, maxLength: 160 },
+          tagged: { type: "string", maxLength: 100 },
+        },
+        required: ["query"],
+        additionalProperties: false,
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
       name: "check_package_vulnerabilities",
       description: "Check a specific package version against the free OSV.dev vulnerability database. Requires ecosystem, exact package name, and version.",
       parameters: {
@@ -259,6 +275,42 @@ async function runTool(name: string, rawArgs: string, githubToken: string): Prom
         url: `https://huggingface.co/${item.id}`,
       })),
       source: "https://huggingface.co/",
+    });
+  }
+
+  if (name === "search_stackoverflow") {
+    const query = String(args.query ?? "").trim();
+    const tagged = String(args.tagged ?? "").trim();
+    if (query.length < 2 || query.length > 160 || tagged.length > 100) {
+      throw new Error("Некорректный поисковый запрос Stack Overflow.");
+    }
+    const params = new URLSearchParams({
+      site: "stackoverflow",
+      order: "desc",
+      sort: "relevance",
+      q: query,
+      pagesize: "8",
+      filter: "withbody",
+    });
+    if (tagged) params.set("tagged", tagged);
+    const response = await fetch(`https://api.stackexchange.com/2.3/search/advanced?${params.toString()}`, {
+      headers: { Accept: "application/json" },
+    });
+    if (!response.ok) throw new Error(`Stack Exchange API вернул HTTP ${response.status}`);
+    const data = await response.json() as any;
+    return JSON.stringify({
+      items: (data.items ?? []).map((item: any) => ({
+        title: item.title,
+        excerpt: String(item.body ?? "").replace(/<[^>]+>/g, " ").slice(0, 900),
+        score: item.score,
+        answer_count: item.answer_count,
+        is_answered: item.is_answered,
+        tags: item.tags,
+        link: item.link,
+        creation_date: item.creation_date,
+      })),
+      quota_remaining: data.quota_remaining,
+      source: "Stack Overflow / Stack Exchange API",
     });
   }
 
