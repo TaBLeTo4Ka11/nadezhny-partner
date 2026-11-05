@@ -3,6 +3,7 @@ const MODEL = "deepseek-flash";
 const MAX_BODY_CHARS = 12_000;
 const MAX_MESSAGES = 8;
 const MAX_TOOL_ROUNDS = 5;
+const MAX_TOTAL_TOKENS_PER_REQUEST = 10_000;
 const WINDOW_MS = 60_000;
 const MAX_REQUESTS_PER_WINDOW = 12;
 
@@ -480,6 +481,13 @@ export default async function handler(req: any, res: any) {
       conversation.push(message);
 
       const calls = message.tool_calls ?? [];
+      if (totalUsage.total_tokens >= MAX_TOTAL_TOKENS_PER_REQUEST && calls.length > 0) {
+        return send(res, 200, {
+          reply: "Остановил дополнительные обращения к инструментам: достигнут лимит токенов на один запрос. Сузь задачу или попроси продолжить отдельным запросом.",
+          model: data.model ?? MODEL,
+          usage: totalUsage,
+        });
+      }
       if (!calls.length) {
         return send(res, 200, {
           reply: message.content ?? "Модель вернула пустой текстовый ответ.",
