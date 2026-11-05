@@ -327,6 +327,7 @@ export default function DoorScene() {
     let elapsed = 0;
     let inView = false;
     let running = false;
+    let controlsChanged = false;
     const targetRotation = new THREE.Vector2(0, 0);
     const currentRotation = new THREE.Vector2(0, 0);
     const defaultRotation = new THREE.Euler(0, 0, 0);
@@ -383,7 +384,8 @@ export default function DoorScene() {
     };
     canvas.addEventListener("pointerdown", onFirstGesture, { once: true });
     canvas.addEventListener("click", onTap);
-    controls.addEventListener("change", invalidate);
+    const onControlsChange = () => { controlsChanged = true; invalidate(); };
+    controls.addEventListener("change", onControlsChange);
 
     const resize = () => {
       const width = el.clientWidth;
@@ -443,14 +445,16 @@ export default function DoorScene() {
       }
 
       const animating = updateExploded(dt);
+      controlsChanged = false;
       controls.update();
+      const dampingActive = controlsChanged;
       if (!reducedMotion) {
         keyLight.position.x = -3.5 + Math.sin(elapsed * 0.22) * 0.65;
         rimLight.position.y = 1.2 + Math.sin(elapsed * 0.31) * 0.22;
       }
       renderer.render(scene, camera);
 
-      if (!inView || document.hidden) {
+      if (!inView || document.hidden || (!animating && !dampingActive && !gyroEnabled)) {
         running = false;
         cancelAnimationFrame(raf);
       }
@@ -500,7 +504,7 @@ export default function DoorScene() {
       canvas.removeEventListener("pointerdown", onFirstGesture);
       canvas.removeEventListener("click", onTap);
       window.removeEventListener("deviceorientation", onOrientation);
-      controls.removeEventListener("change", invalidate);
+      controls.removeEventListener("change", onControlsChange);
       controls.dispose();
       scene.traverse((object) => {
         const mesh = object as THREE.Mesh;
