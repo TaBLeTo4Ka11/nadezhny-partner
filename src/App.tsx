@@ -69,6 +69,17 @@ export default function App() {
   }, []);
 
   if (path.startsWith("/product/")) return <ProductPage slug={path.slice("/product/".length)} />;
+  if (path === "/catalog") return (
+    <>
+      <Header />
+      <main id="main-content">
+        <CatalogSection />
+        <FormSection />
+      </main>
+      <Footer />
+      <CookieConsent />
+    </>
+  );
   if (path === "/o-kompanii") return <CompanyPage page="about" />;
   if (path === "/kontakty") return <CompanyPage page="contacts" />;
   if (infoRoutes[path]) return <InfoPage page={infoRoutes[path]} />;
