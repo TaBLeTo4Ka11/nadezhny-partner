@@ -416,6 +416,7 @@ export default async function handler(req: any, res: any) {
   const deepseekKey = env.DEEPSEEK_API_KEY;
   const claudeKey = env.CLAUDE_API_KEY;
   const openrouterKey = env.OPENROUTER_API_KEY;
+  const openaiKey = env.OPENAI_API_KEY;
   const githubToken = env.GITHUB_TOKEN;
   if (!accessKey || !githubToken) {
     return send(res, 503, { error: "Сервер не настроен: добавьте AGENT_ACCESS_KEY и GITHUB_TOKEN." });
@@ -437,7 +438,7 @@ export default async function handler(req: any, res: any) {
       "claude-haiku": "claude-haiku-5-5",
       "claude-sonnet": "claude-sonnet-5-5",
     };
-    if (!["deepseek", "openrouter-free", "openrouter-xing-free", ...Object.keys(claudeModels)].includes(provider)) {
+    if (!["deepseek", "openrouter-free", "openrouter-xing-free", "openai-luna", ...Object.keys(claudeModels)].includes(provider)) {
       return send(res, 400, { error: "Неизвестная модель. Выбери DeepSeek или Claude из списка." });
     }
     const messages = body.messages.map((item: any) => {
@@ -535,15 +536,24 @@ export default async function handler(req: any, res: any) {
       });
     }
     const isOpenRouter = provider === "openrouter-free" || provider === "openrouter-xing-free";
-    const providerKey = isOpenRouter ? openrouterKey : deepseekKey;
+    const isOpenAI = provider === "openai-luna";
+    const providerKey = isOpenRouter ? openrouterKey : isOpenAI ? openaiKey : deepseekKey;
     const providerUrl = isOpenRouter
       ? "https://openrouter.ai/api/v1/chat/completions"
-      : "https://api.deepseek.com/chat/completions";
-    const modelId = provider === "openrouter-free" ? "recursive/flint-v1.0:free" : provider === "openrouter-xing-free" ? "xingchen-agi/xing4.0-29b-a4b:free" : MODEL;
+      : isOpenAI
+        ? "https://api.openai.com/v1/chat/completions"
+        : "https://api.deepseek.com/chat/completions";
+    const modelId = provider === "openrouter-free"
+      ? "recursive/flint-v1.0:free"
+      : provider === "openrouter-xing-free"
+        ? "xingchen-agi/xing4.0-29b-a4b:free"
+        : isOpenAI ? "gpt-6-luna" : MODEL;
     if (!providerKey) {
       return send(res, 503, { error: isOpenRouter
-        ? "Бесплатный OpenRouter-режим не настроен: добавь OPENROUTER_API_KEY. DeepSeek и Claude работают независимо."
-        : "DeepSeek не настроен: добавь DEEPSEEK_API_KEY в переменные окружения." });
+        ? "Бесплатный OpenRouter-режим не настроен: добавь OPENROUTER_API_KEY. Другие модели работают независимо."
+        : isOpenAI
+          ? "OpenAI не настроен: добавь OPENAI_API_KEY в переменные окружения отдельного Vercel-проекта агента."
+          : "DeepSeek не настроен: добавь DEEPSEEK_API_KEY в переменные окружения." });
     }
 
     for (let round = 0; round <= MAX_TOOL_ROUNDS; round += 1) {
@@ -559,14 +569,14 @@ export default async function handler(req: any, res: any) {
           messages: conversation,
           tools,
           tool_choice: "auto",
-          ...(isOpenRouter ? {} : { thinking: { type: "enabled" }, reasoning_effort: reasoningEffort }),
+          ...(isOpenRouter ? {} : isOpenAI ? { reasoning_effort: "none" } : { thinking: { type: "enabled" }, reasoning_effort: reasoningEffort }),
           max_tokens: 4_096,
           stream: false,
         }),
       });
       if (!response.ok) {
         const detail = await response.text();
-        return send(res, 502, { error: `Ошибка ${isOpenRouter ? "OpenRouter" : "DeepSeek"} API: HTTP ${response.status}`, detail: detail.slice(0, 500) });
+        return send(res, 502, { error: `Ошибка ${isOpenRouter ? "OpenRouter" : isOpenAI ? "OpenAI" : "DeepSeek"} API: HTTP ${response.status}`, detail: detail.slice(0, 500) });
       }
 
       const data = await response.json() as any;
@@ -590,7 +600,8 @@ export default async function handler(req: any, res: any) {
       if (!calls.length) {
         return send(res, 200, {
           reply: message.content ?? "Модель вернула пустой текстовый ответ.",
-          model: data.model ?? MODEL,
+          model: data.model ?? modelId,
+          provider: isOpenAI ? "openai" : isOpenRouter ? "openrouter" : "deepseek",
           usage: data.usage ? totalUsage : null,
         });
       }

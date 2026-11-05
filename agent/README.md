@@ -1,6 +1,6 @@
 # Надёжный партнёр — AI-разработчик (первый этап)
 
-Отдельная мобильная панель разработчика. Она не встраивается в публичный сайт и не меняет его интерфейс. Есть выбор DeepSeek V4.1 Flash, Claude Haiku 5.5 / Sonnet 5.5 и бесплатных Recursive Flint / Xing4.0 29B A4B через OpenRouter. Все выбранные модели используют один и тот же набор read-only инструментов проекта; write-доступа нет. Запись в репозиторий, merge и деплой намеренно отсутствуют.
+Отдельная мобильная панель разработчика. Она не встраивается в публичный сайт и не меняет его интерфейс. Есть выбор DeepSeek V4.1 Flash, OpenAI GPT-6 Luna, Claude Haiku 5.5 / Sonnet 5.5 и бесплатных Recursive Flint / Xing4.0 29B A4B через OpenRouter. Все выбранные модели используют один и тот же набор read-only инструментов проекта; write-доступа нет. Запись в репозиторий, merge и деплой намеренно отсутствуют.
 
 ## Ограничения расходов
 
@@ -18,7 +18,8 @@
 
 - `DEEPSEEK_API_KEY` — ключ DeepSeek API (нужен для режима DeepSeek).
 - `CLAUDE_API_KEY` — необязательный официальный ключ Anthropic Console (нужен только для режима Claude; без него другие модели продолжают работать).
-- `OPENROUTER_API_KEY` — необязательный ключ OpenRouter для бесплатной модели Flint; бесплатный endpoint ограничен квотами провайдера.
+- `OPENROUTER_API_KEY` — необязательный ключ OpenRouter для бесплатных моделей; endpoints ограничены квотами провайдера.
+- `OPENAI_API_KEY` — необязательный официальный ключ OpenAI API для режима GPT-6 Luna; хранится только в server env.
 - `AGENT_ACCESS_KEY` — длинный случайный пароль доступа к панели.
 - `GITHUB_TOKEN` — fine-grained GitHub token только для репозитория `TaBLeTo4Ka11/nadezhny-partner`, разрешения Contents: Read-only и Pull requests: Read-only.
 
@@ -28,7 +29,7 @@
 
 1. Создать отдельный Vercel Project из этого репозитория.
 2. Установить Root Directory = `agent`; не подключать его к production-проекту сайта.
-3. Добавить `AGENT_ACCESS_KEY`, `GITHUB_TOKEN`, `DEEPSEEK_API_KEY` и по желанию `CLAUDE_API_KEY`, `OPENROUTER_API_KEY` для Preview/Production.
+3. Добавить `AGENT_ACCESS_KEY`, `GITHUB_TOKEN`, `DEEPSEEK_API_KEY` и по желанию `OPENAI_API_KEY`, `CLAUDE_API_KEY`, `OPENROUTER_API_KEY` для Preview/Production.
 4. Развернуть только после проверки переменных и доступа.
 5. Открыть выданный Preview URL на телефоне.
 
@@ -76,3 +77,13 @@
 - Бесплатные публичные API могут иметь собственные лимиты и временную недоступность.
 - Поиск GitHub использует лимиты GitHub API; поиск npm и проверка уязвимостей через OSV.dev не требуют отдельного токена.
 - Никакие сторонние/утёкшие API-ключи, аккаунты, прокси или платные сервисы не добавляются.
+
+
+## OpenAI GPT-6 Luna
+
+- Добавлен отдельный необязательный провайдер OpenAI API: модель `gpt-6-luna` через официальный Chat Completions endpoint.
+- Использует общий безопасный набор read-only инструментов агента: GitHub, npm, Hugging Face, Stack Overflow, OSV.dev и документацию.
+- Для совместимости function calling у GPT-6 Luna в Chat Completions используется `reasoning_effort: "none"`; для более глубокого рассуждения с инструментами нужна отдельная реализация Responses API. Это честное ограничение текущего адаптера, а не «максимальный режим GPT».
+- Официальная цена на момент подготовки: $0.10 за 1 млн входных и $0.50 за 1 млн выходных токенов (обычный стандартный тариф). Проверяй актуальную цену перед использованием: https://developers.openai.com/api/docs/pricing
+- OpenAI API оплачивается отдельно от подписки ChatGPT. Не добавляй баланс и не включай автоплатёж без отдельного решения.
+- Документация модели: https://developers.openai.com/api/docs/models/gpt-6-luna
