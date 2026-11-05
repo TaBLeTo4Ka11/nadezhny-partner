@@ -237,14 +237,14 @@ async function runTool(name: string, rawArgs: string, githubToken: string): Prom
     let content = new TextDecoder().decode(Buffer.concat(chunks.map((chunk) => Buffer.from(chunk))));
     if (type.includes("text/html")) {
       content = content
-        .replace(/<(script|style|noscript)[\\s\\S]*?<\\/\\1>/gi, " ")
-        .replace(/<(br|\\/p|\\/h[1-6]|\\/li|\\/div)>/gi, "\\n")
+        .replace(/<(script|style|noscript)[\s\S]*?<\/\1>/gi, " ")
+        .replace(/<(br|\/p|\/h[1-6]|\/li|\/div)>/gi, "\n")
         .replace(/<[^>]+>/g, " ")
         .replace(/&nbsp;/g, " ").replace(/&amp;/g, "&")
         .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"')
-        .replace(/&#39;/g, "'").replace(/[ \\t]+/g, " ").replace(/\\n\\s+/g, "\\n");
+        .replace(/&#39;/g, "'").replace(/[ \t]+/g, " ").replace(/\n\s+/g, "\n");
     }
-    return content.slice(0, 12_000) + (total >= 120_000 ? "\\n[Документация обрезана по лимиту размера.]" : "");
+    return content.slice(0, 12_000) + (total >= 120_000 ? "\n[Документация обрезана по лимиту размера.]" : "");
   }
 
   throw new Error("Инструмент не входит в разрешённый список.");
