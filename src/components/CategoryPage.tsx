@@ -1,33 +1,12 @@
 import { useEffect } from "react";
-import { catalog, productImages, catalogProductLinks } from "../data/companyContent";
+import { catalogCategories, productImages } from "../data/companyContent";
 import type { Product } from "../data/catalogPages";
-
-const slugs: Record<string, string> = {
-  "Двери с зеркалом": "dveri-s-zerkalom",
-  "Двери с терморазрывом": "dveri-s-termorazryvom",
-  "Двери МДФ-МДФ": "dveri-mdf-mdf",
-  "Двери Металл-МДФ": "dveri-metall-mdf",
-  "Двери металл-металл": "dveri-metall-metall",
-  "Коттеджные двери со стеклопакетом": "kottedzhnye-dveri-so-steklopaketom",
-  "Противопожарные двери": "protivopozharnye-dveri",
-  "Противопожарные ворота": "protivopozharnye-vorota",
-  "Противопожарные шторы": "protivopozharnye-shtory",
-  "Противопожарные люки": "protivopozharnye-lyuki",
-  "Светопрозрачные перегородки противопожарные": "svetoprozrachnye-peregorodki",
-  "Банковские лотки": "bankovskie-lotki",
-  "Двери 3 класса защиты": "dveri-3-klassa-zashchity",
-  "Двери защитные": "dveri-zashchitnye",
-  "Дверные блоки для строителей": "dvernye-bloki-dlya-stroiteley",
-  "Полнотелые деревянные двери": "polnotelye-derevyannye-dveri",
-  "Фурнитура для противопожарных дверей": "furnitura-dlya-protivopozharnyh-dverey",
-};
 
 const imageFallback = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%23f1f1ef'/%3E%3Cpath d='M310 470V130h180v340M280 470h240' fill='none' stroke='%23999' stroke-width='12'/%3E%3Ctext x='400' y='535' text-anchor='middle' font-family='Arial' font-size='24' fill='%23666'%3E%D0%A4%D0%BE%D1%82%D0%BE%20%D1%83%D1%82%D0%BE%D1%87%D0%BD%D1%8F%D0%B5%D1%82%D1%81%D1%8F%3C/text%3E%3C/svg%3E";
 
 export default function CategoryPage({ slug }: { slug: string }) {
-  const item = catalog.flatMap(group => group.items.map(name => ({ name, group: group.group })))
-    .find(entry => slugs[entry.name] === slug);
-  const products = item ? catalogProductLinks.filter(product => product.category === item.name) : [];
+  const item = catalogCategories.find((category) => category.slug === slug);
+  const products = item?.products ?? [];
   const images = item?.name === "Противопожарные двери"
     ? productImages.filter(product => /^ДМП-/.test(product.title))
     : item?.name === "Противопожарные ворота"
@@ -36,19 +15,15 @@ export default function CategoryPage({ slug }: { slug: string }) {
         ? productImages.filter(product => product.title === "Противопожарные шторы")
         : [];
 
-  const productCards: Product[] = products.map((product, index) => {
-    const matchingImage = productImages.find(image => image.title === product.title)
-      ?? images[index % Math.max(images.length, 1)];
-    return {
-      id: product.sourceUrl || `${slug}-${index}`,
-      name: product.title,
-      description: "Подробное описание и комплектация уточняются у компании.",
-      specs: [],
-      images: matchingImage?.src ? [matchingImage.src] : [],
-      colors: [],
-      price: null,
-    };
-  });
+  const productCards: Product[] = products.map((product) => ({
+    id: String(product.id),
+    name: product.title,
+    description: "Описание и комплектация уточняются у компании.",
+    specs: [],
+    images: product.images.length > 0 ? product.images : product.image ? [product.image] : [],
+    colors: [],
+    price: null,
+  }));
 
   useEffect(() => {
     document.title = item ? `${item.name} — Надёжный партнёр` : "Раздел не найден — Надёжный партнёр";
@@ -72,7 +47,7 @@ export default function CategoryPage({ slug }: { slug: string }) {
     </header>
     <main className="min-h-[70vh] bg-white px-6 py-16 lg:px-10">
       <div className="mx-auto max-w-[1200px]">
-        <p className="mb-5 text-xs font-semibold uppercase tracking-wider text-brand">{item.group}</p>
+        <p className="mb-5 text-xs font-semibold uppercase tracking-wider text-brand">{item.parentName || item.name}</p>
         <h1 className="text-[clamp(2.5rem,7vw,6rem)] font-extrabold leading-none">{item.name}</h1>
         {images.length > 0 && <section className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {images.map(image => <figure key={image.src} className="overflow-hidden border border-line">
