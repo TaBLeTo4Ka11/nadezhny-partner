@@ -1,11 +1,14 @@
 import { useEffect } from "react";
 import { catalogCategories, productImages } from "../data/companyContent";
-import type { Product } from "../data/catalogPages";
+import { catalogPageBySlug, type Product } from "../data/catalogPages";
 
 const imageFallback = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%23f1f1ef'/%3E%3Cpath d='M310 470V130h180v340M280 470h240' fill='none' stroke='%23999' stroke-width='12'/%3E%3Ctext x='400' y='535' text-anchor='middle' font-family='Arial' font-size='24' fill='%23666'%3E%D0%A4%D0%BE%D1%82%D0%BE%20%D1%83%D1%82%D0%BE%D1%87%D0%BD%D1%8F%D0%B5%D1%82%D1%81%D1%8F%3C/text%3E%3C/svg%3E";
 
 export default function CategoryPage({ slug }: { slug: string }) {
-  const item = catalogCategories.find((category) => category.slug === slug);
+  const page = catalogPageBySlug[slug];
+  const item = catalogCategories.find((category) =>
+    category.slug === slug || category.name === page?.title || page?.catalogLabels?.includes(category.name),
+  );
   const products = item?.products ?? [];
   const images = item?.name === "Противопожарные двери"
     ? productImages.filter(product => /^ДМП-/.test(product.title))
