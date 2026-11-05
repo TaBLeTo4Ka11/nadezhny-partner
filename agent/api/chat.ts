@@ -66,6 +66,22 @@ const tools = [
   {
     type: "function",
     function: {
+      name: "search_huggingface_hub",
+      description: "Search public Hugging Face models, datasets, or Spaces to discover open models, training data, and demos. Returns public metadata and links only; it does not download or run code.",
+      parameters: {
+        type: "object",
+        properties: {
+          kind: { type: "string", enum: ["models", "datasets", "spaces"] },
+          query: { type: "string", minLength: 2, maxLength: 120 },
+        },
+        required: ["kind", "query"],
+        additionalProperties: false,
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
       name: "check_package_vulnerabilities",
       description: "Check a specific package version against the free OSV.dev vulnerability database. Requires ecosystem, exact package name, and version.",
       parameters: {
@@ -214,6 +230,36 @@ async function runTool(name: string, rawArgs: string, githubToken: string): Prom
       updated: entry.package?.date,
       url: entry.package?.links?.npm,
     })));
+  }
+
+  if (name === "search_huggingface_hub") {
+    const kind = String(args.kind ?? "");
+    const query = String(args.query ?? "").trim();
+    if (!["models", "datasets", "spaces"].includes(kind) || query.length < 2 || query.length > 120) {
+      throw new Error("Укажи models, datasets или spaces и поисковый запрос.");
+    }
+    const endpoint = kind === "models" ? "models" : kind === "datasets" ? "datasets" : "spaces";
+    const params = new URLSearchParams({ search: query, limit: "8", sort: "downloads", direction: "-1" });
+    const response = await fetch(`https://huggingface.co/api/${endpoint}?${params.toString()}`, {
+      headers: { Accept: "application/json" },
+    });
+    if (!response.ok) throw new Error(`Hugging Face Hub вернул HTTP ${response.status}`);
+    const data = await response.json() as any[];
+    return JSON.stringify({
+      kind,
+      results: (Array.isArray(data) ? data : []).slice(0, 8).map((item: any) => ({
+        id: item.id,
+        author: item.author,
+        downloads: item.downloads,
+        likes: item.likes,
+        last_modified: item.lastModified,
+        pipeline_tag: item.pipeline_tag,
+        tags: (item.tags ?? []).slice(0, 12),
+        gated: item.gated,
+        url: `https://huggingface.co/${item.id}`,
+      })),
+      source: "https://huggingface.co/",
+    });
   }
 
   if (name === "check_package_vulnerabilities") {
