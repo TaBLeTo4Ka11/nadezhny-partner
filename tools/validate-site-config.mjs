@@ -18,8 +18,12 @@ const tailwind = read("tailwind.config.js");
 
 const groups = [...new Set(categoryPages.map((page) => page.group))];
 const categoryNames = categoryPages.map((page) => page.title);
-const slugBlock = categoryPage.match(/const slugs: Record<string, string> = \{([\s\S]*?)\n\};/)?.[1] ?? "";
-const slugEntries = [...slugBlock.matchAll(/"([^"]+)":\s*"([^"]+)"/g)].map(([, name, slug]) => ({ name, slug }));
+// Category routes are now driven by seo/catalog-pages.json via catalogPageBySlug.
+const hasCatalogSlugLookup =
+  /catalogPageBySlug\s*\[\s*slug\s*\]/.test(categoryPage) &&
+  /catalogPageBySlug/.test(categoryPage);
+const categorySlugs = categoryPages.map((page) => page.slug);
+const duplicateCategorySlugs = categorySlugs.filter((slug, index) => categorySlugs.indexOf(slug) !== index);
 const rewriteSources = new Set((vercel.rewrites ?? []).map((route) => route.source));
 const redirects = vercel.redirects ?? [];
 const productPaths = productPages.map((page) => `/product/${page.slug}/`);
@@ -33,9 +37,13 @@ else pass("5 catalogue groups found");
 if (categoryNames.length !== 17) fail(`expected 17 categories, found ${categoryNames.length}`);
 else pass("17 catalogue categories found");
 
-const missingSlug = categoryPages.filter((page) => !slugEntries.some((entry) => entry.slug === page.slug));
-if (missingSlug.length) fail(`categories without matching route slugs: ${missingSlug.map((page) => page.slug).join(", ")}`);
-else pass("all 17 category pages have matching local route slugs");
+if (duplicateCategorySlugs.length) fail(`duplicate category slugs: ${[...new Set(duplicateCategorySlugs)].join(", ")}`);
+if (!hasCatalogSlugLookup) fail("CategoryPage does not resolve routes through catalogPageBySlug");
+const invalidCategorySlugs = categoryPages.filter((page) => typeof page.slug !== "string" || !page.slug.trim());
+if (invalidCategorySlugs.length) fail("catalog-pages.json contains categories without valid route slugs");
+if (!duplicateCategorySlugs.length && hasCatalogSlugLookup && !invalidCategorySlugs.length) {
+  pass("all 17 category pages have unique slugs resolved from seo/catalog-pages.json");
+}
 
 const missingCategoryRewrite = categoryPages.filter((page) => !rewriteSources.has(`/catalog/${page.slug}/`));
 if (missingCategoryRewrite.length) fail(`missing category rewrites: ${missingCategoryRewrite.map((page) => page.slug).join(", ")}`);

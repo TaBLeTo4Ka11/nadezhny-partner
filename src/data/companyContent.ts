@@ -17,6 +17,8 @@ type SourceProduct = {
   images?: string[];
   categoryIds: number[];
   url?: string;
+  sourceUrl?: string;
+  localPath?: string;
 };
 
 const categories = catalogSource.categories as SourceCategory[];
@@ -58,6 +60,27 @@ export const catalog = topLevelCategories.map((parent) => {
 export const catalogUrls: Record<string, string> = Object.fromEntries(
   categories.map((category) => [category.name, `/catalog/${category.slug}/`]),
 );
+
+// Category IDs from the source catalog define the product/category relationship.
+export const catalogCategories = categories
+  .filter((category) => category.parent !== 0)
+  .map((category) => ({
+    id: category.id,
+    name: category.name,
+    slug: category.slug,
+    parentName: categories.find((parent) => parent.id === category.parent)?.name ?? "",
+    products: products
+      .filter((product) => product.categoryIds?.includes(category.id))
+      .map((product) => ({
+        id: product.id,
+        title: product.name.replace(/&#8212;|&#x2014;/g, "—").replace(/&amp;/g, "&"),
+        slug: product.slug,
+        image: product.image,
+        images: product.images ?? [],
+        sourceUrl: product.url,
+        localPath: product.slug ? `/product/${product.slug}/` : undefined,
+      })),
+  }));
 
 export const productImages = [
   {
