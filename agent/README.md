@@ -97,7 +97,7 @@
 
 ## Graphify knowledge graph (optional, zero LLM credits for code)
 
-Graphify is an Apache-2.0 open-source code knowledge-graph tool. Code-only extraction uses local tree-sitter parsing and requires no LLM key. The manual GitHub Actions workflow .github/workflows/graphify.yml builds graph.json, GRAPH_REPORT.md and graph.html and uploads them as a short-lived artifact. It does not commit generated output, change main, or send code to Graphify Cloud. The graph is an index, not an authority; always verify against current source files.
+Graphify is an Apache-2.0 open-source code knowledge-graph tool. Code-only extraction uses local tree-sitter parsing and requires no LLM key. The GitHub Actions workflow .github/workflows/graphify.yml builds graph.json, GRAPH_REPORT.md and graph.html using local code-only parsing, uploads the full graph as a 7-day artifact, and publishes only graph.json + GRAPH_REPORT.md to the dedicated feature branch agent/knowledge-graph. It runs on updates to the developer feature branch or manual dispatch. It never writes to main, deploys the site, or sends code to Graphify Cloud. The runtime agent can read the compact index through its existing read-only GitHub file tool. The graph is an index, not an authority; always verify against current source files.
 
 - Official repository: https://github.com/Graphify-Labs/graphify
 - Documentation: https://docs.graphify.com/reference/overview

@@ -38,5 +38,6 @@
 ## Developer tooling
 - Read official framework documentation through the HTTPS allowlist: React, Vite, Tailwind CSS, TypeScript, Three.js, Playwright, Vercel, GitHub and DeepSeek docs.
 - A separate Playwright smoke-test workflow checks the built site in desktop and mobile Chromium and uploads screenshots; it does not deploy or require provider keys.
+- Graphify runs on feature-branch updates and publishes only `knowledge-graph/graph.json` + `knowledge-graph/GRAPH_REPORT.md` to dedicated branch `agent/knowledge-graph`; the runtime agent may read these via the existing GitHub read-only file tool.
 - Context7 is documented as an optional authenticated enhancement only. Do not claim it is connected without a real key/OAuth authorization; prefer official public documentation fallback meanwhile.
 - Gemini and Groq provider integrations are not enabled until the owner supplies their own keys through a secure server-side environment configuration. Never request keys in chat or silently create paid accounts.

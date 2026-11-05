@@ -1,19 +1,27 @@
 name: Build code knowledge graph
 
 on:
+  push:
+    branches: [agent/deepseek-dev-assistant]
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: graphify-knowledge-index
+  cancel-in-progress: true
 
 jobs:
   graphify:
-    name: Build local code graph
+    name: Build and publish local code graph
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Checkout repository
+      - name: Checkout feature branch
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -27,7 +35,7 @@ jobs:
           test -s graphify-out/graph.json
           test -s graphify-out/GRAPH_REPORT.md
           test -s graphify-out/graph.html
-      - name: Upload graph artifacts
+      - name: Upload full graph artifact
         uses: actions/upload-artifact@v4
         with:
           name: project-knowledge-graph
@@ -36,3 +44,29 @@ jobs:
             graphify-out/GRAPH_REPORT.md
             graphify-out/graph.html
           retention-days: 7
+      - name: Publish compact graph index to dedicated feature branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/graphify-index
+          cp graphify-out/graph.json graphify-out/GRAPH_REPORT.md /tmp/graphify-index/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin agent/knowledge-graph || true
+          if git show-ref --verify --quiet refs/remotes/origin/agent/knowledge-graph; then
+            git checkout -B agent/knowledge-graph origin/agent/knowledge-graph
+            git clean -fdx
+          else
+            git checkout --orphan agent/knowledge-graph
+            git clean -fdx
+          fi
+          mkdir -p knowledge-graph
+          cp /tmp/graphify-index/graph.json /tmp/graphify-index/GRAPH_REPORT.md knowledge-graph/
+          git add knowledge-graph/graph.json knowledge-graph/GRAPH_REPORT.md
+          if git diff --cached --quiet; then
+            echo "Graph index is unchanged."
+          else
+            git commit -m "chore: refresh generated Graphify knowledge index"
+            git push origin HEAD:refs/heads/agent/knowledge-graph
+          fi
