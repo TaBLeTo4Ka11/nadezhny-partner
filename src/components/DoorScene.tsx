@@ -321,6 +321,7 @@ export default function DoorScene() {
     let permissionRequested = false;
     let exploded = false;
     let explodeProgress = 0;
+    let explodeVelocity = 0;
     let raf = 0;
     let last = 0;
     let elapsed = 0;
@@ -396,10 +397,15 @@ export default function DoorScene() {
 
     const updateExploded = (dt: number) => {
       const target = exploded ? 1 : 0;
-      const stiffness = 8.5;
-      const damping = 5.8;
-      const velocity = (target - explodeProgress) * stiffness;
-      explodeProgress = THREE.MathUtils.clamp(explodeProgress + velocity * dt * (1 - Math.min(damping * dt, 0.75)), 0, 1);
+      const stiffness = 54;
+      const damping = 10.5;
+      explodeVelocity += (target - explodeProgress) * stiffness * dt;
+      explodeVelocity *= Math.exp(-damping * dt);
+      explodeProgress += explodeVelocity * dt;
+      if (explodeProgress < 0 || explodeProgress > 1) {
+        explodeProgress = THREE.MathUtils.clamp(explodeProgress, 0, 1);
+        explodeVelocity = 0;
+      }
       const p = THREE.MathUtils.smoothstep(explodeProgress, 0.02, 0.98);
       frameGroup.position.z = -0.48 * p;
       leafGroup.position.z = 0.72 * p;
