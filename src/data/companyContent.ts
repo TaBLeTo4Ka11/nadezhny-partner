@@ -17,6 +17,8 @@ type SourceProduct = {
   images?: string[];
   categoryIds: number[];
   url?: string;
+  sourceUrl?: string;
+  localPath?: string;
 };
 
 const categories = catalogSource.categories as SourceCategory[];
@@ -75,6 +77,8 @@ export const catalogCategories = categories
         slug: product.slug,
         image: product.image,
         images: product.images ?? [],
+        sourceUrl: product.url,
+        localPath: product.slug ? `/product/${product.slug}/` : undefined,
       })),
   }));
 
