@@ -439,6 +439,11 @@ export default async function handler(req: any, res: any) {
       return send(res, 400, { error: "Последнее сообщение должно быть от пользователя." });
     }
 
+    const latestPrompt = messages[messages.length - 1].content;
+    const needsMaximumReasoning =
+      latestPrompt.length > 1_500 ||
+      /полный аудит|архитектур|рефактор|безопас|уязвим|сложн|ошибк|падает|интеграц|оптимиз|производитель|деплой|workflow|тестир|переписать|многошаг|разобрать весь|code review|debug|security|architecture|refactor/i.test(latestPrompt);
+    const reasoningEffort = needsMaximumReasoning ? "max" : "high";
     const conversation: any[] = [{ role: "system", content: systemPrompt }, ...messages];
     const totalUsage = { prompt_tokens: 0, completion_tokens: 0, total_tokens: 0 };
     for (let round = 0; round <= MAX_TOOL_ROUNDS; round += 1) {
@@ -454,7 +459,7 @@ export default async function handler(req: any, res: any) {
           tools,
           tool_choice: "auto",
           thinking: { type: "enabled" },
-          reasoning_effort: "high",
+          reasoning_effort: reasoningEffort,
           max_tokens: 4_096,
           stream: false,
         }),
