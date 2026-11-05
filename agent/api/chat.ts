@@ -461,37 +461,77 @@ export default async function handler(req: any, res: any) {
       if (!claudeKey) {
         return send(res, 503, { error: "Claude не настроен: добавь CLAUDE_API_KEY в переменные окружения Vercel-проекта агента. DeepSeek остаётся доступен без него." });
       }
-      const claudeResponse = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: {
-          "x-api-key": claudeKey,
-          "anthropic-version": "2023-06-01",
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          model: claudeModels[provider],
-          max_tokens: 4_096,
-          system: systemPrompt + "\n\nВ этом режиме инструменты GitHub отключены: анализируй только переданную переписку и явно отмечай, какие файлы или факты не были проверены.",
-          messages,
-        }),
-      });
-      if (!claudeResponse.ok) {
-        const detail = await claudeResponse.text();
-        return send(res, 502, { error: `Ошибка Claude API: HTTP ${claudeResponse.status}`, detail: detail.slice(0, 500) });
+      const claudeTools = tools.map((item: any) => ({
+        name: item.function.name,
+        description: item.function.description,
+        input_schema: item.function.parameters,
+      }));
+      const claudeConversation: any[] = [...messages];
+      for (let round = 0; round <= MAX_TOOL_ROUNDS; round += 1) {
+        const claudeResponse = await fetch("https://api.anthropic.com/v1/messages", {
+          method: "POST",
+          headers: {
+            "x-api-key": claudeKey,
+            "anthropic-version": "2023-06-01",
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            model: claudeModels[provider],
+            max_tokens: 4_096,
+            system: systemPrompt,
+            messages: claudeConversation,
+            tools: claudeTools,
+            tool_choice: { type: "auto" },
+          }),
+        });
+        if (!claudeResponse.ok) {
+          const detail = await claudeResponse.text();
+          return send(res, 502, { error: "Ошибка Claude API: HTTP " + claudeResponse.status, detail: detail.slice(0, 500) });
+        }
+        const claudeData = await claudeResponse.json() as any;
+        if (claudeData.usage) {
+          totalUsage.prompt_tokens += Number(claudeData.usage.input_tokens ?? 0);
+          totalUsage.completion_tokens += Number(claudeData.usage.output_tokens ?? 0);
+          totalUsage.total_tokens += Number(claudeData.usage.input_tokens ?? 0) + Number(claudeData.usage.output_tokens ?? 0);
+        }
+        const blocks = claudeData.content ?? [];
+        const toolCalls = blocks.filter((part: any) => part.type === "tool_use");
+        const reply = blocks.filter((part: any) => part.type === "text").map((part: any) => part.text ?? "").join("\n").trim();
+        if (!toolCalls.length) {
+          return send(res, 200, {
+            reply: reply || "Claude вернул пустой текстовый ответ.",
+            model: claudeData.model ?? claudeModels[provider],
+            provider: "claude",
+            usage: totalUsage,
+          });
+        }
+        if (totalUsage.total_tokens >= MAX_TOTAL_TOKENS_PER_REQUEST) {
+          return send(res, 200, {
+            reply: (reply ? reply + "\n\n" : "") + "Остановил дополнительные обращения к инструментам: достигнут лимит токенов на один запрос.",
+            model: claudeData.model ?? claudeModels[provider],
+            provider: "claude",
+            usage: totalUsage,
+          });
+        }
+        claudeConversation.push({ role: "assistant", content: blocks });
+        const toolResults = [];
+        for (const call of toolCalls) {
+          let result: string;
+          try {
+            result = await runTool(call.name, JSON.stringify(call.input ?? {}), githubToken);
+          } catch (error) {
+            result = JSON.stringify({ error: error instanceof Error ? error.message : "Ошибка инструмента." });
+          }
+          toolResults.push({ type: "tool_result", tool_use_id: call.id, content: result.slice(0, 14_000) });
+        }
+        claudeConversation.push({ role: "user", content: toolResults });
       }
-      const claudeData = await claudeResponse.json() as any;
-      const reply = (claudeData.content ?? [])
-        .filter((part: any) => part.type === "text")
-        .map((part: any) => part.text ?? "")
-        .join("\n")
-        .trim();
-      if (!reply) return send(res, 502, { error: "Claude вернул пустой ответ." });
-      const usage = claudeData.usage ? {
-        prompt_tokens: Number(claudeData.usage.input_tokens ?? 0),
-        completion_tokens: Number(claudeData.usage.output_tokens ?? 0),
-        total_tokens: Number(claudeData.usage.input_tokens ?? 0) + Number(claudeData.usage.output_tokens ?? 0),
-      } : null;
-      return send(res, 200, { reply, model: claudeData.model ?? claudeModels[provider], provider: "claude", usage });
+      return send(res, 200, {
+        reply: "Остановил цепочку инструментов после достижения лимита безопасности. Уточни задачу и попробуй ещё раз.",
+        model: claudeModels[provider],
+        provider: "claude",
+        usage: totalUsage,
+      });
     }
     if (!deepseekKey) {
       return send(res, 503, { error: "DeepSeek не настроен: добавь DEEPSEEK_API_KEY в переменные окружения." });
