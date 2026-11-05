@@ -33,3 +33,10 @@
 - Ручной workflow: .github/workflows/graphify.yml; артефакт живёт 7 дней и не коммитится автоматически.
 - Не использовать Graphify Cloud trial и не отправлять исходники во внешний cloud.
 - Граф устаревает после изменений; сверять с текущими файлами.
+
+
+## Developer tooling
+- Read official framework documentation through the HTTPS allowlist: React, Vite, Tailwind CSS, TypeScript, Three.js, Playwright, Vercel, GitHub and DeepSeek docs.
+- A separate Playwright smoke-test workflow checks the built site in desktop and mobile Chromium and uploads screenshots; it does not deploy or require provider keys.
+- Context7 is documented as an optional authenticated enhancement only. Do not claim it is connected without a real key/OAuth authorization; prefer official public documentation fallback meanwhile.
+- Gemini and Groq provider integrations are not enabled until the owner supplies their own keys through a secure server-side environment configuration. Never request keys in chat or silently create paid accounts.

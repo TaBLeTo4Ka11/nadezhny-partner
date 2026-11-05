@@ -103,3 +103,12 @@ Graphify is an Apache-2.0 open-source code knowledge-graph tool. Code-only extra
 - Documentation: https://docs.graphify.com/reference/overview
 - Package: https://pypi.org/project/graphifyy/
 - Cloud features/trials are intentionally not enabled.
+
+
+## Browser smoke tests (Playwright)
+
+A separate GitHub Actions workflow runs the production build locally, serves the built site, and checks the homepage in desktop and mobile Chromium. It verifies the document title, React root mount, and uncaught page errors, then uploads screenshots for diagnosis. The workflow runs on pull requests and pushes to the feature branch; it does not deploy the site or require API keys. Playwright is installed only in the ephemeral GitHub runner with `--no-save`; it is not added to the site's production dependencies or lockfile.
+
+## Expanded documentation sources
+
+The agent's HTTPS documentation allowlist also includes official React, Vite, Tailwind CSS, TypeScript, Three.js, Playwright and Context7 documentation. This is a no-account fallback for reading official docs. Context7's hosted API/MCP can offer richer version-aware snippets, but its API authentication and quotas must be configured separately; no Context7 account or key is assumed or fabricated.
