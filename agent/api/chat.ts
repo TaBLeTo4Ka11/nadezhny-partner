@@ -178,7 +178,9 @@ async function runTool(name: string, rawArgs: string, githubToken: string): Prom
     if (data.type !== "file" || typeof data.content !== "string") {
       throw new Error("Это не обычный текстовый файл.");
     }
-    const content = Buffer.from(data.content.replace(/\n/g, ""), "base64").toString("utf8");
+    const binary = atob(data.content.replace(/\n/g, ""));
+    const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
+    const content = new TextDecoder().decode(bytes);
     if (content.length > 12_000) return content.slice(0, 12_000) + "\n[Файл обрезан: превышен лимит вывода.]";
     return content;
   }
@@ -285,7 +287,13 @@ async function runTool(name: string, rawArgs: string, githubToken: string): Prom
       if (chunk.length > remaining) break;
     }
     await reader.cancel().catch(() => undefined);
-    let content = new TextDecoder().decode(Buffer.concat(chunks.map((chunk) => Buffer.from(chunk))));
+    const combined = new Uint8Array(total);
+    let offset = 0;
+    for (const chunk of chunks) {
+      combined.set(chunk, offset);
+      offset += chunk.length;
+    }
+    let content = new TextDecoder().decode(combined);
     if (type.includes("text/html")) {
       content = content
         .replace(/<(script|style|noscript)[\s\S]*?<\/\1>/gi, " ")
@@ -304,9 +312,10 @@ async function runTool(name: string, rawArgs: string, githubToken: string): Prom
 export default async function handler(req: any, res: any) {
   if (req.method !== "POST") return send(res, 405, { error: "Method not allowed" });
 
-  const accessKey = process.env.AGENT_ACCESS_KEY;
-  const deepseekKey = process.env.DEEPSEEK_API_KEY;
-  const githubToken = process.env.GITHUB_TOKEN;
+  const env = (globalThis as typeof globalThis & { process?: { env?: Record<string, string | undefined> } }).process?.env ?? {};
+  const accessKey = env.AGENT_ACCESS_KEY;
+  const deepseekKey = env.DEEPSEEK_API_KEY;
+  const githubToken = env.GITHUB_TOKEN;
   if (!accessKey || !deepseekKey || !githubToken) {
     return send(res, 503, { error: "Сервер не настроен: добавьте необходимые переменные окружения." });
   }
