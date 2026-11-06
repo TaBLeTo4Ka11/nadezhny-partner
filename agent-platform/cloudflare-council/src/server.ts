@@ -1,8 +1,9 @@
 import { Agent, callable, routeAgentRequest } from "agents";
 import { generateText } from "ai";
 import { createWorkersAI } from "workers-ai-provider";
+import { createRemoteJWKSet, jwtVerify } from "jose";
 
-interface Env { AI: Ai; }
+interface Env { AI: Ai; ACCESS_TEAM_DOMAIN?: string; ACCESS_AUD?: string; }
 type Speaker = "user" | "architect" | "critic" | "verifier" | "synthesis" | "system";
 type Entry = { id: string; speaker: Speaker; stage: string; text: string; createdAt: number };
 type CouncilState = { status: "idle" | "running" | "complete" | "error"; task: string; entries: Entry[]; finalAnswer: string; updatedAt: number };
@@ -75,8 +76,26 @@ export class CouncilAgent extends Agent<Env, CouncilState> {
   }
 }
 
+async function hasValidAccessToken(request: Request, env: Env): Promise<boolean> {
+  if (!env.ACCESS_TEAM_DOMAIN || !env.ACCESS_AUD) return false;
+  const token = request.headers.get("Cf-Access-Jwt-Assertion");
+  if (!token) return false;
+  try {
+    const issuer = env.ACCESS_TEAM_DOMAIN.replace(/\\/$/, "");
+    const jwks = createRemoteJWKSet(new URL(issuer + "/cdn-cgi/access/certs"));
+    await jwtVerify(token, jwks, { audience: env.ACCESS_AUD, issuer });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export default {
   async fetch(request: Request, env: Env) {
+    if (!(await hasValidAccessToken(request, env))) {
+      const status = env.ACCESS_TEAM_DOMAIN && env.ACCESS_AUD ? 401 : 503;
+      return Response.json({ error: status === 401 ? "Access denied" : "Cloudflare Access is not configured" }, { status });
+    }
     return (await routeAgentRequest(request, env)) ?? new Response("Not found", { status: 404 });
   }
 } satisfies ExportedHandler<Env>;
