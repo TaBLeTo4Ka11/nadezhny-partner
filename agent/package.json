@@ -2,5 +2,11 @@
   "name": "nadezhny-partner-dev-agent",
   "private": true,
   "version": "0.1.0",
-  "type": "module"
+  "type": "module",
+  "scripts": {
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "vite": "8.3.5"
+  }
 }
