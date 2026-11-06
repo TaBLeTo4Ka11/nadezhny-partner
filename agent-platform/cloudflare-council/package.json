@@ -15,7 +15,8 @@
     "workers-ai-provider": "^4.0.0",
     "zod": "^4.0.0",
     "react": "^19.2.1",
-    "react-dom": "^19.2.1"
+    "react-dom": "^19.2.1",
+    "jose": "^6.2.15"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.67.0",
