@@ -13,7 +13,7 @@ The current strongest zero-server candidate is Cloudflare Workers + SQLite-backe
 Official sources:
 - https://developers.cloudflare.com/agents/getting-started/quick-start/
 - https://developers.cloudflare.com/agents/runtime/operations/using-ai-models/
-- https://developers.cloudflare.com/workers/platform/pricing/
+- https://developers.cloudflare.com/workers/platform/pricing/\n- https://developers.cloudflare.com/workers-ai/platform/pricing/
 
 ## Current prototype
 
@@ -21,7 +21,7 @@ Official sources:
 - src/client.tsx: responsive Russian-language chat UI designed for iPhone Safari / Add to Home Screen.
 - wrangler.jsonc: Workers AI binding and SQLite-backed Durable Object registration.
 
-Important honesty: the initial prototype uses the same Workers AI model for each role with different instructions. It is a multi-perspective workflow, but not yet a multi-vendor council. Gemini, DeepSeek, Claude and OpenAI adapters should be added only after their free-tier terms, model access, tool calling and credentials are verified. No existing account secrets are copied into this project.
+Important honesty: the prototype assigns different Workers AI model families to the roles: GLM-4.7-Flash for architecture and synthesis, Qwen3-30B-A3B for independent criticism, and Llama 3.3 70B for arbitration. This is model diversity within one provider, not yet a multi-vendor council. Workers AI Free currently includes 10,000 Neurons/day; exceeding the daily free allocation causes inference requests to fail rather than silently bill. Gemini, DeepSeek API, Claude and OpenAI adapters should be added only after their free-tier terms, model access, tool calling and credentials are verified. No existing account secrets are copied into this project.
 
 ## Security and deployment gates
 
