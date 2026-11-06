@@ -1,0 +1,1 @@
+{"extends":"agents/tsconfig","compilerOptions":{"target":"ES2021","jsx":"react-jsx","moduleResolution":"Bundler","strict":true,"noEmit":true,"types":["vite/client"]},"include":["src","vite.config.ts"]}
