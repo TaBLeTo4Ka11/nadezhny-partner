@@ -7,7 +7,7 @@ type Speaker = "user" | "architect" | "critic" | "verifier" | "synthesis" | "sys
 type Entry = { id: string; speaker: Speaker; stage: string; text: string; createdAt: number };
 type CouncilState = { status: "idle" | "running" | "complete" | "error"; task: string; entries: Entry[]; finalAnswer: string; updatedAt: number };
 
-const MODEL = "@cf/zai-org/glm-4.7-flash";
+const MODELS = { architect: "@cf/zai-org/glm-4.7-flash", critic: "@cf/qwen/qwen3-30b-a3b-fp8", verifier: "@cf/meta/llama-3.3-70b-instruct-fp8-fast", synthesis: "@cf/zai-org/glm-4.7-flash" } as const;
 const MAX_TASK_LENGTH = 8_000;
 const MAX_ENTRIES = 80;
 const makeEntry = (speaker: Speaker, stage: string, text: string): Entry => ({ id: crypto.randomUUID(), speaker, stage, text, createdAt: Date.now() });
@@ -35,8 +35,8 @@ export class CouncilAgent extends Agent<Env, CouncilState> {
     this.setState({ ...this.state, status: "running", task, finalAnswer: "", entries: [makeEntry("user", "Задача", task)], updatedAt: Date.now() });
     try {
       const [architect, critic] = await Promise.all([
-        this.ask("Ты архитектор и ведущий инженер. Самостоятельно реши задачу. Дай конкретный план, технические решения, риски и проверяемые критерии результата. Не выдумывай факты.", task),
-        this.ask("Ты независимый критик. Самостоятельно разбери задачу с нуля. Ищи более сильные решения, скрытые ограничения, угрозы безопасности, стоимость и причины провала очевидного плана. Не подстраивайся под предполагаемый ответ.", task)
+        this.ask(MODELS.architect, "Ты архитектор и ведущий инженер. Самостоятельно реши задачу. Дай конкретный план, технические решения, риски и проверяемые критерии результата. Не выдумывай факты.", task),
+        this.ask(MODELS.critic, "Ты независимый критик. Самостоятельно разбери задачу с нуля. Ищи более сильные решения, скрытые ограничения, угрозы безопасности, стоимость и причины провала очевидного плана. Не подстраивайся под предполагаемый ответ.", task)
       ]);
       this.append(makeEntry("architect", "Независимый анализ", architect), makeEntry("critic", "Независимая критика", critic));
 
