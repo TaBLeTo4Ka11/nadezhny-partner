@@ -81,7 +81,7 @@ async function hasValidAccessToken(request: Request, env: Env): Promise<boolean>
   const token = request.headers.get("Cf-Access-Jwt-Assertion");
   if (!token) return false;
   try {
-    const issuer = env.ACCESS_TEAM_DOMAIN.replace(/\\/$/, "");
+    const issuer = env.ACCESS_TEAM_DOMAIN.endsWith("/") ? env.ACCESS_TEAM_DOMAIN.slice(0, -1) : env.ACCESS_TEAM_DOMAIN;
     const jwks = createRemoteJWKSet(new URL(issuer + "/cdn-cgi/access/certs"));
     await jwtVerify(token, jwks, { audience: env.ACCESS_AUD, issuer });
     return true;
