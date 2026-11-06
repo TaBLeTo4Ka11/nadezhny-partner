@@ -16,7 +16,7 @@ export class CouncilAgent extends Agent<Env, CouncilState> {
   initialState: CouncilState = { status: "idle", task: "", entries: [], finalAnswer: "", updatedAt: Date.now() };
 
   private async ask(system: string, prompt: string): Promise<string> {
-    const workersai = createWorkersAI({ binding: this.env.AI });
+    const workersai = createWorkersAI({ binding: (this as unknown as { env: Env }).env.AI });
     const result = await generateText({ model: workersai(MODEL), system, prompt, maxOutputTokens: 1_200, temperature: 0.35 });
     return result.text.trim();
   }
