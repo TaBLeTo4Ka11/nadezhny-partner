@@ -26,7 +26,7 @@ Important honesty: the prototype assigns different Workers AI model families to 
 ## Security and deployment gates
 
 This prototype is not production-safe to expose publicly yet. Before deployment:
-1. Add and test authentication (prefer Cloudflare Access / Zero Trust; do not put a long-lived secret in a URL).
+1. Create a Cloudflare Access self-hosted application for the worker hostname and restrict its policy to the owner's email identity. The Worker independently verifies the Cf-Access-Jwt-Assertion signature and audience on every request; missing configuration fails closed. Store ACCESS_TEAM_DOMAIN (for example https://your-team.cloudflareaccess.com) and ACCESS_AUD (the Access application's AUD tag) with wrangler secret put. Do not put a long-lived secret in a URL.
 2. Add request rate limits and per-session ownership checks.
 3. Add export/backup and data deletion controls.
 4. Add tests for concurrent runs, interrupted requests, persistence after hibernation, and quota exhaustion.
@@ -46,7 +46,7 @@ After the security gates pass and an account is available:
 - Run npx wrangler login.
 - Deploy with npm run deploy.
 
-Deployment is intentionally not automated from this repository because no Cloudflare account is connected to the available integrations. No paid resources have been created.
+Deployment is intentionally not automated from this repository because no Cloudflare account is connected to the available integrations. The app rejects all requests until Cloudflare Access is configured and its two verification values are set. No paid resources have been created.
 
 ## Roadmap
 
