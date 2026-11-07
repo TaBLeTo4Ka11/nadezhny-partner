@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if ! command -v claude >/dev/null 2>&1; then
-  echo "Claude Code is not installed. In the Codespaces terminal run:"
-  echo "npm install --global @anthropic-ai/claude-code"
+if ! command -v claude >/dev/null 2>&1 && ! command -v npx >/dev/null 2>&1; then
+  echo "Node.js/npm are unavailable in this Codespace. Rebuild the container and try again."
   exit 1
 fi
 
@@ -26,4 +25,9 @@ export ANTHROPIC_DEFAULT_HAIKU_MODEL="claude-fable-5-1"
 
 unset RELAY_API_KEY
 echo "Starting Claude Code in plan mode. It should inspect first and ask before edits."
-exec claude --model claude-fable-5-1 --permission-mode plan
+
+if command -v claude >/dev/null 2>&1; then
+  exec claude --model claude-fable-5-1 --permission-mode plan
+else
+  exec npx --yes @anthropic-ai/claude-code --model claude-fable-5-1 --permission-mode plan
+fi
