@@ -21,7 +21,9 @@ type SourceProduct = {
   localPath?: string;
 };
 
-const categories = catalogSource.categories as SourceCategory[];
+const normalizeCatalogSlug = (slug: string) => slug.replace(/-dverej$/, "-dverey").replace("dveri-zashhitnye", "dveri-zashchitnye");
+
+const categories = (catalogSource.categories as SourceCategory[]).map((category) => ({ ...category, slug: normalizeCatalogSlug(category.slug) }));
 const products = catalogSource.products as SourceProduct[];
 const facts = factsSource as typeof factsSource & {
   company: { brand: string; description: string; history: string; homepageCopy: string; advantages: { title: string; copy: string }[] };

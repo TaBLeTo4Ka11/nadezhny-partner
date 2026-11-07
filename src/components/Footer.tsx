@@ -15,7 +15,7 @@ const headingCls = "mb-5 text-xs font-semibold uppercase tracking-[.2em] text-mu
 
 export default function Footer() {
   return (
-    <footer className="border-t-2 border-ink bg-white px-6 pb-[calc(3rem+env(safe-area-inset-bottom))] pt-16 text-ink lg:px-10 lg:pt-20">
+    <footer id="contacts" className="border-t-2 border-ink bg-white px-6 pb-[calc(3rem+env(safe-area-inset-bottom))] pt-16 text-ink lg:px-10 lg:pt-20">
       <div className="mx-auto max-w-[1400px]">
         <div className="grid gap-14 lg:grid-cols-[1.4fr_1fr]">
           {/* Каталог */}

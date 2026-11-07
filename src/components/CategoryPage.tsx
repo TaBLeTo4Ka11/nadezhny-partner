@@ -119,7 +119,7 @@ export default function CategoryPage({ slug }: { slug: string }) {
               </div>
             </article>
           </div>
-          <p className="mt-6 max-w-2xl text-sm leading-6 text-muted">Карточка показывает структуру раздела. Реальные модели, изображения и характеристики будут добавлены после проверки исходных данных компании.</p>
+          <p className="mt-6 max-w-2xl text-sm leading-6 text-muted">В этом разделе собраны основные сведения о категории и доступные изображения продукции компании.</p>
         </section>}
         <div className="mt-10 flex flex-wrap gap-5">
           <a href="/#kp" className="border border-ink px-6 py-3 text-sm font-semibold">Связаться с компанией</a>

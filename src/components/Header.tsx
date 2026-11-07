@@ -59,7 +59,7 @@ const CATALOG_GROUPS = [
   },
   {
     title: "Антипаника",
-    items: [{ label: "Фурнитура Антипаника", slug: "furnitura-dlya-protivopozharnyh-dverej" }],
+    items: [{ label: "Фурнитура Антипаника", slug: "furnitura-dlya-protivopozharnyh-dverey" }],
   },
 ];
 

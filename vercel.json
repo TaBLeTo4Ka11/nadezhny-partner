@@ -124,6 +124,10 @@
     {
       "source": "/color-palette/ral-classic/",
       "destination": "/index.html"
+    },
+    {
+      "source": "/((?!assets/|images/|api/).*)",
+      "destination": "/index.html"
     }
   ],
   "headers": [

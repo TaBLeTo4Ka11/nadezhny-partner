@@ -25,7 +25,7 @@ const categories = [
   { title: "Двери защитные", group: "Бронированные двери", slug: "dveri-zashchitnye", image: "dz-ii-3-2-01.png" },
   { title: "Полнотелые деревянные двери", group: "Деревянные двери", slug: "polnotelye-derevyannye-dveri", image: "dvernye-bloki-polnotelye-s-zamkom-i-petlyami-v-komplekte-01.png" },
   { title: "Дверные блоки для строителей", group: "Деревянные двери", slug: "dvernye-bloki-dlya-stroiteley", image: "dvernye-bloki-polnotelye-s-zamkom-i-petlyami-v-komplekte-02.jpg" },
-  { title: "Фурнитура для противопожарных дверей", group: "Антипаника", slug: "furnitura-dlya-protivopozharnyh-dverej", image: "apeks-pb-1300a-panic-bs-shtanga-nazhimnaya-01.webp" },
+  { title: "Фурнитура для противопожарных дверей", group: "Антипаника", slug: "furnitura-dlya-protivopozharnyh-dverey", image: "apeks-pb-1300a-panic-bs-shtanga-nazhimnaya-01.webp" },
 ];
 
 export default function CatalogSection() {
