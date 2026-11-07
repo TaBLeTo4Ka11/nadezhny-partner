@@ -5,7 +5,7 @@ This repository has a prepared Codespaces environment for Claude Code and RelayM
 ## Start on iPhone
 1. Open this repository on GitHub and switch to branch `claude/fable-setup`.
 2. Tap **Code → Codespaces → Create codespace on claude/fable-setup**.
-3. Wait for the Codespace to finish creating. The first setup installs the project dependencies and Claude Code; it can take a few minutes.
+3. The first setup installs Claude Code only. Project dependencies are deliberately deferred so the Codespace can start faster; install them later only if needed for build/test checks.
 4. Open **Terminal → New Terminal**.
 5. Run:
 
