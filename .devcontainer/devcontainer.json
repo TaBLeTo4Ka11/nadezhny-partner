@@ -1,0 +1,19 @@
+{
+  "name": "Nadezhny Partner — Claude Code",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-24-bookworm",
+  "postCreateCommand": "npm ci && npm install --global @anthropic-ai/claude-code",
+  "forwardPorts": [5173],
+  "portsAttributes": {
+    "5173": {
+      "label": "Vite development server",
+      "onAutoForward": "notify"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  }
+}
