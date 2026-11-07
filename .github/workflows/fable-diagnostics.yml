@@ -1,0 +1,27 @@
+name: Fable setup diagnostics
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnostics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out selected branch
+        uses: actions/checkout@v4
+
+      - name: Report safe diagnostics
+        env:
+          RELAY_API_KEY: ${{ secrets.RELAY_API_KEY }}
+        run: |
+          echo "BRANCH=$(git branch --show-current)"
+          echo "NODE=$(node --version)"
+          echo "NPM=$(npm --version)"
+          if [ -f scripts/start-fable.sh ]; then echo "START_SCRIPT=EXISTS"; else echo "START_SCRIPT=MISSING"; fi
+          if [ -f CLAUDE.md ]; then echo "CLAUDE_MD=EXISTS"; else echo "CLAUDE_MD=MISSING"; fi
+          if command -v claude >/dev/null 2>&1; then echo "CLAUDE_CLI=AVAILABLE_ON_RUNNER"; else echo "CLAUDE_CLI=NOT_INSTALLED_ON_RUNNER"; fi
+          if [ -n "$RELAY_API_KEY" ]; then echo "RELAY_SECRET=SET"; else echo "RELAY_SECRET=NOT_SET"; fi
+          echo "NOTE=GitHub-hosted runner diagnostics only; this does not inspect the Codespace runtime."
