@@ -8,10 +8,6 @@ const projectPhotos = Array.from({ length: 11 }, (_, index) =>
   "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/projects/project-" +
   String(index + 1).padStart(3, "0") + ".jpg",
 );
-const productionPhotos = Array.from(
-  { length: 13 },
-  (_, index) => "/images/production/production-" + String(index + 1).padStart(2, "0") + ".jpeg",
-);
 
 type GalleryPhoto = { src: string; label: string };
 
@@ -116,7 +112,6 @@ function PhotoSlider({ photos, title }: { photos: GalleryPhoto[]; title: string 
 export default function GallerySection() {
   const root = useRef<HTMLElement>(null);
   const projects: GalleryPhoto[] = projectPhotos.map((src) => ({ src, label: "Реализованный объект" }));
-  const production: GalleryPhoto[] = productionPhotos.map((src) => ({ src, label: "Производство" }));
 
   useLayoutEffect(() => {
     const element = root.current;
@@ -139,18 +134,15 @@ export default function GallerySection() {
       <div className="mx-auto max-w-[1400px]">
         <div className="flex flex-col justify-between gap-6 border-b-2 border-ink pb-8 md:flex-row md:items-end">
           <div>
-            <p className="mb-4 text-xs font-extrabold uppercase tracking-[.22em] text-[#c62828]">Практика и производство</p>
+            <p className="mb-4 text-xs font-extrabold uppercase tracking-[.22em] text-[#c62828]">Практика</p>
             <h2 className="text-[clamp(2.4rem,6vw,5.5rem)] font-black leading-[.9] tracking-[-.06em]">Наши работы<span className="text-[#c62828]">.</span></h2>
           </div>
-          <p className="max-w-md text-sm leading-7 text-ink/60 md:text-right">Фотографии реализованных объектов и производственных процессов компании.</p>
+          <p className="max-w-md text-sm leading-7 text-ink/60 md:text-right">Фотографии реализованных объектов компании.</p>
         </div>
         <div data-gallery-slider className="mt-8">
           <PhotoSlider photos={projects} title="Реализованные объекты" />
         </div>
-        <div data-gallery-slider className="mt-14 border-t border-line pt-8">
-          <h3 className="text-xl font-black tracking-tight sm:text-2xl">Производство<span className="text-[#c62828]">.</span></h3>
-          <PhotoSlider photos={production} title="Производственные процессы" />
-        </div>
+
       </div>
     </section>
   );

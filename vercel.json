@@ -126,7 +126,7 @@
       "destination": "/index.html"
     },
     {
-      "source": "/((?!assets/|images/|api/).*)",
+      "source": "/((?!assets(?:/|$)|images(?:/|$)|api(?:/|$)).*)",
       "destination": "/index.html"
     }
   ],
