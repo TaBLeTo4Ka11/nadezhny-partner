@@ -6,7 +6,7 @@ const dist = path.join(root, "dist");
 const categories = JSON.parse(fs.readFileSync(path.join(root, "seo/catalog-pages.json"), "utf8"));
 const products = JSON.parse(fs.readFileSync(path.join(root, "seo/product-pages.json"), "utf8"));
 const companyPages = JSON.parse(fs.readFileSync(path.join(root, "seo/company-pages.json"), "utf8"));
-const baseUrl = "https://iv-partner.ru";
+const baseUrl = "https://nadezhny-partner.vercel.app";
 const indexHtml = fs.readFileSync(path.join(dist, "index.html"), "utf8");
 const script = indexHtml.match(/<script[^>]+src="([^"]+)"[^>]*>/i)?.[1];
 const styles = [...indexHtml.matchAll(/href="([^"]+[.]css)"/gi)].map((match) => match[1]);

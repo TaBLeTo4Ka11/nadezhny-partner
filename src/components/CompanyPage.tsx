@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { ADDRESS, EMAIL, PHONES, WORKING_HOURS, ABOUT_INTRO, ABOUT_STAGES } from "../data/content";
 import { productionImages } from "../data/companyContent";
+import { SITE_URL } from "../lib/site";
 
 type CompanyPageKind = "about" | "contacts";
 
@@ -23,7 +24,7 @@ export default function CompanyPage({ page }: { page: CompanyPageKind }) {
     robots.setAttribute("content", "index, follow");
     document.querySelector('link[rel="canonical"]')?.setAttribute(
       "href",
-      `https://iv-partner.ru/${isAbout ? "o-kompanii" : "kontakty"}/`
+      `${SITE_URL}/${isAbout ? "o-kompanii" : "kontakty"}/`
     );
   }, [title, description, isAbout]);
 

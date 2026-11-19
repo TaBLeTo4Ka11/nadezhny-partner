@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { catalogProductLinks } from "../data/companyContent";
+import { SITE_URL } from "../lib/site";
 
 export default function ProductPage({ slug }: { slug: string }) {
   const product = catalogProductLinks.find(
@@ -30,7 +31,7 @@ export default function ProductPage({ slug }: { slug: string }) {
     robots.setAttribute("content", "noindex, follow");
     document.querySelector('link[rel="canonical"]')?.setAttribute(
       "href",
-      `https://iv-partner.ru/product/${slug}/`
+      `${SITE_URL}/product/${slug}/`
     );
   }, [product, isLT21, slug]);
 
