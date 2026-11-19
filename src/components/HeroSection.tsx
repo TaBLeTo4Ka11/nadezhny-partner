@@ -7,8 +7,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 const DoorScene = lazy(() => import("./DoorScene"));
 
-const HERO_IMAGE = "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/hero/hero-01.jpg";
-const HERO_DETAIL = "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/hero/hero-02.png";
+const HERO_IMAGE = "/images/hero/hero-01.jpg";
+const HERO_DETAIL = "/images/hero/hero-02.png";
 
 export default function HeroSection() {
   const root = useRef<HTMLElement>(null);

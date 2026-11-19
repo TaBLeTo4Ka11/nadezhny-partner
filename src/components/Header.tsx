@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { EMAIL, PHONES } from "../data/content";
 
-const LOGO = "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/brand/company-logo.png";
+const LOGO = "/images/brand/company-logo.png";
 
 const LINKS = [
   { label: "Каталог", href: "/#catalog" },
