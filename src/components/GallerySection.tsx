@@ -4,9 +4,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const projectPhotos = Array.from({ length: 11 }, (_, index) =>
-  "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/projects/project-" +
-  String(index + 1).padStart(3, "0") + ".jpg",
+const projectPhotos = Array.from(
+  { length: 11 },
+  (_, index) => `/images/projects/project-${String(index + 1).padStart(3, "0")}.jpg`,
 );
 
 type GalleryPhoto = { src: string; label: string };

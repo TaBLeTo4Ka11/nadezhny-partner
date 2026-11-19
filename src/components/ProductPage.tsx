@@ -55,7 +55,7 @@ export default function ProductPage({ slug }: { slug: string }) {
             {isLT21 ? (
               <figure className="border border-line bg-soft">
                 <img
-                  src="https://iv-partner.ru/wp-content/uploads/2022/03/ustrojstvo-peredatochnoe-podvizhnoe-lt-21_l.jpg"
+                  src="/images/products/ustrojstvo-peredatochnoe-podvizhnoe-lt-21-01.jpg"
                   alt="Устройство передаточное подвижное ЛТ-21"
                   className="aspect-[4/3] w-full object-contain"
                   loading="lazy"

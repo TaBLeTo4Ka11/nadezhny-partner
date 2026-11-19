@@ -4,21 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const localProductImages = new Set([
-  "dmp-2-eis60-dver-metallicheskaya-protivopozharnaya-dvupolnaya-01.png",
-  "11-sm-isoterma-mednyj-antik-01.png",
-  "10-sm-tolstyak-serebro-zerkalo-maxi-01.png",
-  "10-5-sm-chikago-carga-dub-shale-belyj-01.png",
-  "dominanta-muar-yasen-seryj-emal-01.png",
-  "dr-i-01.png",
-  "dvernye-bloki-polnotelye-s-zamkom-i-petlyami-v-komplekte-02.jpg",
-  "apeks-pb-1300a-panic-bs-shtanga-nazhimnaya-01.webp",
-]);
-
-const productImage = (file: string) =>
-  localProductImages.has(file)
-    ? `/images/products/${file}`
-    : "https://raw.githubusercontent.com/TaBLeTo4Ka11/Nadiozhnyi-partnior-korporativnyi-sait/main/artifacts/nadyozhny-partner/public/images/products/" + file;
+const productImage = (file: string) => `/images/products/${file}`;
 
 // Категории и адреса сверены с локальными страницами каталога из seo/catalog-pages.json.
 const categories = [
